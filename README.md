@@ -22,5 +22,13 @@ In order to run the simulation, run the following code:
   pod install --repo-update
   cd ..
   npx react-native run-ios
+     ^ ^ ^ ^
+  I added script for this, run : npm run Jason
  
 #Windows setup
+
+npm install expo
+npm i
+npx expo start
+
+(Not sure)
