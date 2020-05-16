@@ -1,6 +1,6 @@
-#WorkBoost
+# WorkBoost
 
-#iOS setup
+## iOS setup
 https://reactnative.dev/docs/environment-setup
 
 Run these two commands in terminal:
@@ -18,17 +18,18 @@ Run this command in terminal to install cocoapods
 Clone the git repository if you have not done so already. Make sure you pull master as the other branches may have unresolved errors.
 
 In order to run the simulation, run the following code:
-  cd ios
-  pod install --repo-update
-  cd ..
-  npx react-native run-ios
-     ^ ^ ^ ^
-  I added script for this, run : npm run Jason
- 
-#Windows setup
+  1. cd ios
+  2. pod install --repo-update
+  3. cd ..
+  4. npx react-native run-ios
 
-npm install expo
-npm i
-npx expo start
+  I added script for this, run : npm run Jason
+  
+---
+## Windows setup
+
+1. npm install expo
+2. npm i
+3. npx expo start
 
 (Not sure)
