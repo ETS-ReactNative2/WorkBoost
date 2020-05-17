@@ -3,11 +3,12 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert } from 'react
 import { Container, Header, Title, Content, Icon, button, Card, CardItem, Body, Left, Right, IconNB, Footer, } from "native-base";
 import moment from 'moment';
 import { FontAwesome } from '@expo/vector-icons'
+import taskData from '../sample_task_data.json'
 
 
 export default function TaskPage() {
     //Our State : Array of Tasks
-    const [names, setNames] = useState(["Laurent", "Christina", "Jason", "Amy"])
+    const [names, setNames] = useState(taskData)
 
     add = (text) => {
         let notEmpty = text.trim().length > 0
@@ -31,45 +32,50 @@ export default function TaskPage() {
 
     return(
         <View>
-            <FlatList
-                data={names}
-                renderItem={({ item, index }) =>
-                <Card key={index}>
-                <CardItem key={index} style={{ height: 50 }}>
-                    <Body>
-                        <Text >
-                        {item}
-                        </Text>
-                    </Body>
-                    <Right>
-                    <TouchableOpacity
-                        style={{ alignItems: 'center',
-                        justifyContent: 'center',
-                        padding: 5,
-                        borderRadius: 5,
-                        borderColor: '#32CD32' }}
-                        onPress={() => this.remove(index)}>
-                        <FontAwesome name="minus" size={10} color='#32CD32' />
-                    </TouchableOpacity >
-                    </Right>
-                </CardItem>
-                </Card>
-
-        }
-        keyExtractor={item => item.toString()}
-        />
-
-
-        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-          <TouchableOpacity style={{ backgroundColor: '#33ff64', alignItems: 'center', justifyContent: 'center', padding: 20, borderRadius: 100 }}
-            onPress={() =>
-              this.showForm()
-            }>
-            
-            <FontAwesome name="plus" size={20} />
-
-          </TouchableOpacity>
-        </View >
-                </View>
-            )
+            {
+                <FlatList
+                    data = {names}
+                    renderItem = {({ item }) =>
+                        <Card key={item.key.toString()}>
+                            <CardItem key={(item.key + 100).toString()} style={{ height: 50 }}>
+                                <Body>
+                                    <Text>
+                                        {item.name}
+                                    </Text>
+                                </Body>
+                                <Right>
+                                    <TouchableOpacity
+                                        style={{ alignItems: 'center',
+                                        justifyContent: 'center',
+                                        padding: 5,
+                                        borderRadius: 5,
+                                        borderColor: '#32CD32' }}
+                                        onPress={() => this.remove(index)}>
+                                        <FontAwesome name="minus" size={10} color='#32CD32' />
+                                    </TouchableOpacity >
+                                </Right>
+                            </CardItem>
+                            <CardItem key={(item.key + 1000).toString()} style={{ height: 50 }}>
+                                <Body>
+                                    <Text>
+                                        {item.description}
+                                    </Text>
+                                </Body>
+                            </CardItem>
+                        </Card>
+                    }   
+                    //to be used when firebase data comes in
+                    //keyExtractor={item => item.toString()}
+                />
+            }
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+            <TouchableOpacity style={{ backgroundColor: '#33ff64', alignItems: 'center', justifyContent: 'center', padding: 20, borderRadius: 100 }}
+                onPress={() =>
+                this.showForm()
+                }>
+                <FontAwesome name="plus" size={20} />
+            </TouchableOpacity>
+            </View >
+        </View>
+    )
 }
