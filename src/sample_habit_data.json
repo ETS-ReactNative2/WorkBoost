@@ -1,0 +1,7 @@
+[
+    {"name": "Get good sleep", "description": "sleep before midnight", "date_created": "2020-04-24T09:20:00.000Z", "dates_completed": ["2020-04-25T08:00:00.000Z", "2020-04-26T08:00:00.000Z"], "completion_streak": 2},
+    {"name": "Do homework", "description": "turn in my homework", "date_created": "2020-04-24T09:20:00.000Z", "dates_completed": ["2020-04-24T08:00:00.000Z", "2020-04-25T08:00:00.000Z", "2020-04-26T08:00:00.000Z"], "completion_streak": 3},
+    {"name": "Eat breakfast", "description": "eat meal before lunch", "date_created": "2020-04-20T09:20:00.000Z", "dates_completed": ["2020-04-25T08:00:00.000Z"], "completion_streak": 1},
+    {"name": "Cry at night", "description": "release my endorphins", "date_created": "2020-04-19T09:20:00.000Z", "dates_completed": ["2020-04-23T08:00:00.000Z", "2020-04-24T08:00:00.000Z", "2020-04-25T08:00:00.000Z", "2020-04-26T08:00:00.000Z"], "completion_streak": 4},
+    {"name": "Make bed", "description": "make my bed", "date_created": "2020-04-24T09:20:00.000Z", "dates_completed": [], "completion_streak": 0}
+]  
