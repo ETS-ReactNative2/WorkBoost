@@ -18,10 +18,11 @@ Run this command in terminal to install cocoapods
 Clone the git repository if you have not done so already. Make sure you pull master as the other branches may have unresolved errors.
 
 In order to run the simulation, run the following code:
-  1. cd ios
-  2. pod install --repo-update
-  3. cd ..
-  4. npx react-native run-ios
+   1. `npm i` in root directory
+   2. `cd ios`
+   3. `pod install --repo-update`
+   4. `cd ..`
+   5.`npx react-native run-ios`
 
   I added script for this, run : npm run Jason
   
