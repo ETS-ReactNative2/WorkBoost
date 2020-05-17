@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, FlatList, TouchableOpacity } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 export default function TaskPage() {
