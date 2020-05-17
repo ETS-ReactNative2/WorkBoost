@@ -1,14 +1,9 @@
-<<<<<<< HEAD
-import React, { Component, FlatList, TouchableOpacity } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-=======
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { Container, Header, Title, Content, Icon, button, Card, CardItem, Body, Left, Right, IconNB, Footer, } from "native-base";
 import moment from 'moment';
 import { FontAwesome } from '@expo/vector-icons'
 
->>>>>>> 9dd49036e16577a7b7cc51bc7ad6031021a6bf75
 
 export default function TaskPage() {
     this.state = {
