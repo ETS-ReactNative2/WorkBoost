@@ -10,10 +10,7 @@ import SettingsPage from './src/screens/SettingsPage';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const Tab = createBottomTabNavigator();
-
 const Stack = createStackNavigator();
-
-
 
 function MyTabs() {
     return (
@@ -33,7 +30,6 @@ function FriendsButton(){
                 source = {require('./src/pictures/friends_icon.png')}
             />
         </TouchableOpacity>
-        
     );
 }
 
