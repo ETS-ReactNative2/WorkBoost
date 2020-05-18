@@ -12,8 +12,8 @@ function MyTabs() {
     return (
         <Tab.Navigator>
             <Tab.Screen name="Habits" component={HabitPage} />  
-            <Tab.Screen name="Timer" component={TimerPage} />
-            <Tab.Screen name="Tasks" component={TaskPage} />
+            <Tab.Screen name="Timer"  component={TimerPage} />
+            <Tab.Screen name="Tasks"  component={TaskPage}  />
         </Tab.Navigator>
     );
 }
