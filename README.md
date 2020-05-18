@@ -18,7 +18,7 @@ Run this command in terminal to install cocoapods
 Clone the git repository if you have not done so already. Make sure you pull master as the other branches may have unresolved errors.
 
 In order to run the simulation, run the following code:
-   1. `npm i` in root directory
+   1. `yarn` in root directory
    2. `cd ios`
    3. `pod install --repo-update`
    4. `cd ..`
