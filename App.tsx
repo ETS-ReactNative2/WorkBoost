@@ -45,7 +45,7 @@ function LogoIcon(){
 function SettingsButton(){
     return (
         <Image
-            style = {{ width: 36, height: 36 }}
+            style = {{ width: 36, height: 36, marginRight:5 }}
             source = {require('./src/pictures/settings_icon.png')}
         />
     );
