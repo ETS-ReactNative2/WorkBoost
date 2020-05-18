@@ -1,7 +1,9 @@
 import React, { Component, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert, Image } from 'react-native';
 import { Container, Header, Title, Content, Icon, button, Card, CardItem, Body, Left, Right, IconNB, Footer, CheckBox } from "native-base";
+//import { CheckBox } from 'react-native-elements'
 import moment from 'moment';
+import Task from '../components/Task'
 import { FontAwesome } from '@expo/vector-icons'
 import taskData from '../sample_task_data.json'
 import editIcon from '../pictures/editIcon.png'
@@ -38,15 +40,17 @@ export default function TaskPage() {
                     data = {names}
                     renderItem = {({ item, index }) =>
                         <Card key={item.key.toString()}>
-                            <CardItem header key={(item.key + 100).toString()} style={{ height: 50 }}>
+                            <CardItem header key={(item.key + 100).toString()} style={{ height: 55 }}>
                                 <Body>
-                                    <Text>{item.name}</Text>
+                                    <Text style={{fontWeight:"bold", fontSize:20}}>{item.name}</Text>
                                 </Body>
                                 <Right>
-                                    <CheckBox checked={item.completed} />
+                                    <CheckBox 
+                                    style = {{marginRight:11}}
+                                    checked={item.completed} />
                                 </Right>
                             </CardItem>
-                            <CardItem key={(item.key + 1000).toString()} style={{ height: 50 }}>
+                            <CardItem key={(item.key + 1000).toString()} style={{ height: 43 }}>
                                 <Body>
                                     <Text>{item.description}</Text>
                                 </Body>
@@ -65,7 +69,6 @@ export default function TaskPage() {
                                     <TouchableOpacity
                                     style={{ alignItems: 'center',
                                     justifyContent: 'center',
-                                    padding: 5,
                                     borderRadius: 5}}
                                     onPress={this.handleClick}>
                                         <Image style={{width:30,height:30}} source={editIcon}/>
