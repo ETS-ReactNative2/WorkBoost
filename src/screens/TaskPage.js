@@ -1,9 +1,10 @@
 import React, { Component, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert } from 'react-native';
-import { Container, Header, Title, Content, Icon, button, Card, CardItem, Body, Left, Right, IconNB, Footer, } from "native-base";
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert, Image } from 'react-native';
+import { Container, Header, Title, Content, Icon, button, Card, CardItem, Body, Left, Right, IconNB, Footer, CheckBox } from "native-base";
 import moment from 'moment';
 import { FontAwesome } from '@expo/vector-icons'
 import taskData from '../sample_task_data.json'
+import editIcon from '../pictures/editIcon.png'
 
 
 export default function TaskPage() {
@@ -35,15 +36,21 @@ export default function TaskPage() {
             {
                 <FlatList
                     data = {names}
-                    renderItem = {({ item }) =>
+                    renderItem = {({ item, index }) =>
                         <Card key={item.key.toString()}>
-                            <CardItem key={(item.key + 100).toString()} style={{ height: 50 }}>
+                            <CardItem header key={(item.key + 100).toString()} style={{ height: 50 }}>
                                 <Body>
-                                    <Text>
-                                        {item.name}
-                                    </Text>
+                                    <Text>{item.name}</Text>
                                 </Body>
                                 <Right>
+                                    <CheckBox checked={item.completed} />
+                                </Right>
+                            </CardItem>
+                            <CardItem key={(item.key + 1000).toString()} style={{ height: 50 }}>
+                                <Body>
+                                    <Text>{item.description}</Text>
+                                </Body>
+                                {/* <Right>
                                     <TouchableOpacity
                                         style={{ alignItems: 'center',
                                         justifyContent: 'center',
@@ -53,14 +60,17 @@ export default function TaskPage() {
                                         onPress={() => this.remove(index)}>
                                         <FontAwesome name="minus" size={10} color='#32CD32' />
                                     </TouchableOpacity >
+                                </Right> */}
+                                <Right>
+                                    <TouchableOpacity
+                                    style={{ alignItems: 'center',
+                                    justifyContent: 'center',
+                                    padding: 5,
+                                    borderRadius: 5}}
+                                    onPress={this.handleClick}>
+                                        <Image style={{width:30,height:30}} source={editIcon}/>
+                                    </TouchableOpacity>
                                 </Right>
-                            </CardItem>
-                            <CardItem key={(item.key + 1000).toString()} style={{ height: 50 }}>
-                                <Body>
-                                    <Text>
-                                        {item.description}
-                                    </Text>
-                                </Body>
                             </CardItem>
                         </Card>
                     }   
