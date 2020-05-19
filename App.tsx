@@ -85,14 +85,6 @@ function MyTabs() {
     );
   }
 
-
-function MenuButton({ navigation }) {
-  navigation.openDrawer()
-  return (
-    <Text>""</Text>
-  );
-}
-
 function LogoIcon(){
     return (
         <Image
