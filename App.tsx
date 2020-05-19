@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Image, TouchableOpacity } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { StyleSheet, Text, View, Button, Image, TouchableOpacity, Alert} from 'react-native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TimerPage from './src/screens/TimerPage';
 import HabitPage from './src/screens/HabitPage';
@@ -8,9 +8,12 @@ import TaskPage  from './src/screens/TaskPage';
 import FriendsPage from './src/screens/FriendsPage';
 import SettingsPage from './src/screens/SettingsPage';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator, DrawerItem } from '@react-navigation/drawer';
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 function MyTabs() {
     return (
@@ -20,17 +23,74 @@ function MyTabs() {
             <Tab.Screen name="Tasks"  component={TaskPage}  />
         </Tab.Navigator>
     );
-}
+  }
 
-function FriendsButton(){
+  function MyHome({navigation}) {
     return (
-        <TouchableOpacity onPress={() => alert("this is a button!")}>
-            <Image
-                style = {{ width: 50, height: 50 }}
-                source = {require('./src/pictures/friends_icon.png')}
-            />
-        </TouchableOpacity>
+      <Stack.Navigator>
+      <Stack.Screen
+        name="Home"
+        component={MyTabs}
+         options={{
+           headerTitle: () => <LogoIcon />,
+           headerLeft: () => <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                                <Image
+                                    style = {{ width: 30, height: 30, marginLeft:5 }}
+                                    source = {require('./src/pictures/menu.png')}
+                                />
+       </TouchableOpacity>
+         }}
+      />
+    </Stack.Navigator>
     );
+  }
+
+  function Friends({navigation}) {
+    return (
+      <Stack.Navigator>
+      <Stack.Screen
+        name="Friends"
+        component={FriendsPage}
+         options={{
+           headerTitle: () => <LogoIcon />,
+           headerLeft: () => <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                                <Image
+                                    style = {{ width: 30, height: 30, marginLeft:5 }}
+                                    source = {require('./src/pictures/menu.png')}
+                                />
+       </TouchableOpacity>
+         }}
+      />
+    </Stack.Navigator>
+    );
+  }
+
+  function Settings({navigation}) {
+    return (
+      <Stack.Navigator>
+      <Stack.Screen
+        name="Settings"
+        component={SettingsPage}
+         options={{
+           headerTitle: () => <LogoIcon />,
+           headerLeft: () => <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                                <Image
+                                    style = {{ width: 30, height: 30, marginLeft:5 }}
+                                    source = {require('./src/pictures/menu.png')}
+                                />
+       </TouchableOpacity>
+         }}
+      />
+    </Stack.Navigator>
+    );
+  }
+
+
+function MenuButton({ navigation }) {
+  navigation.openDrawer()
+  return (
+    <Text>""</Text>
+  );
 }
 
 function LogoIcon(){
@@ -42,41 +102,21 @@ function LogoIcon(){
     );
 }
 
-function SettingsButton(){
-    return (
-        <Image
-            style = {{ width: 36, height: 36, marginRight:5 }}
-            source = {require('./src/pictures/settings_icon.png')}
-        />
-    );
+function MyDrawer() {
+  return (
+    <Drawer.Navigator>
+        <Drawer.Screen name="Home" component={MyHome} />
+        <Drawer.Screen name="Friends Page" component={Friends} />
+        <Drawer.Screen name="Settings Page" component={Settings} />
+      </Drawer.Navigator>
+  );
 }
 
-function Test({navigation}){
-    return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Home Screen</Text>
-        <Button
-          title="Go to Details"
-          onPress={() => navigation.navigate(FriendsPage)}
-        />
-      </View>
-    );
-}
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={MyTabs}
-           options={{
-             headerTitle: () => <LogoIcon />,
-             headerLeft: () => <FriendsButton />,
-             headerRight: () => <SettingsButton />,
-           }}
-        />
-      </Stack.Navigator>
+      <MyDrawer />
     </NavigationContainer>  
   );
 }
