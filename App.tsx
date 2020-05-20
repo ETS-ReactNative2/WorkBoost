@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, Button, Image, TouchableOpacity, Alert} from 'r
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TimerPage from './src/screens/TimerPage';
+import LoginPage from './src/screens/LoginPage';
+import SignupPage from './src/screens/SignupPage';
 import HabitPage from './src/screens/HabitPage';
 import TaskPage  from './src/screens/TaskPage';
 import FriendsPage from './src/screens/FriendsPage';
@@ -113,11 +115,13 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+{/* <Stack.Navigator>
+  <Stack.Screen 
+    name="Log In"
+    component={LoginPage}
+  />
+  <Stack.Screen 
+    name="Sign Up"
+    component={SignupPage}
+  />
+</Stack.Navigator> */}
