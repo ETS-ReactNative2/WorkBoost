@@ -31,9 +31,10 @@ export default function TaskPage() {
              text => this.add(text)); 
     }
 
-    handleCheck = () => {
-        //TODO Laurent
-        alert("Laurent")
+    handleCheck = (index) => {
+        let tmpNames = names.slice() 
+        tmpNames[index] = {...tmpNames[index], completed: !tmpNames[index].completed} 
+        setNames(tmpNames)
     }
 
     handleEdit = () => {
@@ -43,16 +44,18 @@ export default function TaskPage() {
 
     return(
         <View> 
-            {
             <FlatList
                 data = {names}
                 renderItem = {({ item, index }) => <Task item={item} 
+                                                         index={index}
                                                          handleEdit={this.handleEdit}
                                                          handleCheck={this.handleCheck}/>}   
                 //to be used when firebase data comes in
                 //keyExtractor={item => item.toString()}
             />
-            }   
+
+
+
             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <AddButton showForm={this.showForm}/>
             </View >

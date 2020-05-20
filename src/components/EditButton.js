@@ -8,7 +8,7 @@ export default function EditButton(props) {
         <TouchableOpacity style={{ alignItems: 'center',
                         justifyContent: 'center',
                         borderRadius: 5}}
-                        onPress={props.handleEdit}>
+                        onPress={() => props.handleEdit()}>
             <Image style={{width:30,height:30}} source={editIcon}/>
         </TouchableOpacity>
     )

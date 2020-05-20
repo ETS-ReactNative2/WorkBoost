@@ -12,7 +12,7 @@ export default function Task(props) {
                 </Body>
                 <Right>
                     <CheckBox style = {{marginRight:11}}
-                              onPress={props.handleCheck}
+                              onPress={() => props.handleCheck(props.index)}
                               checked={props.item.completed} />
                 </Right>
             </CardItem>
