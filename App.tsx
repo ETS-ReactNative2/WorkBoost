@@ -99,6 +99,8 @@ function LogoIcon(){
 function MyDrawer() {
   return (
     <Drawer.Navigator>
+        {/* <Drawer.Screen name="Log In" component={LoginPage} />
+        <Drawer.Screen name="Sign Up" component={SignupPage} />   */}
         <Drawer.Screen name="Home" component={MyHome} />
         <Drawer.Screen name="Friends Page" component={Friends} />
         <Drawer.Screen name="Settings Page" component={Settings} />
@@ -115,13 +117,3 @@ export default function App() {
   );
 }
 
-{/* <Stack.Navigator>
-  <Stack.Screen 
-    name="Log In"
-    component={LoginPage}
-  />
-  <Stack.Screen 
-    name="Sign Up"
-    component={SignupPage}
-  />
-</Stack.Navigator> */}
