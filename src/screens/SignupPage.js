@@ -1,16 +1,30 @@
 // SignUp.js
 import React from 'react'
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
+import auth from "@react-native-firebase/auth"
 
 export default class SignupPage extends React.Component {
   state = { email: '', password: '', errorMessage: null }
   handleSignUp = () => {
-    firebase
-      .auth()
+    auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => this.props.navigation.navigate('Main'))
-      .catch(error => this.setState({ errorMessage: error.message }))
+      .then(() => {
+        this.props.navigation.navigate('Log In')
+        console.log('User account!');
+      })
+      .catch(error => {
+        if (error.code === 'auth/email-already-in-use') {
+          console.log('That email address is already in use!');
+        }
+
+        if (error.code === 'auth/invalid-email') {
+          console.log('That email address is invalid!');
+        }
+
+        console.error(error);
+      });
   }
+
 render() {
     return (
       <View style={styles.container}>
