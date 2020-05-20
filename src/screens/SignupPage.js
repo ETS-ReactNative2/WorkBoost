@@ -10,15 +10,15 @@ export default class SignupPage extends React.Component {
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
         this.props.navigation.navigate('Log In')
-        console.log('User account!');
+        console.log('User account has been created!');
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
-          console.log('That email address is already in use!');
+          console.log('That email address is already in use.');
         }
 
         if (error.code === 'auth/invalid-email') {
-          console.log('That email address is invalid!');
+          console.log('That email address is invalid.');
         }
 
         console.error(error);
