@@ -14,14 +14,19 @@ export default class SignupPage extends React.Component {
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
-          console.log('That email address is already in use.');
+          alert('That email address is already in use.');
+          this.props.navigation.navigate('Sign Up')
         }
-
+        if (error.code === 'auth/weak-password') {
+          alert('Your password is too weak.');
+          this.props.navigation.navigate('Sign Up')
+        }
         if (error.code === 'auth/invalid-email') {
-          console.log('That email address is invalid.');
+          alert('That email address is invalid.');
+          this.props.navigation.navigate('Sign Up')
         }
 
-        console.error(error);
+//        console.error(error);
       });
   }
 
