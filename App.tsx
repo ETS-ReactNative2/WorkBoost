@@ -9,6 +9,7 @@ import HabitPage from './src/screens/HabitPage';
 import TaskPage  from './src/screens/TaskPage';
 import FriendsPage from './src/screens/FriendsPage';
 import HelpPage from './src/screens/HelpPage';
+import AddTask from './src/screens/AddTaskPage';
 import SettingsPage from './src/screens/SettingsPage';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator, DrawerItem } from '@react-navigation/drawer';
@@ -126,6 +127,7 @@ function MyDrawer() {
         <Drawer.Screen name="Friends" component={Friends} />
         <Drawer.Screen name="Settings" component={Settings} />
         <Drawer.Screen name="Help" component={Help} />
+        <Drawer.Screen name="Add Task" component={AddTask} />
       </Drawer.Navigator>
   );
 }
