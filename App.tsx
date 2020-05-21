@@ -90,7 +90,7 @@ function MyTabs() {
 function LogoIcon(){
     return (
         <Image
-            style = {{ width: 44, height: 44 }}
+            style = {{ width: 44, height: 44, marginBottom:10 }}
             source = {require('./src/pictures/logo.png')}
         />
     );
