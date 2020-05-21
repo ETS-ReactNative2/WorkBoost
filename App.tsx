@@ -3,11 +3,12 @@ import { StyleSheet, Text, View, Button, Image, TouchableOpacity, Alert} from 'r
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TimerPage from './src/screens/TimerPage';
-import LoginPage from './src/screens/LoginPage';
+import LoginPage from './src/screens/TimerPage';
 import SignupPage from './src/screens/SignupPage';
 import HabitPage from './src/screens/HabitPage';
 import TaskPage  from './src/screens/TaskPage';
 import FriendsPage from './src/screens/FriendsPage';
+import HelpPage from './src/screens/HelpPage';
 import SettingsPage from './src/screens/SettingsPage';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator, DrawerItem } from '@react-navigation/drawer';
@@ -80,7 +81,27 @@ function MyTabs() {
                                     style = {{ width: 30, height: 30, marginLeft:5 }}
                                     source = {require('./src/pictures/menu.png')}
                                 />
-       </TouchableOpacity>
+                              </TouchableOpacity>
+         }}
+      />
+    </Stack.Navigator>
+    );
+  }
+
+  function Help({navigation}) {
+    return (
+      <Stack.Navigator>
+      <Stack.Screen
+        name="Help"
+        component={HelpPage}
+         options={{
+           headerTitle: () => <LogoIcon />,
+           headerLeft: () => <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                                <Image
+                                    style = {{ width: 30, height: 30, marginLeft:5 }}
+                                    source = {require('./src/pictures/menu.png')}
+                                />
+                              </TouchableOpacity>
          }}
       />
     </Stack.Navigator>
@@ -102,8 +123,9 @@ function MyDrawer() {
         {/* <Drawer.Screen name="Log In" component={LoginPage} />
         <Drawer.Screen name="Sign Up" component={SignupPage} />   */}
         <Drawer.Screen name="Home" component={MyHome} />
-        <Drawer.Screen name="Friends Page" component={Friends} />
-        <Drawer.Screen name="Settings Page" component={Settings} />
+        <Drawer.Screen name="Friends" component={Friends} />
+        <Drawer.Screen name="Settings" component={Settings} />
+        <Drawer.Screen name="Help" component={Help} />
       </Drawer.Navigator>
   );
 }
