@@ -1,14 +1,17 @@
 import React, { Component, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert, Image } from 'react-native';
+import Modal from 'react-native-modal'
 import Task from '../components/Task'
-import AddButton from '../components/AddButton'
+import AddTaskButton from '../components/buttons/AddTaskButton'
 import taskData from '../sample_task_data.json'
+import AddTaskForm from '../screens/AddTaskPage'
 
 
 export default function TaskPage() {
-    //Our State : Array of Tasks
     const [tasks, setTasks] = useState(taskData)
-    add = (text) => {
+    const [addModalVisible, setAddModalVisible] = useState(false)
+
+    addTask = (text) => {
         let notEmpty = text.trim().length > 0
         if (notEmpty) {
             setTasks(tasks => [...tasks, text])
@@ -21,12 +24,7 @@ export default function TaskPage() {
         setTasks(tmpTasks)
     }
 
-    showForm = () => {
-        Alert.prompt(  
-            'Enter  Text',     
-             null,    
-             text => this.add(text)); 
-    }
+    showAddForm = () => setAddModalVisible(prev => !prev);
 
     handleCheck = (index) => {
         let tmpTasks = tasks.slice() 
@@ -34,13 +32,20 @@ export default function TaskPage() {
         setTasks(tmpTasks)
     }
 
-    handleEdit = () => {
+    showEditForm = () => {
         //TODO Jaon
         alert("Jason")
     }
 
     return(
         <View> 
+            <Modal style={{margin:0, marginTop:60, backgroundColor:"#FFF"}}
+                   isVisible={addModalVisible}
+                   onSwipeComplete={() => showAddForm()}
+                   swipeDirection="down">
+                <AddTaskForm showAddForm={this.showAddForm}
+                             addTask={this.addTask}/>
+            </Modal>
             <FlatList
                 data = {tasks}
                 renderItem = {({ item, index }) => <Task item={item} 
@@ -51,7 +56,8 @@ export default function TaskPage() {
                 //keyExtractor={item => item.toString()}
             />
             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <AddButton showForm={this.showForm}/>
+                <AddTaskButton showAddForm={this.showAddForm}
+                               addTask={this.addTask}/>
             </View >
         </View> 
 

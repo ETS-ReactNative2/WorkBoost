@@ -2,7 +2,7 @@ import React, { Component, useState } from 'react';
 import { View, ScrollView, TextInput, Keyboard, TouchableOpacity, StyleSheet, Text, Alert, Image } from 'react-native';
 import {Header} from 'react-native-elements'
 
-export default function AddTaskPage(props) {
+export default function AddHabitPage(props) {
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -22,21 +22,21 @@ export default function AddTaskPage(props) {
             <View>
                 <Header containerStyle={{backgroundColor:'#F5FCFF', paddingTop:0, marginTop:0}}
                         leftComponent={<BackButton />}
-                        centerComponent={{text: 'Add Task', style: {fontSize:35}}}
+                        centerComponent={{text: 'Add Habit', style: {fontSize:35}}}
                 />
             </View>
             <ScrollView>
                 <View style={styles.inputContainer}>
                     <TextInput
                         style={styles.textInput}
-                        placeholder="Task Title"
+                        placeholder="Habit Title"
                         onBlur={Keyboard.dismiss}
                         value={title}
                         onChange={event => setTitle(event.target.value)}
                     />
                     <TextInput
                         style={styles.textInput}
-                        placeholder="Task Description"
+                        placeholder="Habit Description"
                         onBlur={Keyboard.dismiss}
                         value={description}
                         onChange={event => setDescription(event.target.value)}
@@ -44,7 +44,10 @@ export default function AddTaskPage(props) {
                     <View style={styles.inputContainer}>
                         <TouchableOpacity
                             style={styles.saveButton}
-                            onPress={() => props.addTask(title,description)}>
+                            onPress={() => {
+                                props.addHabit(title,description);
+                            }}
+                        >
                             <Text style={styles.saveButtonText}>Save</Text>
                         </TouchableOpacity>
                     </View>

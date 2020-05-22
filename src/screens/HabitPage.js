@@ -1,17 +1,18 @@
 import React, { Component, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert, Image, Modal, TouchableHighlight } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert, Image, TouchableHighlight } from 'react-native';
 import { Container, Header, Title, Content, Card, CardItem, Body, Left, Right, CheckBox } from "native-base";
-import moment from 'moment';
+import Modal from 'react-native-modal'
 import Habit from '../components/Habit'
-import AddButton from '../components/AddButton'
+import AddHabitButton from '../components/buttons/AddHabitButton'
 import habitData from '../sample_habit_data.json'
+import AddHabitForm from '../screens/AddHabitPage'
 
-export default function TaskPage() {
-    //Our State : Array of Habits
+export default function HabitPage() {
+
     const [habits, setHabits] = useState(habitData)
-    const [modalVisible, setModalVisible] = useState(false);
+    const [addModalVisible, setAddModalVisible] = useState(false)
 
-    add = (text) => {
+    addHabit = (text) => {
         let notEmpty = text.trim().length > 0
         if (notEmpty) {
             setHabits(names => [...names, text])
@@ -24,12 +25,7 @@ export default function TaskPage() {
         setHabits(tmpNames)
     }
 
-    showForm = () => {
-        Alert.prompt(  
-            'Enter  Text',     
-             null,    
-             text => this.add(text)); 
-    }
+    showAddForm = () => setAddModalVisible(prev => !prev);
 
     handleEdit = () => {
         //TODO Jason
@@ -38,6 +34,13 @@ export default function TaskPage() {
 
     return(
         <View> 
+            <Modal style={{margin:0, marginTop:60, backgroundColor:"#FFF"}}
+                   isVisible={addModalVisible}
+                   onSwipeComplete={() => showAddForm()}
+                   swipeDirection="down">
+                <AddHabitForm showAddForm={this.showAddForm}
+                              addHabit={this.addHabit}/>
+            </Modal>
             <FlatList
                 data = {habits}
                 renderItem = {({ item, index }) => <Habit item={item}
@@ -46,45 +49,9 @@ export default function TaskPage() {
                 //keyExtractor={item => item.toString()}
             />
 
-    {/* <View style={styles.centeredView}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
-
-            <TouchableHighlight
-              style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-              onPress={() => {
-                setModalVisible(!modalVisible);
-              }}
-            >
-              <Text style={styles.textStyle}>Hide Modal</Text>
-            </TouchableHighlight>
-          </View>
-        </View>
-      </Modal>
-
-      <TouchableHighlight
-        style={styles.openButton}
-        onPress={() => {
-          setModalVisible(true);
-        }}
-      >
-        <Text style={styles.textStyle}>Show Modal</Text>
-      </TouchableHighlight>
-    </View> */}
-
-
-
             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <AddButton showForm={this.showForm}/>
+                <AddHabitButton showAddForm={this.showAddForm}
+                                addHabit={this.addHabit}/>
             </View >
         </View>
     )
