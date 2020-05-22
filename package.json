@@ -6,7 +6,7 @@
     "web": "expo start --web",
     "start": "react-native start",
     "test": "jest",
-    "Jason": "cd ios && rm -rf build/ && pod install && cd .. && npx react-native run-ios"
+    "Gary": "cd ios && rm -rf build/ && pod install && cd .. && npx react-native run-ios"
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",
