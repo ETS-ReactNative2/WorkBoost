@@ -1,8 +1,8 @@
 import React from 'react';
 import { Text, StyleSheet, SafeAreaView } from 'react-native';
-import DeleteAccountButton from '../components/DeleteAccountButton';
-import SignOutButton from '../components/SignOutButton';
-import ToggleNotifications from '../components/ToggleNotifications';
+import DeleteAccountButton from '../components/buttons/DeleteAccountButton';
+import SignOutButton from '../components/buttons/SignOutButton';
+import ToggleNotifications from '../components/buttons/ToggleNotifications';
 
 export default function SettingsPage() {
     return(

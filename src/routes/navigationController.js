@@ -98,13 +98,12 @@ function Help({navigation}) {
 export default function SideMenu() {
   return (
     <Drawer.Navigator>
-        <Drawer.Screen name="Log In" component={LoginPage} />
-        <Drawer.Screen name="Sign Up" component={SignupPage} />  
+        {/* <Drawer.Screen name="Log In" component={LoginPage} />
+        <Drawer.Screen name="Sign Up" component={SignupPage} />   */}
         <Drawer.Screen name="Home" component={MyHome} />
         <Drawer.Screen name="Friends" component={Friends} />
         <Drawer.Screen name="Settings" component={Settings} />
         <Drawer.Screen name="Help" component={Help} />
-        <Drawer.Screen name="Add Task" component={AddTask} />
       </Drawer.Navigator>
   );
 }
