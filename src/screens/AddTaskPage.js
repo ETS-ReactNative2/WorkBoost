@@ -1,7 +1,7 @@
 import React, { Component, useState } from 'react';
 import { View, ScrollView, TextInput, Keyboard, TouchableOpacity, StyleSheet, Text, Alert } from 'react-native';
 
-export default function EditTaskPage() {
+export default function AddTaskPage() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     return(
