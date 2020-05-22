@@ -1,11 +1,11 @@
 import React from 'react';
 import { Text, StyleSheet, TouchableOpacity, Alert} from 'react-native';
 
-export default function SignOutButton() {
+export default function SignOutButton({navigation}) {
     return(
         <TouchableOpacity
                 style={styles.signOutButton}
-                onPress={() => Alert.alert('Signing out')}
+                //onPress={() => navigation.navigate('Login')}
                 underlayColor='#fff'>
                 <Text style={styles.buttonText}>SIGN OUT</Text>
         </TouchableOpacity>

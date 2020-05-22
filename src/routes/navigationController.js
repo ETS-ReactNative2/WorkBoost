@@ -8,10 +8,10 @@ import HabitPage from '../screens/HabitPage';
 import TaskPage  from '../screens/TaskPage';
 import FriendsPage from '../screens/FriendsPage';
 import HelpPage from '../screens/HelpPage';
-import AddTask from '../screens/AddTaskPage';
 import SettingsPage from '../screens/SettingsPage';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator, DrawerItem } from '@react-navigation/drawer';
+import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -95,15 +95,30 @@ function Help({navigation}) {
     );
   }
 
-export default function SideMenu() {
+
+function MainDrawer({navigation}) {
   return (
     <Drawer.Navigator>
-        {/* <Drawer.Screen name="Log In" component={LoginPage} />
-        <Drawer.Screen name="Sign Up" component={SignupPage} />   */}
-        <Drawer.Screen name="Home" component={MyHome} />
-        <Drawer.Screen name="Friends" component={Friends} />
-        <Drawer.Screen name="Settings" component={Settings} />
-        <Drawer.Screen name="Help" component={Help} />
-      </Drawer.Navigator>
+      <Drawer.Screen name="Home" component={MyHome} />
+      <Drawer.Screen name="Friends" component={Friends} />
+      <Drawer.Screen name="Settings" component={Settings} />
+      <Drawer.Screen name="Help" component={Help} />
+    </Drawer.Navigator>
   );
-}
+}   
+
+export default createAppContainer(
+  createSwitchNavigator(
+    {
+      Login: {
+        screen: LoginPage
+      },
+      Signup: {
+        screen: SignupPage
+      },
+      App: {
+        screen: MainDrawer
+      }
+    }
+  )
+);

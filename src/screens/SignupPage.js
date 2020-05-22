@@ -56,13 +56,13 @@ render() {
         <Button title="Sign Up" onPress={this.handleSignUp} />
         <Button
           title="Already have an account? Login"
-          onPress={() => this.props.navigation.navigate('Log In')}
+          onPress={() => this.props.navigation.navigate('Login')}
         />
       </View>
     )
   }
 }
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({ 
   container: {
     flex: 1,
     justifyContent: 'center',
