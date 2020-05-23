@@ -5,11 +5,19 @@ import Task from '../components/Task'
 import AddTaskButton from '../components/buttons/AddTaskButton'
 import taskData from '../sample_task_data.json'
 import AddTaskForm from '../screens/AddTaskPage'
+import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
 
 
 export default function TaskPage() {
     const [tasks, setTasks] = useState(taskData)
     const [addModalVisible, setAddModalVisible] = useState(false)
+
+    //logic for "component did mount" first time organizing of state based on completion
+    useEffect(() => {
+            let tmpTasks = tasks.slice()
+            tmpTasks.sort((a,b) => {return b.completed - a.completed})
+            setTasks(tmpTasks.reverse())
+    }, [])
 
     addTask = (text) => {
         let notEmpty = text.trim().length > 0
@@ -50,7 +58,7 @@ export default function TaskPage() {
                 data = {tasks}
                 renderItem = {({ item, index }) => <Task item={item} 
                                                          index={index}
-                                                         handleEdit={this.handleEdit}
+                                                         showEditForm={this.showEditForm}
                                                          handleCheck={this.handleCheck}/>}   
                 //to be used when firebase data comes in
                 //keyExtractor={item => item.toString()}

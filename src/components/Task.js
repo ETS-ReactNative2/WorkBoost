@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert, Image } from 'react-native';
-import { Container, Header, Title, Content, Icon, button, Card, CardItem, Body, Left, Right, IconNB, Footer, CheckBox } from "native-base";
+import { Container, Card, CardItem, Body, Left, Right, IconNB, Footer, CheckBox } from "native-base";
 import EditButton from './buttons/EditButton'
 
 export default function Task(props) {
     return(
-        <Card key={props.item.key.toString()}>
+        <Card style={props.item.completed ? {opacity:0.5} : {}}
+              key={props.item.key.toString()}>
             <CardItem header key={(props.item.key + 100).toString()} style={{ height: 55 }}>
                 <Body>
                     <Text style={{fontWeight:"bold", fontSize:20}}>{props.item.name}</Text>
@@ -21,7 +22,7 @@ export default function Task(props) {
                     <Text>{props.item.description}</Text>
                 </Body>
                 <Right>
-                    <EditButton handleEdit={props.handleEdit}/>
+                    <EditButton handleEdit={props.item.completed? ()=>{} : props.showEditForm}/>
                 </Right>
             </CardItem>
         </Card>
