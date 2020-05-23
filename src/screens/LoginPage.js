@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, Button, AsyncStorage } from 'react-native'
+import { StyleSheet, Text, TextInput, View, Button, AsyncStorage, Image} from 'react-native'
 import auth, { firebase } from "@react-native-firebase/auth"
 import { createStackNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation';
 
@@ -10,7 +10,7 @@ export default class LoginPage extends React.Component {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(() => this.props.navigation.navigate('App'))
+      .then(() => this.props.navigation.navigate('App', { screen: 'MainDrawer', params: {screen: 'Home'} }))
       .catch(error => {
          if (error.code === 'auth/user-disabled') {
            alert('This user has been disabled.');
@@ -33,7 +33,9 @@ export default class LoginPage extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Login</Text>
+        <Image style = {{ width: 200, height: 200, marginBottom:10 }}
+                 source = {require('../pictures/logo.png')}/>
+        <Text>Welcome!</Text>
         {this.state.errorMessage &&
           <Text style={{ color: 'red' }}>
             {this.state.errorMessage}
