@@ -12,22 +12,16 @@ export default class LoginPage extends React.Component {
       .signInWithEmailAndPassword(email, password)
       .then(() => this.props.navigation.navigate('App', { screen: 'MainDrawer', params: {screen: 'Home'} }))
       .catch(error => {
-         if (error.code === 'auth/user-disabled') {
+         if (error.code === 'auth/user-disabled')
            alert('This user has been disabled.');
-           this.props.navigation.navigate('Log In')
-         }
-         if (error.code === 'auth/user-not-found') {
+         if (error.code === 'auth/user-not-found')
            alert('There does not seem to be a user corresponding to this email.');
-           this.props.navigation.navigate('Log In')
-         }
-         if (error.code === 'auth/wrong-password') {
+         if (error.code === 'auth/wrong-password')
            alert('The password is invalid for the given email, or the account corresponding to the email does not have a password set.');
-           this.props.navigation.navigate('Log In')
-         }
-         if (error.code === 'auth/invalid-email') {
+         if (error.code === 'auth/invalid-email')
            alert('That email address is invalid.');
-           this.props.navigation.navigate('Log In')
-         }} )
+         this.props.navigation.navigate('Log In')
+        } )
   }
 
   render() {
