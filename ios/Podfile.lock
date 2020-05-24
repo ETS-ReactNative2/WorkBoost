@@ -308,13 +308,13 @@ PODS:
   - RNFBApp (7.1.0):
     - Firebase/CoreOnly (~> 6.25.0)
     - React
-  - RNFBAuth (7.0.2):
+  - RNFBAuth (7.1.0):
     - Firebase/Auth (~> 6.25.0)
     - React
     - RNFBApp
   - RNGestureHandler (1.6.1):
     - React
-  - RNReanimated (1.7.1):
+  - RNReanimated (1.9.0):
     - React
   - RNScreens (2.2.0):
     - React
@@ -584,9 +584,9 @@ SPEC CHECKSUMS:
   ReactCommon: 198c7c8d3591f975e5431bec1b0b3b581aa1c5dd
   RNCMaskedView: f5c7d14d6847b7b44853f7acb6284c1da30a3459
   RNFBApp: 25a6476dfd7aac2bcbe984f569875bcea122895b
-  RNFBAuth: ab7c4bec6bb16c620894bcee8d10d3b9a51bcb79
+  RNFBAuth: 52e7af4244e6adf39237ab8e94d6d51f2c1bf450
   RNGestureHandler: 8f09cd560f8d533eb36da5a6c5a843af9f056b38
-  RNReanimated: 4e102df74a9674fa943e05f97f3362b6e44d0b48
+  RNReanimated: b5ccb50650ba06f6e749c7c329a1bc3ae0c88b43
   RNScreens: 812b79d384e2bea7eebc4ec981469160d4948fd5
   UMAppLoader: ae5eaee9f3c8cc847c631a579fed20d217de5913
   UMBarCodeScannerInterface: aa3409ab9d108866e55c09ad0292e4a6c08a7775
