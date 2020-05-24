@@ -54,4 +54,6 @@ target 'WorkBoost' do
   use_native_modules!
   # pod 'RNFirebase', :path => '../node_modules/react-native-firebase'
 
+  pod 'react-native-slider', :path => '../node_modules/@react-native-community/slider'
+
 end

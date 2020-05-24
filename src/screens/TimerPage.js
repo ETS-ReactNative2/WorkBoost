@@ -1,5 +1,6 @@
 import React, { Component, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, StatusBar, TouchableOpacity, Dimensions } from 'react-native';
+import Slider from '@react-native-community/slider';
 const screen = Dimensions.get('window');
 const formatNumber = number => `0${number}`.slice(-2);
 
@@ -13,6 +14,7 @@ export default function TimerPage() {
     const [remainingSecs, setRemainingSecs] = useState(0);
     const [isActive, setIsActive] = useState(false);
     const { mins, secs } = getRemaining(remainingSecs);
+    const secsToMin = 60;
 
     toggle = () => {
         setIsActive(!isActive);
@@ -43,6 +45,8 @@ export default function TimerPage() {
 
     return(
         <View style={styles.container}>
+            <Slider style={{width: 200, height: 40}} minimumValue={5}
+                maximumValue={60} step={5} onValueChange={(e) => {setRemainingSecs(e*secsToMin)}}></Slider>
             <StatusBar barStyle="light-content" />
             <Text style={styles.timerText}>{`${mins}:${secs}`}</Text>
             <TouchableOpacity onPress={this.toggle} style={styles.button}>
