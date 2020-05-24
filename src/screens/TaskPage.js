@@ -15,8 +15,8 @@ export default function TaskPage() {
     //logic for "component did mount" first time organizing of state based on completion
     useEffect(() => {
             let tmpTasks = tasks.slice()
-            tmpTasks.sort((a,b) => {return b.completed - a.completed})
-            setTasks(tmpTasks.reverse())
+            tmpTasks.sort((a,b) => {return a.completed - b.completed})
+            setTasks(tmpTasks)
     }, [])
 
     addTask = (text) => {
@@ -36,7 +36,8 @@ export default function TaskPage() {
 
     handleCheck = (index) => {
         let tmpTasks = tasks.slice() 
-        tmpTasks[index] = {...tmpTasks[index], completed: !tmpTasks[index].completed} 
+        tmpTasks[index] = {...tmpTasks[index], completed: !tmpTasks[index].completed}
+        tmpTasks.sort((a,b) => {return a.completed - b.completed}) 
         setTasks(tmpTasks)
     }
 
