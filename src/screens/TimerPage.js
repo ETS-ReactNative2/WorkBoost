@@ -1,5 +1,8 @@
 import React, { Component, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, StatusBar, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, StatusBar, TouchableOpacity, Dimensions, Modal, TouchableHighlight } from 'react-native';
+import Slider from '@react-native-community/slider';
+
+
 const screen = Dimensions.get('window');
 const formatNumber = number => `0${number}`.slice(-2);
 
@@ -10,39 +13,79 @@ const getRemaining = (time) => {
 }
 
 export default function TimerPage() {
-    const [remainingSecs, setRemainingSecs] = useState(0);
+    const [remainingSecs, setRemainingSecs] = useState(300);
     const [isActive, setIsActive] = useState(false);
+    const [prevTime, setPrevTime] = useState(300);
+    const [modalActive, setModalActive] = useState(false);
     const { mins, secs } = getRemaining(remainingSecs);
+    const secsToMin = 60;
+
 
     toggle = () => {
         setIsActive(!isActive);
+        setPrevTime(remainingSecs);
     }
 
     useEffect(() => {
         let interval = null;
-        if (isActive) {
+        if (remainingSecs == 0){
+            alert("Timer is Done");
+            reset();
+        } else if (isActive) {
             interval = setInterval(() => {
-                setRemainingSecs(remainingSecs => remainingSecs + 1);
+                setRemainingSecs(remainingSecs => remainingSecs - 1);
             }, 1000);           
-        } else if (!isActive && remainingSecs != 0) {
+        } 
+        else if (!isActive && remainingSecs != 0) {
             clearInterval(interval);
         }
         return () => clearInterval(interval);
     }, [isActive, remainingSecs]);
 
+    endEarly = () => {
+        toggleModal()
+    }
+
     reset = () => {
-        setRemainingSecs(0);
-        setIsActive(false);
+            setRemainingSecs(prevTime);
+            setIsActive(false);
+    }
+
+    toggleModal = () => {
+        setModalActive(!modalActive);
     }
 
     return(
         <View style={styles.container}>
+            <Modal animationType="slide" transparent={true} visible={modalActive}>
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <Text style={styles.modalText}>Quit Timer Early?</Text>                   
+                        <TouchableHighlight
+                            style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+                            onPress={() => {
+                            toggleModal()
+                            reset()
+                            }}
+                        >
+                            <Text style={styles.textStyle}>Yes</Text>
+                        </TouchableHighlight>
+                        <TouchableHighlight style={{...styles.openButton, backgroundColor: "#2196F3"} }onPress = {() => {toggleModal()}}>
+                            
+                            <Text style={styles.textStyle}>No</Text>
+                        </TouchableHighlight>
+                    </View>
+                </View>
+            </Modal>
+
+            <Slider disabled={isActive} style={styles.sliderStyle} minimumValue={5}
+                maximumValue={60} step={5} onValueChange={(e) => {setRemainingSecs(e*secsToMin)}}></Slider>
             <StatusBar barStyle="light-content" />
             <Text style={styles.timerText}>{`${mins}:${secs}`}</Text>
-            <TouchableOpacity onPress={this.toggle} style={styles.button}>
+            <TouchableOpacity disabled={isActive} onPress={this.toggle} style={styles.button}>
                 <Text style={styles.buttonText}>{isActive ? 'Pause' : 'Start'}</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={this.reset} style={[styles.button, styles.buttonReset]}>
+            <TouchableOpacity onPress={isActive ? endEarly : this.reset} style={[styles.button, styles.buttonReset]}>
                 <Text style={[styles.buttonText, styles.buttonTextReset]}>Reset</Text>
             </TouchableOpacity>
         </View>
@@ -50,7 +93,14 @@ export default function TimerPage() {
 }
 
 const styles = StyleSheet.create(
-    { container: {
+    { 
+       centeredView: {
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: 22
+          },
+        container: {
         flex: 1,
         backgroundColor: '#ADD8E6',
         alignItems: 'center',
@@ -80,6 +130,46 @@ const styles = StyleSheet.create(
     },
     buttonTextReset: {
         color: "#FF851B"
-    }
+    },
+    buttonTextSmall: {
+        fontSize: 30,
+        color: '#B9AAFF'
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5
+      },
+      openButton: {
+        backgroundColor: "#F194FF",
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2,
+        width: 80,
+        marginTop: 5
+      },
+      textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
+      },
+      modalText: {
+        marginBottom: 15,
+        textAlign: "center"
+      },
+      sliderStyle:{
+          width: 240,
+          height: 40
+      }
 }
 );

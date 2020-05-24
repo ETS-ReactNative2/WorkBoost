@@ -1,91 +1,74 @@
 import React, { Component, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert, Image } from 'react-native';
-import { Container, Header, Title, Content, Icon, button, Card, CardItem, Body, Left, Right, IconNB, Footer, CheckBox } from "native-base";
-import moment from 'moment';
-import { FontAwesome } from '@expo/vector-icons'
+import Modal from 'react-native-modal'
+import Task from '../components/Task'
+import AddTaskButton from '../components/buttons/AddTaskButton'
 import taskData from '../sample_task_data.json'
-import editIcon from '../pictures/editIcon.png'
+import AddTaskForm from '../screens/AddTaskPage'
+import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
 
 
 export default function TaskPage() {
-    //Our State : Array of Tasks
-    const [names, setNames] = useState(taskData)
+    const [tasks, setTasks] = useState(taskData)
+    const [addModalVisible, setAddModalVisible] = useState(false)
 
-    add = (text) => {
+    //logic for "component did mount" first time organizing of state based on completion
+    useEffect(() => {
+            let tmpTasks = tasks.slice()
+            tmpTasks.sort((a,b) => {return a.completed - b.completed})
+            setTasks(tmpTasks)
+    }, [])
+
+    addTask = (text) => {
         let notEmpty = text.trim().length > 0
         if (notEmpty) {
-            setNames(names => [...names, text])
+            setTasks(tasks => [...tasks, text])
         }
     }
 
     remove = (i) => {
-        let tmpNames = names.slice()
-        tmpNames.splice(i,1)
-        setNames(tmpNames)
+        let tmpTasks = tasks.slice()
+        tmpTasks.splice(i,1)
+        setTasks(tmpTasks)
     }
 
-    showForm = () => {
-        Alert.prompt(  
-            'Enter  Text',     
-             null,    
-             text => this.add(text)); 
+    showAddForm = () => setAddModalVisible(prev => !prev);
+
+    handleCheck = (index) => {
+        let tmpTasks = tasks.slice() 
+        tmpTasks[index] = {...tmpTasks[index], completed: !tmpTasks[index].completed}
+        tmpTasks.sort((a,b) => {return a.completed - b.completed}) 
+        setTasks(tmpTasks)
+    }
+
+    showEditForm = () => {
+        //TODO Jaon
+        alert("Jason")
     }
 
     return(
-        <View>
-            {
-                <FlatList
-                    data = {names}
-                    renderItem = {({ item, index }) =>
-                        <Card key={item.key.toString()}>
-                            <CardItem header key={(item.key + 100).toString()} style={{ height: 50 }}>
-                                <Body>
-                                    <Text>{item.name}</Text>
-                                </Body>
-                                <Right>
-                                    <CheckBox checked={item.completed} />
-                                </Right>
-                            </CardItem>
-                            <CardItem key={(item.key + 1000).toString()} style={{ height: 50 }}>
-                                <Body>
-                                    <Text>{item.description}</Text>
-                                </Body>
-                                {/* <Right>
-                                    <TouchableOpacity
-                                        style={{ alignItems: 'center',
-                                        justifyContent: 'center',
-                                        padding: 5,
-                                        borderRadius: 5,
-                                        borderColor: '#32CD32' }}
-                                        onPress={() => this.remove(index)}>
-                                        <FontAwesome name="minus" size={10} color='#32CD32' />
-                                    </TouchableOpacity >
-                                </Right> */}
-                                <Right>
-                                    <TouchableOpacity
-                                    style={{ alignItems: 'center',
-                                    justifyContent: 'center',
-                                    padding: 5,
-                                    borderRadius: 5}}
-                                    onPress={this.handleClick}>
-                                        <Image style={{width:30,height:30}} source={editIcon}/>
-                                    </TouchableOpacity>
-                                </Right>
-                            </CardItem>
-                        </Card>
-                    }   
-                    //to be used when firebase data comes in
-                    //keyExtractor={item => item.toString()}
-                />
-            }
+        <View> 
+            <Modal style={{margin:0, marginTop:60, backgroundColor:"#FFF"}}
+                   isVisible={addModalVisible}
+                   onSwipeComplete={() => showAddForm()}
+                   swipeDirection="down">
+                <AddTaskForm showAddForm={this.showAddForm}
+                             addTask={this.addTask}/>
+            </Modal>
+            <FlatList
+                data = {tasks}
+                renderItem = {({ item, index }) => <Task item={item} 
+                                                         index={index}
+                                                         showEditForm={this.showEditForm}
+                                                         handleCheck={this.handleCheck}/>}   
+                //to be used when firebase data comes in
+                //keyExtractor={item => item.toString()}
+            />
             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-            <TouchableOpacity style={{ backgroundColor: '#33ff64', alignItems: 'center', justifyContent: 'center', padding: 20, borderRadius: 100 }}
-                onPress={() =>
-                this.showForm()
-                }>
-                <FontAwesome name="plus" size={20} />
-            </TouchableOpacity>
+                <AddTaskButton showAddForm={this.showAddForm}
+                               addTask={this.addTask}/>
             </View >
-        </View>
+        </View> 
+
     )
 }
