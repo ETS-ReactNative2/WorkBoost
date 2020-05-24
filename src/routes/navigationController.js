@@ -110,12 +110,12 @@ function MainDrawer({navigation}) {
 export default createAppContainer(
   createSwitchNavigator(
     {
-      Login: {
-        screen: LoginPage
-      },
-      Signup: {
-        screen: SignupPage
-      },
+      // Login: {
+      //   screen: LoginPage
+      // },
+      // Signup: {
+      //   screen: SignupPage
+      // },
       App: {
         screen: MainDrawer
       }
