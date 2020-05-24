@@ -20,18 +20,24 @@ export default function TimerPage() {
 
     useEffect(() => {
         let interval = null;
-        if (isActive) {
+        console.log(remainingSecs);
+        console.log(remainingSecs == 0);
+        if (remainingSecs == 0){
+            alert("Timer is Done");
+            reset();
+        } else if (isActive) {
             interval = setInterval(() => {
-                setRemainingSecs(remainingSecs => remainingSecs + 1);
+                setRemainingSecs(remainingSecs => remainingSecs - 1);
             }, 1000);           
-        } else if (!isActive && remainingSecs != 0) {
+        } 
+        else if (!isActive && remainingSecs != 0) {
             clearInterval(interval);
         }
         return () => clearInterval(interval);
     }, [isActive, remainingSecs]);
 
     reset = () => {
-        setRemainingSecs(0);
+        setRemainingSecs(10);
         setIsActive(false);
     }
 
