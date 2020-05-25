@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert, Image } from 'react-native';
 import Modal from 'react-native-modal'
 import Task from '../components/Task'
-import AddTaskButton from '../components/buttons/AddTaskButton'
+import AddButton from '../components/buttons/AddButton'
 import taskData from '../sample_task_data.json'
 import AddTaskForm from '../screens/AddTaskPage'
 import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
@@ -65,7 +65,7 @@ export default function TaskPage() {
                 //keyExtractor={item => item.toString()}
             />
             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <AddTaskButton showAddForm={this.showAddForm}
+                <AddButton showAddForm={this.showAddForm}
                                addTask={this.addTask}/>
             </View >
         </View> 
