@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert, Image, Touch
 import { Container, Header, Title, Content, Card, CardItem, Body, Left, Right, CheckBox } from "native-base";
 import Modal from 'react-native-modal'
 import Habit from '../components/Habit'
-import AddHabitButton from '../components/buttons/AddHabitButton'
+import AddButton from '../components/buttons/AddButton'
 import habitData from '../sample_habit_data.json'
 import AddHabitForm from '../screens/AddHabitPage'
 
@@ -50,7 +50,7 @@ export default function HabitPage() {
             />
 
             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <AddHabitButton showAddForm={this.showAddForm}
+                <AddButton showAddForm={this.showAddForm}
                                 addHabit={this.addHabit}/>
             </View >
         </View>
