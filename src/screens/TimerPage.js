@@ -108,7 +108,7 @@ const styles = StyleSheet.create(
     },
     button: {
         borderWidth: 10,
-        borderColor: 'blue',
+        borderColor: '#0e97ed',
         width: screen.width / 2,
         height: screen.width / 2,
         borderRadius: screen.width / 2,
@@ -120,13 +120,13 @@ const styles = StyleSheet.create(
         color: 'blue'
     },
     timerText: {
-        color: 'blue',
+        color: 'black',
         fontSize: 90,
         marginBottom: 20
     },
     buttonReset: {
         marginTop: 20,
-        borderColor: "red"
+        borderColor: "red",
     },
     buttonTextReset: {
         color: "red"
