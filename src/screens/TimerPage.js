@@ -1,6 +1,6 @@
 import React, { Component, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, StatusBar, TouchableOpacity, Dimensions, Modal, TouchableHighlight } from 'react-native';
-import Slider from '@react-native-community/slider';
+import {Slider} from 'react-native-elements'
 
 
 const screen = Dimensions.get('window');
