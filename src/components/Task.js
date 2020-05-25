@@ -22,7 +22,10 @@ export default function Task(props) {
                     <Text>{props.item.description}</Text>
                 </Body>
                 <Right>
-                    <EditButton handleEdit={props.item.completed? ()=>{} : props.showEditForm}/>
+                    <EditButton editTask={props.item.completed? ()=>{} : props.editTask}
+                                showEditForm={props.item.completed? ()=>{}: props.showEditForm}
+                                index={props.index}
+                                updateIndex={props.updateIndex}/>
                 </Right>
             </CardItem>
         </Card>

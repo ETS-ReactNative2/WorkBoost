@@ -5,12 +5,15 @@ import Task from '../components/Task'
 import AddButton from '../components/buttons/AddButton'
 import taskData from '../sample_task_data.json'
 import AddTaskForm from '../screens/AddTaskPage'
+import EditTaskForm from '../screens/EditTaskPage'
 import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
 
 
 export default function TaskPage() {
     const [tasks, setTasks] = useState(taskData)
     const [addModalVisible, setAddModalVisible] = useState(false)
+    const [editModalVisible, setEditModalVisible] = useState(false)
+    const [currentIndex, setCurrentIndex] = useState(0)
 
     //logic for "component did mount" first time organizing of state based on completion
     useEffect(() => {
@@ -41,10 +44,17 @@ export default function TaskPage() {
         setTasks(tmpTasks)
     }
 
-    showEditForm = () => {
-        //TODO Jaon
-        alert("Jason")
+    editTask =(text) => {
+        //TODO
+        alert("Todo")
     }
+
+    showEditForm = (index) => {
+        setEditModalVisible(prev => !prev)
+    }
+
+    updateIndex = (index) => setCurrentIndex(index);
+     
 
     return(
         <View> 
@@ -55,12 +65,25 @@ export default function TaskPage() {
                 <AddTaskForm showAddForm={this.showAddForm}
                              addTask={this.addTask}/>
             </Modal>
+
+            <Modal style={{margin:0, marginTop:60, backgroundColor:"#FFF"}}
+                   isVisible={editModalVisible}
+                   onSwipeComplete={() => showEditForm()}
+                   swipeDirection="down">
+                <EditTaskForm index={currentIndex}
+                              item={tasks[currentIndex]}
+                              showEditForm={this.showEditForm}
+                              editTask={this.editTask}/>
+            </Modal>
+
             <FlatList
                 data = {tasks}
                 renderItem = {({ item, index }) => <Task item={item} 
                                                          index={index}
                                                          showEditForm={this.showEditForm}
-                                                         handleCheck={this.handleCheck}/>}   
+                                                         editTask={this.editTask}
+                                                         handleCheck={this.handleCheck}
+                                                         updateIndex={this.updateIndex}/>}   
                 //to be used when firebase data comes in
                 //keyExtractor={item => item.toString()}
             />
