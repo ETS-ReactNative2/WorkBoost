@@ -6,12 +6,15 @@ import Habit from '../components/Habit'
 import AddButton from '../components/buttons/AddButton'
 import habitData from '../sample_habit_data.json'
 import AddHabitForm from '../screens/AddHabitPage'
+import EditHabitForm from '../screens/EditHabitPage'
 import CompHabitForm from '../screens/CompleteHabitPage'
 
 export default function HabitPage() {
 
     const [habits, setHabits] = useState(habitData)
     const [addModalVisible, setAddModalVisible] = useState(false)
+    const [editModalVisible, setEditModalVisible] = useState(false)
+    const [currentIndex, setCurrentIndex] = useState(0)
 
     useEffect(() => {
         let tmpHabits = habits.slice()
@@ -41,10 +44,17 @@ export default function HabitPage() {
 
     showAddForm = () => setAddModalVisible(prev => !prev);
 
-    handleEdit = () => {
-        //TODO Jason
-        alert("Jason")
+    editHabit = () => {
+        //TODO
+        alert("Todo")
     }
+
+    showEditForm = (index) => {
+        setEditModalVisible(prev => !prev)
+    }
+
+    updateIndex = (index) => setCurrentIndex(index);
+     
 
     return(
         <View> 
@@ -56,13 +66,23 @@ export default function HabitPage() {
                               addHabit={this.addHabit}/>
             </Modal>
 
+            <Modal style={{margin:0, marginTop:60, backgroundColor:"#FFF"}}
+                   isVisible={editModalVisible}
+                   onSwipeComplete={() => showEditForm()}
+                   swipeDirection="down">
+                <EditHabitForm item={habits[currentIndex]}
+                              showEditForm={this.showEditForm}
+                              editHabit={this.editHabit}/>
+            </Modal>
+
             <FlatList
                 data = {habits}
                 renderItem = {({ item, index }) => <Habit item={item}
                                                           index={index}
-                                                          handleEdit={this.handleEdit}
+                                                          showEditForm={this.showEditForm}
+                                                          editHabit={this.editHabit}
                                                           handleCheck={this.handleCheck}
-                                                           />}   
+                                                          updateIndex={this.updateIndex} />}   
                 //to be used when firebase data comes in
                 //keyExtractor={item => item.toString()}
             />

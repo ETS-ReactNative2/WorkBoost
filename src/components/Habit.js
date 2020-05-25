@@ -36,7 +36,10 @@ export default function Habit(props) {
                         <Text style={{fontWeight:"bold", fontSize:20}}>{props.item.name}</Text>
                     </Body>
                     <Right>
-                        <EditButton handleEdit={props.item.completed? ()=>{} : props.handleEdit}/>
+                        <EditButton editHabit={props.item.completed? ()=>{} : props.editHabit}
+                                showEditForm={props.item.completed? ()=>{}: props.showEditForm}
+                                index={props.index}
+                                updateIndex={props.updateIndex}/>
                     </Right>
                 </CardItem>
                 <CardItem key={(props.item.key + 1000).toString()} style={{ height: 43 }}>

@@ -70,8 +70,7 @@ export default function TaskPage() {
                    isVisible={editModalVisible}
                    onSwipeComplete={() => showEditForm()}
                    swipeDirection="down">
-                <EditTaskForm index={currentIndex}
-                              item={tasks[currentIndex]}
+                <EditTaskForm item={tasks[currentIndex]}
                               showEditForm={this.showEditForm}
                               editTask={this.editTask}/>
             </Modal>
