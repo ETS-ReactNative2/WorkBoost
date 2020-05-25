@@ -1,6 +1,7 @@
 import React, { Component, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, StatusBar, TouchableOpacity, Dimensions, Modal, TouchableHighlight } from 'react-native';
 import {Slider} from 'react-native-elements'
+import { rem } from 'prelude-ls';
 
 
 const screen = Dimensions.get('window');
@@ -18,7 +19,7 @@ export default function TimerPage() {
     const [prevTime, setPrevTime] = useState(300);
     const [modalActive, setModalActive] = useState(false);
     const { mins, secs } = getRemaining(remainingSecs);
-    const secsToMin = 60;
+    const secsToMin = 1;
 
 
     toggle = () => {
@@ -78,12 +79,12 @@ export default function TimerPage() {
                 </View>
             </Modal>
 
-            <Slider disabled={isActive} style={styles.sliderStyle} minimumValue={5}
-                maximumValue={60} step={5} onValueChange={(e) => {setRemainingSecs(e*secsToMin)}}></Slider>
+            <Slider minimumTrackTintColor='blue' thumbTintColor="#4588f5" disabled={isActive} style={styles.sliderStyle} minimumValue={300}
+                maximumValue={3600} step={300} value={prevTime} onValueChange={(e) => {setRemainingSecs(e*secsToMin)}}></Slider>
             <StatusBar barStyle="light-content" />
             <Text style={styles.timerText}>{`${mins}:${secs}`}</Text>
             <TouchableOpacity disabled={isActive} onPress={this.toggle} style={styles.button}>
-                <Text style={styles.buttonText}>{isActive ? 'Pause' : 'Start'}</Text>
+                <Text style={styles.buttonText}>{ 'Start'}</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={isActive ? endEarly : this.reset} style={[styles.button, styles.buttonReset]}>
                 <Text style={[styles.buttonText, styles.buttonTextReset]}>Reset</Text>
@@ -102,13 +103,12 @@ const styles = StyleSheet.create(
           },
         container: {
         flex: 1,
-        backgroundColor: '#ADD8E6',
         alignItems: 'center',
         justifyContent: 'center',
     },
     button: {
         borderWidth: 10,
-        borderColor: '#B9AAFF',
+        borderColor: '#0e97ed',
         width: screen.width / 2,
         height: screen.width / 2,
         borderRadius: screen.width / 2,
@@ -117,19 +117,19 @@ const styles = StyleSheet.create(
     },
     buttonText: {
         fontSize: 45,
-        color: '#B9AAFF'
+        color: 'blue'
     },
     timerText: {
-        color: '#fff',
+        color: 'black',
         fontSize: 90,
         marginBottom: 20
     },
     buttonReset: {
         marginTop: 20,
-        borderColor: "#FF851B"
+        borderColor: "red",
     },
     buttonTextReset: {
-        color: "#FF851B"
+        color: "red"
     },
     buttonTextSmall: {
         fontSize: 30,
@@ -169,7 +169,10 @@ const styles = StyleSheet.create(
       },
       sliderStyle:{
           width: 240,
-          height: 40
+          height: 40,
+      },
+      thumbStyle: {
+          color: 'blue'
       }
 }
 );
