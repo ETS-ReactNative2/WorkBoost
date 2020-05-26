@@ -29,6 +29,7 @@ In order to run the simulation, run the following code:
 ---
 ## Windows setup
 
+1. npm install firebase
 2. npm i
 3. npx expo start
 

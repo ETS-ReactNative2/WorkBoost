@@ -8,6 +8,7 @@ import habitData from '../sample_habit_data.json'
 import AddHabitForm from '../screens/AddHabitPage'
 import EditHabitForm from '../screens/EditHabitPage'
 import CompHabitForm from '../screens/CompleteHabitPage'
+const {saveHabit} = require('../../model/dbModel.js');
 
 export default function HabitPage() {
 
@@ -15,6 +16,10 @@ export default function HabitPage() {
     const [addModalVisible, setAddModalVisible] = useState(false)
     const [editModalVisible, setEditModalVisible] = useState(false)
     const [currentIndex, setCurrentIndex] = useState(0)
+
+    addHabit = (title, description) => {    
+        saveHabit(title, description)
+    }
 
     useEffect(() => {
         let tmpHabits = habits.slice()
@@ -27,13 +32,6 @@ export default function HabitPage() {
         tmpHabits[index] = {...tmpHabits[index], completed: !tmpHabits[index].completed}
         tmpHabits.sort((a,b) => {return a.completed - b.completed}) 
         setHabits(tmpHabits)
-    }
-    
-    addHabit = (text) => {
-        let notEmpty = text.trim().length > 0
-        if (notEmpty) {
-            setHabits(names => [...names, text])
-        }
     }
 
     remove = (i) => {
