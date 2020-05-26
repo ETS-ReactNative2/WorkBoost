@@ -1,73 +1,50 @@
 // SignUp.js
-// import React from 'react'
-// import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
-// import auth from "@react-native-firebase/auth"
+import React, {useState} from 'react'
+import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
+import {handleSignUp, navLogin} from "../routes/navigationController"
 
-// export default class SignupPage extends React.Component {
-//   state = { email: '', password: '', errorMessage: null }
-//   handleSignUp = () => {
-//     auth()
-//       .createUserWithEmailAndPassword(this.state.email, this.state.password)
-//       .then(() => {
-//         this.props.navigation.navigate('Log In')
-//         console.log('User account has been created!');
-//       })
-//       .catch(error => {
-//         if (error.code === 'auth/email-already-in-use')
-//           alert('That email address is already in use.');
-//         if (error.code === 'auth/weak-password')
-//           alert('Your password is too weak.');
-//         if (error.code === 'auth/invalid-email')
-//           alert('That email address is invalid.');
-//           this.props.navigation.navigate('Sign Up')
+export default function SignupPage(props) {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
-// //        console.error(error);
-//       });
-//   }
+  return (
+    <View style={styles.container}>
+      <Text>Sign Up</Text>
+      <TextInput
+        placeholder="Email"
+        autoCapitalize="none"
+        style={styles.textInput}
+        onChangeText={email => setEmail(email)}
+        value={email}
+      />
+      <TextInput
+        secureTextEntry
+        placeholder="Password"
+        autoCapitalize="none"
+        style={styles.textInput}
+        onChangeText={password => setPassword(password)}
+        value={password}
+      />
+      <Button title="Sign Up" onPress={() => handleSignUp(email, password, props.navigation)} />
+      <Button
+        title="Already have an account? Login"
+        onPress={() => navLogin(props.navigation)}
+      />
+    </View>
+  )
+}
 
-// render() {
-//     return (
-//       <View style={styles.container}>
-//         <Text>Sign Up</Text>
-//         {this.state.errorMessage &&
-//           <Text style={{ color: 'red' }}>
-//             {this.state.errorMessage}
-//           </Text>}
-//         <TextInput
-//           placeholder="Email"
-//           autoCapitalize="none"
-//           style={styles.textInput}
-//           onChangeText={email => this.setState({ email })}
-//           value={this.state.email}
-//         />
-//         <TextInput
-//           secureTextEntry
-//           placeholder="Password"
-//           autoCapitalize="none"
-//           style={styles.textInput}
-//           onChangeText={password => this.setState({ password })}
-//           value={this.state.password}
-//         />
-//         <Button title="Sign Up" onPress={this.handleSignUp} />
-//         <Button
-//           title="Already have an account? Login"
-//           onPress={() => this.props.navigation.navigate('Login')}
-//         />
-//       </View>
-//     )
-//   }
-// }
-// const styles = StyleSheet.create({ 
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center'
-//   },
-//   textInput: {
-//     height: 40,
-//     width: '90%',
-//     borderColor: 'gray',
-//     borderWidth: 1,
-//     marginTop: 8
-//   }
-// })
+const styles = StyleSheet.create({ 
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  textInput: {
+    height: 40,
+    width: '90%',
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginTop: 8
+  }
+})

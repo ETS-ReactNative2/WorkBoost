@@ -1,75 +1,51 @@
-// import React, { Component } from 'react';
-// import { StyleSheet, Text, TextInput, View, Button, AsyncStorage, Image} from 'react-native'
-// import auth, { firebase } from "@react-native-firebase/auth"
-// import { createStackNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation';
+import React, { useState } from 'react';
+import { StyleSheet, Text, TextInput, View, Button, AsyncStorage, Image} from 'react-native'
+import {handleLogin, navSignUp} from "../routes/navigationController"
 
-// export default class LoginPage extends React.Component {
-//   state = { email: '', password: '', errorMessage: null }
-//   handleLogin = () => {
-//     const { email, password } = this.state
-//     firebase
-//       .auth()
-//       .signInWithEmailAndPassword(email, password)
-//       .then(() => this.props.navigation.navigate('App', { screen: 'MainDrawer', params: {screen: 'Home'} }))
-//       .catch(error => {
-//          if (error.code === 'auth/user-disabled')
-//            alert('This user has been disabled.');
-//          if (error.code === 'auth/user-not-found')
-//            alert('There does not seem to be a user corresponding to this email.');
-//          if (error.code === 'auth/wrong-password')
-//            alert('The password is invalid for the given email, or the account corresponding to the email does not have a password set.');
-//          if (error.code === 'auth/invalid-email')
-//            alert('That email address is invalid.');
-//          this.props.navigation.navigate('Log In')
-//         } )
-//   }
+export default function LoginPage(props) {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
-//   render() {
-//     return (
-//       <View style={styles.container}>
-//         <Image style = {{ width: 200, height: 200, marginBottom:10 }}
-//                  source = {require('../pictures/logo.png')}/>
-//         <Text>Welcome!</Text>
-//         {this.state.errorMessage &&
-//           <Text style={{ color: 'red' }}>
-//             {this.state.errorMessage}
-//           </Text>}
-//         <TextInput
-//           style={styles.textInput}
-//           autoCapitalize="none"
-//           placeholder="Email"
-//           onChangeText={email => this.setState({ email })}
-//           value={this.state.email}
-//         />
-//         <TextInput
-//           secureTextEntry
-//           style={styles.textInput}
-//           autoCapitalize="none"
-//           placeholder="Password"
-//           onChangeText={password => this.setState({ password })}
-//           value={this.state.password}
-//         />
-//         <Button title="Login" onPress={this.handleLogin} />
-//         <Button
-//           title="Don't have an account? Sign Up"
-//           onPress={() => this.props.navigation.navigate('Signup')}
-//         />
-//       </View>
-//     )
-//   }
-// }
+  return (
+    <View style={styles.container}>
+      <Image style = {{ width: 200, height: 200, marginBottom:10 }}
+                source = {require('../pictures/logo.png')}/>
+      <Text>Welcome!</Text>
+      <TextInput
+        style={styles.textInput}
+        autoCapitalize="none"
+        placeholder="Email"
+        onChangeText={email => setEmail(email)}
+        value={email}
+      />
+      <TextInput
+        secureTextEntry
+        style={styles.textInput}
+        autoCapitalize="none"
+        placeholder="Password"
+        onChangeText={password => setPassword(password)}
+        value={password}
+      />
+      <Button title="Login" onPress={() => handleLogin(email, password, props.navigation)} />
+      <Button
+        title="Don't have an account? Sign Up"
+        onPress={() => navSignUp(props.navigation)}
+      />
+    </View>
+  )
+}
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center'
-//   },
-//   textInput: {
-//     height: 40,
-//     width: '90%',
-//     borderColor: 'gray',
-//     borderWidth: 1,
-//     marginTop: 8
-//   }
-// })
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  textInput: {
+    height: 40,
+    width: '90%',
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginTop: 8
+  }
+})

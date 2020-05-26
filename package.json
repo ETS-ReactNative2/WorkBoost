@@ -10,8 +10,6 @@
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",
-    "@react-native-firebase/app": "^7.1.0",
-    "@react-native-firebase/auth": "^7.1.0",
     "@react-navigation/bottom-tabs": "^5.4.4",
     "@react-navigation/drawer": "^5.7.5",
     "@react-navigation/native": "^5.4.2",
@@ -20,6 +18,7 @@
     "eslint": "^7.0.0",
     "expo": "^37.0.12",
     "expo-updates": "~0.2.0",
+    "firebase": "^7.14.5",
     "moment": "^2.25.3",
     "native-base": "^2.13.12",
     "react": "^16.13.1",

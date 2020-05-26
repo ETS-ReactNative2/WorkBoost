@@ -12,10 +12,61 @@ import SettingsPage from '../screens/SettingsPage';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator, DrawerItem } from '@react-navigation/drawer';
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
+import firebase from 'firebase'
+// model calls
+import {addNewUser} from "../../model/dbModel"
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC-9RLuVtRr2exJDAHjLqB4NoWg0P451XE",
+  authDomain: "workboost-1b29a.firebaseapp.com",
+  databaseURL: "https://workboost-1b29a.firebaseio.com",
+  storageBucket: "workboost-1b29a.appspot.com"
+}
+firebase.initializeApp(firebaseConfig)
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
+
+export function handleLogin(email, password, navigation) {
+  firebase.auth()
+    .signInWithEmailAndPassword(email, password)
+    .then(() => navigation.navigate('App', { screen: 'MainDrawer', params: {screen: 'Home'} }))
+    .catch(error => {
+      if (error.code === 'auth/user-disabled')
+        alert('This user has been disabled.');
+      if (error.code === 'auth/user-not-found')
+        alert('There does not seem to be a user corresponding to this email.');
+      if (error.code === 'auth/wrong-password')
+        alert('The password is invalid for the given email, or the account corresponding to the email does not have a password set.');
+      if (error.code === 'auth/invalid-email')
+        alert('That email address is invalid.');
+      navigation.navigate('Log In')
+    })
+}
+
+export function handleSignUp(email, password, navigation) {
+  firebase.auth()
+    .createUserWithEmailAndPassword(email, password)
+    .then(user => {
+      console.log("SLDKFJKLSDJF", user)
+      addNewUser(user)
+      navigation.navigate('Login')
+      console.log('User account has been created!');
+    })
+    .catch(error => {
+      if (error.code === 'auth/email-already-in-use')
+        alert('That email address is already in use.');
+      if (error.code === 'auth/weak-password')
+        alert('Your password is too weak.');
+      if (error.code === 'auth/invalid-email')
+        alert('That email address is invalid.');
+        navigation.navigate('Sign Up')
+    });
+}
+
+export function navSignUp(navigation) {navigation.navigate("Signup")}
+export function navLogin(navigation) {navigation.navigate("Login")}
 
 function DrawerButton(props) {
   return(
@@ -110,12 +161,12 @@ function MainDrawer({navigation}) {
 export default createAppContainer(
   createSwitchNavigator(
     {
-      // Login: {
-      //   screen: LoginPage
-      // },
-      // Signup: {
-      //   screen: SignupPage
-      // },
+      Login: {
+        screen: LoginPage
+      },
+      Signup: {
+        screen: SignupPage
+      },
       App: {
         screen: MainDrawer
       }
