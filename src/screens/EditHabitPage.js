@@ -5,6 +5,7 @@ import {Header} from 'react-native-elements'
 export default function EditHabitPage(props) {
 
     const [title, setTitle] = useState(props.item.name);
+    const [freq, setFreq] = useState(props.item.freq);
     const [description, setDescription] = useState(props.item.description);
 
     function BackButton() {
@@ -33,6 +34,13 @@ export default function EditHabitPage(props) {
                         onBlur={Keyboard.dismiss}
                         value={title}
                         onChangeText={text => setTitle(text)}
+                    />
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder="Habit Frequency"
+                        onBlur={Keyboard.dismiss}
+                        value={freq}
+                        onChangeText={text => setFreq(text)}
                     />
                     <TextInput
                         style={styles.textInput}

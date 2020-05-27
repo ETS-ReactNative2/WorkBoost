@@ -31,9 +31,16 @@ export default function Habit(props) {
             <TouchableOpacity onPress={props.item.completed? ()=>{} : this.showCompForm}>
             <Card style={props.item.completed ? {opacity:0.5} : {}}
                     key={props.item.key.toString()}>
-                <CardItem header key={(props.item.key + 100).toString()} style={{ height: 55 }}>
+                <CardItem header key={(props.item.key + 100).toString()} style={{ height: 60, width: 419}}>
                     <Body>
                         <Text style={{fontWeight:"bold", fontSize:20}}>{props.item.name}</Text>
+                        <View style = {{flexDirection: 'row'}}>
+                            <Text style={{fontSize:13, paddingTop: 5}}>Streak: {props.item.completion_streak}</Text>
+                            <Image style = {{ width: 15, height: 15, marginTop: 3 }} source = {require('../pictures/fire.png')}/>
+                            <Text style={{fontSize:13, paddingTop: 5}}> Frequency: {props.item.freq}</Text>
+                        </View>
+                        {/*<Text style={{fontSize:13, paddingTop: 5}}>Streak: {props.item.completion_streak} days,
+                                                                    Frequency: {props.item.freq} </Text>*/}
                     </Body>
                     <Right>
                         <EditButton editHabit={props.item.completed? ()=>{} : props.editHabit}

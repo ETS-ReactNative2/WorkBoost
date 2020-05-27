@@ -86,7 +86,14 @@ function LogoIcon(){
 
 function BottomTabs() {
     return (
-        <Tab.Navigator initialRouteName="Timer">
+        <Tab.Navigator initialRouteName="Timer"
+        tabBarOptions= {{
+          labelStyle: {
+            fontSize: 17,
+            margin: 0,
+            padding: 0,
+          },
+        }}>
             <Tab.Screen name="Habits" component={HabitPage} />  
             <Tab.Screen name="Timer"  component={TimerPage} />
             <Tab.Screen name="Tasks"  component={TaskPage}  />

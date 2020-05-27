@@ -10,7 +10,7 @@ export default function LoginPage(props) {
     <View style={styles.container}>
       <Image style = {{ width: 200, height: 200, marginBottom:10 }}
                 source = {require('../pictures/logo.png')}/>
-      <Text>Welcome!</Text>
+      <Text>Welcome to WorkBoost!</Text>
       <TextInput
         style={styles.textInput}
         autoCapitalize="none"
