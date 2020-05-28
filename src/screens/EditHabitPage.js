@@ -53,7 +53,8 @@ export default function EditHabitPage(props) {
                         <TouchableOpacity
                             style={styles.saveButton}
                             onPress={() => {
-                                props.editHabit(props.item.key.toString(),title,frequency,description);
+                                if (title == "" || description == "") {alert('One of these fields appears to be empty.');}
+                                else {props.editHabit(props.item.key.toString(),title,description, freq);}
                             }}
                         >
                             <Text style={styles.saveButtonText}>Save</Text>

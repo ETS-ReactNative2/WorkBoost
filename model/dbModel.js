@@ -50,10 +50,10 @@ export function pullHabitData(callBack) {
     })
 }
 //UPDATE
-export function editsHabit(key, title, description) {
+export function editsHabit(key, title, description, frequency) {
   const user = firebase.auth().currentUser;
   var habit = firebase.database().ref(`habitLists/habits_${user.uid}/${key}`);
-  habit.update({ name: title, description: description});
+  habit.update({ name: title, description: description, frequency: frequency});
 }
 //DELETE
 export function removesHabit(key) {
