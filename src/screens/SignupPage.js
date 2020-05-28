@@ -25,7 +25,9 @@ export default function SignupPage(props) {
         onChangeText={password => setPassword(password)}
         value={password}
       />
-      <Button title="Sign Up" onPress={() => handleSignUp(email, password, props.navigation)} />
+      <Button title="Sign Up" onPress={() => {
+        setPassword("")
+        handleSignUp(email, password, props.navigation)}} />
       <Button
         title="Already have an account? Login"
         onPress={() => navLogin(props.navigation)}
@@ -38,7 +40,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF'
   },
   textInput: {
     height: 40,
