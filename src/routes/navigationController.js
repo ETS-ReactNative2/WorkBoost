@@ -81,7 +81,11 @@ export function handleDeleteAccount(navigation){
     username = firebase.database().ref('users')
     const user = firebase.auth().currentUser;
     userId = username.child(`${user.uid}`)
-    console.log(userId);
+
+    var habitLists = firebase.database().ref('habitLists');
+    var habitListId = habitLists.child(`habits_${user.uid}`);
+
+    habitListId.remove();
     userId.remove();
 
     //remove
