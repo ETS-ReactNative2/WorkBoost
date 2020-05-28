@@ -46,6 +46,7 @@ export default function AddHabitPage(props) {
                             style={styles.saveButton}
                             onPress={() => {
                                 props.addHabit(title,description);
+                                props.showAddForm()
                             }}
                         >
                             <Text style={styles.saveButtonText}>Save</Text>
