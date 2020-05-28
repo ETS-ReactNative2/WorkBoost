@@ -22,6 +22,7 @@ export function addNewUser() {
       'habit_list_id': habitList.key,
       'task_list_id': taskList.key
   });
+
 }
 
 //Habit CRUD

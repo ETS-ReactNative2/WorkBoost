@@ -45,7 +45,8 @@ export default function AddHabitPage(props) {
                         <TouchableOpacity
                             style={styles.saveButton}
                             onPress={() => {
-                                props.addHabit(title,description);
+                                if (title == "" || description == "") {alert('One of these fields appears to be empty.');}
+                                else {props.addHabit(title,description); }
                                 props.showAddForm()
                             }}
                         >

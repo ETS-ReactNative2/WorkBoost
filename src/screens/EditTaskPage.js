@@ -45,8 +45,9 @@ export default function EditTaskPage(props) {
                         <TouchableOpacity
                             style={styles.saveButton}
                             onPress={() => {
-                                props.editTask(props.item.key ,title,description)
-                                props.showEditForm()
+                                if (title == "" || description == "") {alert('One of these fields appears to be empty.');}
+                                else {props.editTask(props.item.key ,title,description)
+                                     props.showEditForm()}
                             }}>
                             <Text style={styles.saveButtonText}>Save</Text>
                         </TouchableOpacity>
