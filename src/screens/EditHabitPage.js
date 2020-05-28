@@ -53,10 +53,20 @@ export default function EditHabitPage(props) {
                         <TouchableOpacity
                             style={styles.saveButton}
                             onPress={() => {
-                                props.editHabit(title,description);
+                                props.editHabit(props.item.key.toString(),title,frequency,description);
                             }}
                         >
                             <Text style={styles.saveButtonText}>Save</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <TouchableOpacity
+                            style={styles.saveButton}
+                            onPress={() => {
+                                props.remove(props.item.key);
+                            }}
+                        >
+                            <Text style={styles.saveButtonText}>Remove</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
