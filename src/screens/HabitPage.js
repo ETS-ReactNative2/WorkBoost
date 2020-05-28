@@ -15,8 +15,6 @@ export default function HabitPage() {
 
     const [habits, setHabits] = useState([])
     const [addModalVisible, setAddModalVisible] = useState(false)
-    const [editModalVisible, setEditModalVisible] = useState(false)
-    const [currentIndex, setCurrentIndex] = useState(0)
 
     addHabit = (title, description) => {   
         saveHabit(title, description)
@@ -24,19 +22,18 @@ export default function HabitPage() {
     }
 
     function setData(snapshot) {
-        if(snapshot.numChildren() > 1) {
-            let arr = []
-            snapshot.forEach(shot => {
-                if(shot.key != "user") {
-                    obj = shot.val()
-                    obj.key = shot.key
-                    arr.push(obj)
-                }
-            })
-            setHabits(arr)
-        }
+        let arr = []
+        snapshot.forEach(shot => {
+            if(shot.key != "user") {
+                obj = shot.val()
+                obj.key = shot.key
+                arr.push(obj)
+            }
+        })
+        setHabits(arr)
     }
-
+    
+    //On app startup, pull the data from db and sort it based on completion
     useEffect(() => {
         pullHabitData(setData)
         let tmpHabits = habits.slice()
@@ -52,7 +49,8 @@ export default function HabitPage() {
     }
 
     remove = (key) => {
-        removesHabit(key)
+        //call to model
+        removesHabit(key, setData)
     }
 
     showAddForm = () => setAddModalVisible(prev => !prev);
@@ -61,12 +59,6 @@ export default function HabitPage() {
         editsHabit(key, title, description, frequency)
         pullHabitData(setData)
     }
-
-    showEditForm = (index) => {
-        setEditModalVisible(prev => !prev)
-    }
-
-    updateIndex = (index) => setCurrentIndex(index);
 
     EmptyView = () => {
         return(
@@ -89,26 +81,14 @@ export default function HabitPage() {
                               addHabit={this.addHabit}/>
             </Modal>
 
-            <Modal style={{margin:0, marginTop:60, backgroundColor:"#FFF"}}
-                   isVisible={editModalVisible}
-                   onSwipeComplete={() => showEditForm()}
-                   swipeDirection="down">
-                <EditHabitForm item={habits[currentIndex]}
-                              showEditForm={this.showEditForm}
-                              remove={this.remove}
-                              editHabit={this.editHabit}/>
-            </Modal>
-
             <FlatList
                 data = {habits}
                 ListEmptyComponent={this.EmptyView}
                 renderItem = {({ item, index }) => <Habit item={item}
                                                           index={index}
-                                                          showEditForm={this.showEditForm}
                                                           editHabit={this.editHabit}
                                                           remove={this.remove}
-                                                          handleCheck={this.handleCheck}
-                                                          updateIndex={this.updateIndex} />}   
+                                                          handleCheck={this.handleCheck}/>}   
                 //to be used when firebase data comes in
                 //keyExtractor={item => item.toString()}
             />

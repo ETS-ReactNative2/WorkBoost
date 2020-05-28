@@ -7,8 +7,7 @@ export default function EditButton(props) {
         <TouchableOpacity style={{ alignItems: 'center',
                         justifyContent: 'center',
                         borderRadius: 5}}
-                        onPress={() => {props.updateIndex(props.index)
-                                        props.showEditForm()}}>
+                        onPress={() => props.showEditForm()}>
             <Image style={{width:30,height:30}} source={editIcon}/>
         </TouchableOpacity>
     )

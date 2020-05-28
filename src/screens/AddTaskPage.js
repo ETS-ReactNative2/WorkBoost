@@ -46,7 +46,8 @@ export default function AddTaskPage(props) {
                             style={styles.saveButton}
                             onPress={() => {
                                 if (title == "" || description == "") {alert('One of these fields appears to be empty.');}
-                                else{props.addTask(title,description)}
+                                else{props.addTask(title,description)
+                                    props.showAddForm()}
                             }}>
                             <Text style={styles.saveButtonText}>Save</Text>
                         </TouchableOpacity>

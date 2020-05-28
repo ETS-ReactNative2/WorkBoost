@@ -57,12 +57,13 @@ export function editsHabit(key, title, description, frequency) {
   habit.update({ name: title, description: description, frequency: frequency});
 }
 //DELETE
-export function removesHabit(key) {
+export function removesHabit(key, callBack) {
   const user = firebase.auth().currentUser;
   var habit = firebase.database().ref(`habitLists/habits_${user.uid}/${key}`);
   habit.remove()
     .then(function() {
       console.log("Remove succeeded.")
+      pullHabitData(callBack)
     })
     .catch(function(error) {
       console.log("Remove failed: " + error.message)
@@ -99,12 +100,13 @@ export function editsTask(key, title, description) {
   task.update({ name: title, description: description});
 }
 //DELETE
-export function removesTask(key) {
+export function removesTask(key, callBack) {
   const user = firebase.auth().currentUser;
   var habit = firebase.database().ref(`taskLists/tasks_${user.uid}/${key}`);
   habit.remove()
     .then(function() {
       console.log("Remove succeeded.")
+      pullTaskData(callBack)
     })
     .catch(function(error) {
       console.log("Remove failed: " + error.message)
