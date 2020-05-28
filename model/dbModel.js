@@ -1,9 +1,19 @@
 import firebase from 'firebase'
 
-export function pullData(callBack) {
+export function pullHabitData(callBack) {
   const user = firebase.auth().currentUser
   firebase.database()
     .ref(`habitLists/habits_${user.uid}`)
+    .once('value')
+    .then(snapshot => {
+      callBack(snapshot)
+    })
+}
+
+export function pullTaskData(callBack) {
+  const user = firebase.auth().currentUser
+  firebase.database()
+    .ref(`taskLists/tasks_${user.uid}`)
     .once('value')
     .then(snapshot => {
       callBack(snapshot)
@@ -54,9 +64,27 @@ export function editsHabit(key, title, description) {
   habit.update({ name: title, description: description});
 }
 
+export function editsTask(key, title, description) {
+  const user = firebase.auth().currentUser;
+  var task = firebase.database().ref(`taskLists/tasks_${user.uid}/${key}`);
+  task.update({ name: title, description: description});
+}
+
 export function removesHabit(key) {
   const user = firebase.auth().currentUser;
   var habit = firebase.database().ref(`habitLists/habits_${user.uid}/${key}`);
+  habit.remove()
+    .then(function() {
+      console.log("Remove succeeded.")
+    })
+    .catch(function(error) {
+      console.log("Remove failed: " + error.message)
+    });
+}
+
+export function removesTask(key) {
+  const user = firebase.auth().currentUser;
+  var habit = firebase.database().ref(`taskLists/tasks_${user.uid}/${key}`);
   habit.remove()
     .then(function() {
       console.log("Remove succeeded.")
@@ -78,5 +106,5 @@ export function saveTask(title, description) {
   });
 }
 
-  module.exports = {addNewUser, saveHabit, saveTask, pullData, editsHabit, removesHabit}
+  module.exports = {addNewUser, saveHabit, saveTask, pullHabitData, pullTaskData, editsTask, editsHabit, removesHabit, removesTask}
 
