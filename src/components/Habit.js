@@ -4,18 +4,33 @@ import { Container, Header, Title, Content, Icon, button, Card, CardItem, Body, 
 import EditButton from '../components/buttons/EditButton'
 import Modal from 'react-native-modal'
 import CompHabitForm from '../screens/CompleteHabitPage'
+import EditHabitForm from '../screens/EditHabitPage'
 
 
 export default function Habit(props) {
     const [compModalVisible, setCompModalVisible] = useState(false)
+    const [editModalVisible, setEditModalVisible] = useState(false)
+
+    showEditForm = () => setEditModalVisible(prev => !prev);
     showCompForm = () => setCompModalVisible(prev => !prev);
     completeHabit = () => {
         props.handleCheck(props.index)
     }
 
-
     return(
         <View>
+
+            <Modal style={{margin:0, marginTop:60, backgroundColor:"#FFF"}}
+                   isVisible={editModalVisible}
+                   onSwipeComplete={() => showEditForm()}
+                   swipeDirection="down">
+                <EditHabitForm item={props.item}
+                               showEditForm={this.showEditForm}
+                               remove={props.remove}
+                               editHabit={props.editHabit}/>
+            </Modal>
+
+
             <Modal style={{margin:0, marginTop:60, backgroundColor:"#FFF"}}
                    isVisible={compModalVisible}
                    onSwipeComplete={() => showCompForm()}
@@ -39,13 +54,10 @@ export default function Habit(props) {
                             <Image style = {{ width: 15, height: 15, marginTop: 3 }} source = {require('../pictures/fire.png')}/>
                             <Text style={{fontSize:13, paddingTop: 5}}> Frequency: {props.item.frequency}</Text>
                         </View>
-                        {/*<Text style={{fontSize:13, paddingTop: 5}}>Streak: {props.item.completion_streak} days,
-                                                                    Frequency: {props.item.freq} </Text>*/}
                     </Body>
                     <Right>
-                        <EditButton editHabit={props.item.completed? ()=>{} : props.editHabit}
-                                showEditForm={props.item.completed? ()=>{}: props.showEditForm}
-                                index={props.index}
+                        <EditButton editHabit={props.editHabit}
+                                showEditForm={this.showEditForm}
                                 updateIndex={props.updateIndex}/>
                     </Right>
                 </CardItem>

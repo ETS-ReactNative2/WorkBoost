@@ -44,7 +44,10 @@ export default function AddTaskPage(props) {
                     <View style={styles.inputContainer}>
                         <TouchableOpacity
                             style={styles.saveButton}
-                            onPress={() => props.addTask(title,description)}>
+                            onPress={() => {
+                                props.addTask(title,description)
+                                props.showAddForm()
+                            }}>
                             <Text style={styles.saveButtonText}>Save</Text>
                         </TouchableOpacity>
                     </View>

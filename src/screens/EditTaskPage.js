@@ -44,7 +44,10 @@ export default function EditTaskPage(props) {
                     <View style={styles.inputContainer}>
                         <TouchableOpacity
                             style={styles.saveButton}
-                            onPress={() => props.editTask(props.item.key ,title,description)}>
+                            onPress={() => {
+                                props.editTask(props.item.key ,title,description)
+                                props.showEditForm()
+                            }}>
                             <Text style={styles.saveButtonText}>Save</Text>
                         </TouchableOpacity>
                     </View>
@@ -52,6 +55,7 @@ export default function EditTaskPage(props) {
                         <TouchableOpacity
                             style={styles.saveButton}
                             onPress={() => {
+                                props.showEditForm()
                                 props.remove(props.item.key);
                             }}
                         >
