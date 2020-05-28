@@ -68,18 +68,33 @@ export function handleSignUp(email, password, navigation) {
 }
 
 export function handleSignOut(navigation){
-    firebase.auth().signOut().then(() => {console.log('user signed out')});
+    console.log(firebase.auth().currentUser)
+    firebase.auth().signOut().then(() => {console.log('User signed out'); console.log(firebase.auth().currentUser)});
+    
     //alert('signed out!');
-    navigation.navigate("Friends")
+    //navigation.navigate("Friends")
+
+    navigation.navigate('Home');
+
     //const parent = navigation.dangerouslyGetParent();
+
+
+
     //parent.navigate('Login')
     //Restart();
 }
 
 export function handleDeleteAccount(navigation){
-    firebase.auth().signOut().then(() => {console.log('user signed out')});
-    //alert('signed out!');
-    //Restart();
+    // remove data from database
+    username = firebase.database().ref('users')
+    const user = firebase.auth().currentUser;
+    userId = username.child(`${user.uid}`)
+    console.log(userId);
+    userId.remove();
+
+    //remove
+    firebase.auth().currentUser.delete().then(() => {console.log('User deleted')});
+    navigation.navigate('Friends');
 }
 
 export function navSignUp(navigation) {navigation.navigate("Signup")}
