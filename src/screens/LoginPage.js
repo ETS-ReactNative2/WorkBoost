@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TextInput, View, Button, AsyncStorage, Image} from 'react-native'
 import {handleLogin, navSignUp} from "../routes/navigationController"
 
@@ -26,7 +26,10 @@ export default function LoginPage(props) {
         onChangeText={password => setPassword(password)}
         value={password}
       />
-      <Button title="Login" onPress={() => handleLogin(email, password, props.navigation)} />
+      <Button title="Login" onPress={() => {
+        setPassword("")
+        handleLogin(email, password, props.navigation)} 
+        }/>
       <Button
         title="Don't have an account? Sign Up"
         onPress={() => navSignUp(props.navigation)}
@@ -39,7 +42,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF'
   },
   textInput: {
     height: 40,
