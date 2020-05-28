@@ -1,5 +1,16 @@
 import firebase from 'firebase'
 
+export function pullData(callBack) {
+  const user = firebase.auth().currentUser
+  firebase.database()
+    .ref(`habitLists/habits_${user.uid}`)
+    .once('value')
+    .then(snapshot => {
+      callBack(snapshot)
+    })
+}
+
+
 export function addNewUser() {
   var username = firebase.database().ref('users');
   const user = firebase.auth().currentUser;
@@ -28,4 +39,4 @@ export function saveHabit(title, description) {
 
 }
 
-  module.exports = {addNewUser, saveHabit}
+  module.exports = {addNewUser, saveHabit, pullData}
