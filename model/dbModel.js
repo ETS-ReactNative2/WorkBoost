@@ -1,25 +1,6 @@
 import firebase from 'firebase'
 
-export function pullHabitData(callBack) {
-  const user = firebase.auth().currentUser
-  firebase.database()
-    .ref(`habitLists/habits_${user.uid}`)
-    .once('value')
-    .then(snapshot => {
-      callBack(snapshot)
-    })
-}
-
-export function pullTaskData(callBack) {
-  const user = firebase.auth().currentUser
-  firebase.database()
-    .ref(`taskLists/tasks_${user.uid}`)
-    .once('value')
-    .then(snapshot => {
-      callBack(snapshot)
-    })
-}
-
+// First time sign up data creation
 export function addNewUser() {
   var username = firebase.database().ref('users');
   const user = firebase.auth().currentUser;
@@ -36,7 +17,6 @@ export function addNewUser() {
     'user': user.email
   })
 
-
   newUser.set({
       'email': user.email,
       'habit_list_id': habitList.key,
@@ -44,6 +24,8 @@ export function addNewUser() {
   });
 }
 
+//Habit CRUD
+//CREATE
 export function saveHabit(title, description) {
   const user = firebase.auth().currentUser;
   var userId = firebase.database().ref(`habitLists/habits_${user.uid}`);
@@ -57,19 +39,23 @@ export function saveHabit(title, description) {
       'frequency': "daily"
   });
 }
-
+//READ
+export function pullHabitData(callBack) {
+  const user = firebase.auth().currentUser
+  firebase.database()
+    .ref(`habitLists/habits_${user.uid}`)
+    .once('value')
+    .then(snapshot => {
+      callBack(snapshot)
+    })
+}
+//UPDATE
 export function editsHabit(key, title, description) {
   const user = firebase.auth().currentUser;
   var habit = firebase.database().ref(`habitLists/habits_${user.uid}/${key}`);
   habit.update({ name: title, description: description});
 }
-
-export function editsTask(key, title, description) {
-  const user = firebase.auth().currentUser;
-  var task = firebase.database().ref(`taskLists/tasks_${user.uid}/${key}`);
-  task.update({ name: title, description: description});
-}
-
+//DELETE
 export function removesHabit(key) {
   const user = firebase.auth().currentUser;
   var habit = firebase.database().ref(`habitLists/habits_${user.uid}/${key}`);
@@ -82,6 +68,36 @@ export function removesHabit(key) {
     });
 }
 
+//TASK CRUD
+//CREATE
+export function saveTask(title, description) {
+  const user = firebase.auth().currentUser;
+  var userId = firebase.database().ref(`taskLists/tasks_${user.uid}`);
+  var taskId = userId.push();
+
+  taskId.set({
+      'name': title,
+      'description': description,
+      'completed': false
+  });
+}
+//READ
+export function pullTaskData(callBack) {
+  const user = firebase.auth().currentUser
+  firebase.database()
+    .ref(`taskLists/tasks_${user.uid}`)
+    .once('value')
+    .then(snapshot => {
+      callBack(snapshot)
+    })
+}
+//UPDATE
+export function editsTask(key, title, description) {
+  const user = firebase.auth().currentUser;
+  var task = firebase.database().ref(`taskLists/tasks_${user.uid}/${key}`);
+  task.update({ name: title, description: description});
+}
+//DELETE
 export function removesTask(key) {
   const user = firebase.auth().currentUser;
   var habit = firebase.database().ref(`taskLists/tasks_${user.uid}/${key}`);
@@ -94,17 +110,5 @@ export function removesTask(key) {
     });
 }
 
-export function saveTask(title, description) {
-  const user = firebase.auth().currentUser;
-  var userId = firebase.database().ref(`taskLists/tasks_${user.uid}`);
-  var taskId = userId.push();
-
-  taskId.set({
-      'name': title,
-      'description': description,
-      'completed': false
-  });
-}
-
-  module.exports = {addNewUser, saveHabit, saveTask, pullHabitData, pullTaskData, editsTask, editsHabit, removesHabit, removesTask}
+module.exports = {addNewUser, saveHabit, saveTask, pullHabitData, pullTaskData, editsTask, editsHabit, removesHabit, removesTask}
 
