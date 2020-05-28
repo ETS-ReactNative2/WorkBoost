@@ -10,7 +10,6 @@ export function pullData(callBack) {
     })
 }
 
-
 export function addNewUser() {
   var username = firebase.database().ref('users');
   const user = firebase.auth().currentUser;
@@ -27,7 +26,7 @@ export function addNewUser() {
     'user': user.email
   })
 
-  // console.log(user.uid)
+
   newUser.set({
       'email': user.email,
       'habit_list_id': habitList.key,
@@ -42,7 +41,10 @@ export function saveHabit(title, description) {
   // console.log(title)
   habitId.set({
       'name': title,
-      'description': description
+      'description': description,
+      'streak': 0,
+      'completed': false,
+      'frequency': "daily"
   });
 }
 
@@ -50,10 +52,11 @@ export function saveTask(title, description) {
   const user = firebase.auth().currentUser;
   var userId = firebase.database().ref(`taskLists/tasks_${user.uid}`);
   var taskId = userId.push();
-  // console.log(title)
+
   taskId.set({
       'name': title,
-      'description': description
+      'description': description,
+      'completed': false
   });
 }
 

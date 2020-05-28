@@ -22,13 +22,17 @@ export default function HabitPage() {
     }
 
     function setData(snapshot) {
-        let arr = []
-        snapshot.forEach(shot => {
-            obj = shot.val()
-            obj.key = shot.key
-            arr.push(obj)
-        })
-        setHabits(arr)
+        if(snapshot.numChildren() > 1) {
+            let arr = []
+            snapshot.forEach(shot => {
+                if(shot.key != "user") {
+                    obj = shot.val()
+                    obj.key = shot.key
+                    arr.push(obj)
+                }
+            })
+            setHabits(arr)
+        }
     }
 
     useEffect(() => {
@@ -63,6 +67,16 @@ export default function HabitPage() {
     }
 
     updateIndex = (index) => setCurrentIndex(index);
+
+    EmptyView = () => {
+        return(
+            <View>
+                <Text>
+                    There are no habits. Click the "plus" button to add a new habit!
+                </Text>
+            </View>
+        )
+    }
      
 
     return(
@@ -86,6 +100,7 @@ export default function HabitPage() {
 
             <FlatList
                 data = {habits}
+                ListEmptyComponent={this.EmptyView}
                 renderItem = {({ item, index }) => <Habit item={item}
                                                           index={index}
                                                           showEditForm={this.showEditForm}
