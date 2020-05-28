@@ -46,6 +46,24 @@ export function saveHabit(title, description) {
   });
 }
 
+export function editsHabit(key, title, description) {
+  const user = firebase.auth().currentUser;
+  var habit = firebase.database().ref(`habitLists/habits_${user.uid}/${key}`);
+  habit.update({ name: title, description: description});
+}
+
+export function removesHabit(key) {
+  const user = firebase.auth().currentUser;
+  var habit = firebase.database().ref(`habitLists/habits_${user.uid}/${key}`);
+  habit.remove()
+    .then(function() {
+      console.log("Remove succeeded.")
+    })
+    .catch(function(error) {
+      console.log("Remove failed: " + error.message)
+    });
+}
+
 export function saveTask(title, description) {
   const user = firebase.auth().currentUser;
   var userId = firebase.database().ref(`taskLists/tasks_${user.uid}`);
@@ -57,5 +75,5 @@ export function saveTask(title, description) {
   });
 }
 
-  module.exports = {addNewUser, saveHabit, saveTask, pullData}
+  module.exports = {addNewUser, saveHabit, saveTask, pullData, editsHabit, removesHabit}
 

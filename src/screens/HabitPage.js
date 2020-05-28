@@ -8,7 +8,8 @@ import habitData from '../sample_habit_data.json'
 import AddHabitForm from '../screens/AddHabitPage'
 import EditHabitForm from '../screens/EditHabitPage'
 import CompHabitForm from '../screens/CompleteHabitPage'
-const {saveHabit, pullData} = require('../../model/dbModel.js');
+import { removesHabit } from '../../model/dbModel';
+const {saveHabit, pullData, editsHabit} = require('../../model/dbModel.js');
 
 export default function HabitPage() {
 
@@ -17,8 +18,9 @@ export default function HabitPage() {
     const [editModalVisible, setEditModalVisible] = useState(false)
     const [currentIndex, setCurrentIndex] = useState(0)
 
-    addHabit = (title, description) => {    
+    addHabit = (title, description) => {   
         saveHabit(title, description)
+        pullData(setData) 
     }
 
     function setData(snapshot) {
@@ -45,17 +47,15 @@ export default function HabitPage() {
         setHabits(tmpHabits)
     }
 
-    remove = (i) => {
-        let tmpNames = names.slice()
-        tmpNames.splice(i,1)
-        setHabits(tmpNames)
+    remove = (key) => {
+        removesHabit(key)
     }
 
     showAddForm = () => setAddModalVisible(prev => !prev);
 
-    editHabit = () => {
-        //TODO
-        alert("Todo")
+    editHabit = (key, title, description, frequency) => {
+        editsHabit(key, title, description, frequency)
+        pullData(setData)
     }
 
     showEditForm = (index) => {
@@ -81,6 +81,7 @@ export default function HabitPage() {
                    swipeDirection="down">
                 <EditHabitForm item={habits[currentIndex]}
                               showEditForm={this.showEditForm}
+                              remove={this.remove}
                               editHabit={this.editHabit}/>
             </Modal>
 
@@ -90,6 +91,7 @@ export default function HabitPage() {
                                                           index={index}
                                                           showEditForm={this.showEditForm}
                                                           editHabit={this.editHabit}
+                                                          remove={this.remove}
                                                           handleCheck={this.handleCheck}
                                                           updateIndex={this.updateIndex} />}   
                 //to be used when firebase data comes in
