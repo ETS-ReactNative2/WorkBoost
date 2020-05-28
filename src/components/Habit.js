@@ -23,7 +23,7 @@ export default function Habit(props) {
                 <CompHabitForm showCompForm={this.showCompForm}
                               //index ={}
                               name={props.item.name}
-                              streak={props.item.completion_streak + 1}
+                              streak={props.item.streak + 1}
                               closeForm={this.showCompForm}
                               completeHabit={this.completeHabit}
                               />
