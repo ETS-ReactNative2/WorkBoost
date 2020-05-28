@@ -21,7 +21,7 @@ export default function CompleteHabitPage(props) {
                         centerComponent={{text: 'Congratulations!', style: {fontSize:30}}}
                 />
                 <Text style = {{textAlign:'center', fontSize:20}}>Tap "Done" to complete "{props.name}."</Text>
-                <Text style = {{textAlign:'center', fontSize:20}}>Updated streak: {props.streak}</Text>
+                <Text style = {{textAlign:'center', fontSize:20}}>Streak: {props.streak - 1} -> {props.streak}</Text>
                 <Image
                     style = {{ width: 350, height: 350 }}
                     source = {require('../pictures/congrats.png')}
