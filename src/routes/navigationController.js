@@ -86,7 +86,7 @@ export function handleDeleteAccount(navigation){
 
     //remove
     firebase.auth().currentUser.delete().then(() => {console.log('User deleted')});
-    navigation.navigate('Friends');
+    navigation.navigate("Login");
 }
 
 export function navSignUp(navigation) {navigation.navigate('Signup')}
