@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, TouchableOpacity } from 'react-native';
+import { Image, TouchableOpacity, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TimerPage from '../screens/TimerPage';
 import LoginPage from '../screens/LoginPage';
@@ -9,12 +9,15 @@ import TaskPage  from '../screens/TaskPage';
 import FriendsPage from '../screens/FriendsPage';
 import HelpPage from '../screens/HelpPage';
 import SettingsPage from '../screens/SettingsPage';
+import {NavigationContainer} from "@react-navigation/native";
+import { StackActions, NavigationActions } from 'react-navigation';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator, DrawerItem } from '@react-navigation/drawer';
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 import firebase from 'firebase'
 // model calls
 import {addNewUser} from "../../model/dbModel"
+//import {Restart} from 'fiction-expo-restart';
 
 const firebaseConfig = {
   apiKey: "AIzaSyC-9RLuVtRr2exJDAHjLqB4NoWg0P451XE",
@@ -26,12 +29,15 @@ firebase.initializeApp(firebaseConfig)
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
+const Big = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 export function handleLogin(email, password, navigation) {
   firebase.auth()
     .signInWithEmailAndPassword(email, password)
-    .then(() => navigation.navigate('App', { screen: 'MainDrawer', params: {screen: 'Home'} }))
+    .then(() => {
+      navigation.navigate('App')
+    })
     .catch(error => {
       if (error.code === 'auth/user-disabled')
         alert('This user has been disabled.');
@@ -41,7 +47,7 @@ export function handleLogin(email, password, navigation) {
         alert('The password is invalid for the given email, or the account corresponding to the email does not have a password set.');
       if (error.code === 'auth/invalid-email')
         alert('That email address is invalid.');
-      navigation.navigate('Log In')
+      navigation.navigate('Login')
     })
 }
 
@@ -61,11 +67,22 @@ export function handleSignUp(email, password, navigation) {
         alert('Your password is too weak.');
       if (error.code === 'auth/invalid-email')
         alert('That email address is invalid.');
-        navigation.navigate('Sign Up')
+        navigation.navigate('Signup')
     });
 }
 
-export function navSignUp(navigation) {navigation.navigate("Signup")}
+export function handleSignOut(navigation){
+    firebase.auth().signOut().then(() => {console.log('user signed out')});
+    navigation.navigate("Login")
+}
+
+export function handleDeleteAccount(navigation){
+    firebase.auth().signOut().then(() => {console.log('user signed out')});
+    //alert('signed out!');
+    //Restart();
+}
+
+export function navSignUp(navigation) {navigation.navigate('Signup')}
 export function navLogin(navigation) {navigation.navigate("Login")}
 
 function DrawerButton(props) {
@@ -153,18 +170,27 @@ function Help({navigation}) {
     );
   }
 
-
+ 
 function MainDrawer({navigation}) {
   return (
     <Drawer.Navigator>
       <Drawer.Screen name="Home" component={MyHome} />
       <Drawer.Screen name="Friends" component={Friends} />
-      <Drawer.Screen name="Settings" component={Settings} />
+      <Drawer.Screen name="Settings" component={Settings} navigation = {navigation}/>
       <Drawer.Screen name="Help" component={Help} />
     </Drawer.Navigator>
   );
 }   
-
+export default function MyStack() {
+  return (
+    <Big.Navigator screenOptions={{headerShown: false}}>
+      <Big.Screen name="Login" component={LoginPage} />
+      <Big.Screen name="Signup" component={SignupPage} />
+      <Big.Screen name="App" component={MainDrawer} />
+    </Big.Navigator>
+  );
+}
+/*
 export default createAppContainer(
   createSwitchNavigator(
     {
@@ -177,6 +203,9 @@ export default createAppContainer(
       App: {
         screen: MainDrawer
       }
-    }
+    },
+    {
+      initialRouteName: 'Login',
+    },
   )
-);
+);*/

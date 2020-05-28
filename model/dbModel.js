@@ -14,6 +14,7 @@ export function addNewUser() {
       'email': user.email,
       'habit_list_id': habitList.key
   });
+
 }
 
 export function saveHabit(title, description) {
