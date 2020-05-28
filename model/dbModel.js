@@ -20,10 +20,18 @@ export function addNewUser() {
   habitList.set({
     'user': user.email
   })
+
+  var tasksLists = firebase.database().ref('taskLists');
+  var taskList = tasksLists.child(`tasks_${user.uid}`);
+  taskList.set({
+    'user': user.email
+  })
+
   // console.log(user.uid)
   newUser.set({
       'email': user.email,
-      'habit_list_id': habitList.key
+      'habit_list_id': habitList.key,
+      'task_list_id': taskList.key
   });
 }
 
@@ -36,7 +44,18 @@ export function saveHabit(title, description) {
       'name': title,
       'description': description
   });
-
 }
 
-  module.exports = {addNewUser, saveHabit, pullData}
+export function saveTask(title, description) {
+  const user = firebase.auth().currentUser;
+  var userId = firebase.database().ref(`taskLists/tasks_${user.uid}`);
+  var taskId = userId.push();
+  // console.log(title)
+  taskId.set({
+      'name': title,
+      'description': description
+  });
+}
+
+  module.exports = {addNewUser, saveHabit, saveTask, pullData}
+

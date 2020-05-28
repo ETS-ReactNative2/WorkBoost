@@ -7,7 +7,7 @@ import taskData from '../sample_task_data.json'
 import AddTaskForm from '../screens/AddTaskPage'
 import EditTaskForm from '../screens/EditTaskPage'
 import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
-
+const {saveTask} = require('../../model/dbModel.js');
 
 export default function TaskPage() {
     const [tasks, setTasks] = useState(taskData)
@@ -22,11 +22,8 @@ export default function TaskPage() {
             setTasks(tmpTasks)
     }, [])
 
-    addTask = (text) => {
-        let notEmpty = text.trim().length > 0
-        if (notEmpty) {
-            setTasks(tasks => [...tasks, text])
-        }
+    addTask = (title, description) => {
+        saveTask(title, description)
     }
 
     remove = (i) => {

@@ -32,14 +32,14 @@ export default function AddTaskPage(props) {
                         placeholder="Task Title"
                         onBlur={Keyboard.dismiss}
                         value={title}
-                        onChange={event => setTitle(event.target.value)}
+                        onChangeText={title => setTitle(title)}
                     />
                     <TextInput
                         style={styles.textInput}
                         placeholder="Task Description"
                         onBlur={Keyboard.dismiss}
                         value={description}
-                        onChange={event => setDescription(event.target.value)}
+                        onChangeText={description => setDescription(description)}
                     />
                     <View style={styles.inputContainer}>
                         <TouchableOpacity
