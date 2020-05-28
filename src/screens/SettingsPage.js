@@ -5,12 +5,13 @@ import SignOutButton from '../components/buttons/SignOutButton';
 import ToggleNotifications from '../components/buttons/ToggleNotifications';
 import LoginPage from './LoginPage';
 
+
 export default function SettingsPage({navigation}) {
     return(
         <SafeAreaView style={styles.container}>
             <Text style={styles.titleText}>Settings</Text>
             <ToggleNotifications/>
-            <SignOutButton onPress={() => {navigation.navigate(LoginPage)}} />
+            <SignOutButton navigation={navigation}/>
             <DeleteAccountButton/>
         </SafeAreaView>
     )

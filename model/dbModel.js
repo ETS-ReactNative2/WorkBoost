@@ -8,6 +8,7 @@ export function addNewUser() {
   newUser.set({
       'email': user.email
   });
+
 }
 
 export function saveHabit(title, description) {

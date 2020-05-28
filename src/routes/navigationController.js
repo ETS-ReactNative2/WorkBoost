@@ -11,10 +11,12 @@ import HelpPage from '../screens/HelpPage';
 import SettingsPage from '../screens/SettingsPage';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator, DrawerItem } from '@react-navigation/drawer';
-import { createSwitchNavigator, createAppContainer } from 'react-navigation';
+import { createSwitchNavigator, createAppContainer, NavigationActions } from 'react-navigation';
 import firebase from 'firebase'
 // model calls
 import {addNewUser} from "../../model/dbModel"
+//import {Restart} from 'fiction-expo-restart';
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyC-9RLuVtRr2exJDAHjLqB4NoWg0P451XE",
@@ -41,7 +43,7 @@ export function handleLogin(email, password, navigation) {
         alert('The password is invalid for the given email, or the account corresponding to the email does not have a password set.');
       if (error.code === 'auth/invalid-email')
         alert('That email address is invalid.');
-      navigation.navigate('Log In')
+      navigation.navigate('Login')
     })
 }
 
@@ -61,8 +63,23 @@ export function handleSignUp(email, password, navigation) {
         alert('Your password is too weak.');
       if (error.code === 'auth/invalid-email')
         alert('That email address is invalid.');
-        navigation.navigate('Sign Up')
+        navigation.navigate('Signup')
     });
+}
+
+export function handleSignOut(navigation){
+    firebase.auth().signOut().then(() => {console.log('user signed out')});
+    //alert('signed out!');
+    navigation.navigate("Friends")
+    //const parent = navigation.dangerouslyGetParent();
+    //parent.navigate('Login')
+    //Restart();
+}
+
+export function handleDeleteAccount(navigation){
+    firebase.auth().signOut().then(() => {console.log('user signed out')});
+    //alert('signed out!');
+    //Restart();
 }
 
 export function navSignUp(navigation) {navigation.navigate("Signup")}
