@@ -37,6 +37,10 @@ export function handleLogin(email, password, navigation) {
     .signInWithEmailAndPassword(email, password)
     .then(() => {
       navigation.navigate('App')
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'App' }],
+      });
     })
     .catch(error => {
       if (error.code === 'auth/user-disabled')
