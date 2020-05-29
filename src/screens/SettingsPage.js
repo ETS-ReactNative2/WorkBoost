@@ -12,7 +12,7 @@ export default function SettingsPage({navigation}) {
             <Text style={styles.titleText}>Settings</Text>
             <ToggleNotifications/>
             <SignOutButton navigation={navigation}/>
-            <DeleteAccountButton/>
+            <DeleteAccountButton navigation={navigation}/>
         </SafeAreaView>
     )
 }

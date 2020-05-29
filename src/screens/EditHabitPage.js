@@ -5,7 +5,7 @@ import {Header} from 'react-native-elements'
 export default function EditHabitPage(props) {
 
     const [title, setTitle] = useState(props.item.name);
-    const [freq, setFreq] = useState(props.item.freq);
+    const [frequency, setFrequency] = useState(props.item.frequency);
     const [description, setDescription] = useState(props.item.description);
 
     function BackButton() {
@@ -37,26 +37,38 @@ export default function EditHabitPage(props) {
                     />
                     <TextInput
                         style={styles.textInput}
-                        placeholder="Habit Frequency"
-                        onBlur={Keyboard.dismiss}
-                        value={freq}
-                        onChangeText={text => setFreq(text)}
-                    />
-                    <TextInput
-                        style={styles.textInput}
                         placeholder="Habit Description"
                         onBlur={Keyboard.dismiss}
                         value={description}
                         onChangeText={text => setDescription(text)}
                     />
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder="Habit Frequency"
+                        onBlur={Keyboard.dismiss}
+                        value={frequency}
+                        onChangeText={text => setFrequency(text)}
+                    />
                     <View style={styles.inputContainer}>
                         <TouchableOpacity
                             style={styles.saveButton}
                             onPress={() => {
-                                props.editHabit(title,description);
+                                if (title == "" || description == "") {alert('One of these fields appears to be empty.');}
+                                else {props.editHabit(props.item.key.toString(),title,description, frequency);
+                                     props.showEditForm();}
                             }}
                         >
                             <Text style={styles.saveButtonText}>Save</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <TouchableOpacity
+                            style={styles.saveButton}
+                            onPress={() => {
+                                props.remove(props.item.key);
+                            }}
+                        >
+                            <Text style={styles.saveButtonText}>Remove</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
