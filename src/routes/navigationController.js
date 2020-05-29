@@ -37,6 +37,10 @@ export function handleLogin(email, password, navigation) {
     .signInWithEmailAndPassword(email, password)
     .then(() => {
       navigation.navigate('App')
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'App' }],
+      });
     })
     .catch(error => {
       if (error.code === 'auth/user-disabled')
@@ -72,14 +76,22 @@ export function handleSignUp(email, password, navigation) {
 
 export function handleSignOut(navigation){
     firebase.auth().signOut().then(() => {console.log('user signed out')});
-    navigation.navigate("Login")
+    navigation.navigate('Login')
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Login' }],
+      });
 }
 
 export function handleDeleteAccount(navigation){
     //call to model
     deleteUser()
     //navigate
-    navigation.navigate("Login");
+    navigation.navigate('Login')
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Login' }],
+      });
 }
 
 export function navSignUp(navigation) {navigation.navigate('Signup')}
