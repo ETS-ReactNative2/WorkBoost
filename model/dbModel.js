@@ -25,6 +25,26 @@ export function addNewUser() {
 
 }
 
+export function deleteUser() {
+      // remove data from database
+      username = firebase.database().ref('users')
+      const user = firebase.auth().currentUser;
+      userId = username.child(`${user.uid}`)
+  
+      var habitLists = firebase.database().ref('habitLists');
+      var habitListId = habitLists.child(`habits_${user.uid}`);
+
+      var taskLists = firebase.database().ref('taskLists');
+      var taskListId = taskLists.child(`tasks_${user.uid}`)
+  
+      habitListId.remove();
+      taskListId.remove();
+      userId.remove();
+  
+      //remove
+      firebase.auth().currentUser.delete().then(() => {console.log('User deleted')});
+}
+
 //Habit CRUD
 //CREATE
 export function saveHabit(title, description) {
@@ -113,5 +133,6 @@ export function removesTask(key, callBack) {
     });
 }
 
-module.exports = {addNewUser, saveHabit, saveTask, pullHabitData, pullTaskData, editsTask, editsHabit, removesHabit, removesTask}
+module.exports = {addNewUser, saveHabit, saveTask, pullHabitData, pullTaskData, 
+                  editsTask, editsHabit, removesHabit, removesTask, deleteUser}
 

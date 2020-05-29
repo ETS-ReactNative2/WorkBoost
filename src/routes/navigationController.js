@@ -16,7 +16,7 @@ import { createDrawerNavigator, DrawerItem } from '@react-navigation/drawer';
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 import firebase from 'firebase'
 // model calls
-import {addNewUser} from "../../model/dbModel"
+import {addNewUser, deleteUser} from "../../model/dbModel"
 //import {Restart} from 'fiction-expo-restart';
 
 const firebaseConfig = {
@@ -55,7 +55,6 @@ export function handleSignUp(email, password, navigation) {
   firebase.auth()
     .createUserWithEmailAndPassword(email, password)
     .then(user => {
-      console.log("SLDKFJKLSDJF", user)
       addNewUser(user)
       navigation.navigate('Login')
       console.log('User account has been created!');
@@ -77,19 +76,9 @@ export function handleSignOut(navigation){
 }
 
 export function handleDeleteAccount(navigation){
-    // remove data from database
-    username = firebase.database().ref('users')
-    const user = firebase.auth().currentUser;
-    userId = username.child(`${user.uid}`)
-
-    var habitLists = firebase.database().ref('habitLists');
-    var habitListId = habitLists.child(`habits_${user.uid}`);
-
-    habitListId.remove();
-    userId.remove();
-
-    //remove
-    firebase.auth().currentUser.delete().then(() => {console.log('User deleted')});
+    //call to model
+    deleteUser()
+    //navigate
     navigation.navigate("Login");
 }
 
