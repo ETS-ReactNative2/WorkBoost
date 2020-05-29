@@ -4,11 +4,11 @@ import { FontAwesome } from '@expo/vector-icons'
 
 export default function AddButton(props) {
     return(
-        <TouchableOpacity style={{ height:60, width: 60, borderColor:'black', alignItems: 'center', justifyContent: 'center', padding: 10 }}
+        <TouchableOpacity style={{ backgroundColor: '#33ff64', alignItems: 'center', justifyContent: 'center', padding: 20, borderRadius: 100 }}
             onPress={() =>
             props.showAddForm()
             }>
-            <FontAwesome name="plus" color="#4588f5" size={35} />
+            <FontAwesome name="plus" size={20} />
         </TouchableOpacity>
     )
 }

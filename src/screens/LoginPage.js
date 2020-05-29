@@ -3,8 +3,8 @@ import { StyleSheet, Text, TextInput, View, Button, AsyncStorage, Image} from 'r
 import {handleLogin, navSignUp} from "../routes/navigationController"
 
 export default function LoginPage(props) {
-  const [email, setEmail] = useState("test@gmail.com")
-  const [password, setPassword] = useState("Test123")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
   return (
     <View style={styles.container}>
