@@ -8,20 +8,34 @@ import habitData from '../sample_habit_data.json'
 import AddHabitForm from '../screens/AddHabitPage'
 import EditHabitForm from '../screens/EditHabitPage'
 import CompHabitForm from '../screens/CompleteHabitPage'
-const {saveHabit} = require('../../model/dbModel.js');
+import { removesHabit } from '../../model/dbModel';
+const {saveHabit, pullHabitData, editsHabit} = require('../../model/dbModel.js');
 
 export default function HabitPage() {
 
-    const [habits, setHabits] = useState(habitData)
+    const [habits, setHabits] = useState([])
     const [addModalVisible, setAddModalVisible] = useState(false)
-    const [editModalVisible, setEditModalVisible] = useState(false)
-    const [currentIndex, setCurrentIndex] = useState(0)
 
-    addHabit = (title, description) => {    
+    addHabit = (title, description) => {   
         saveHabit(title, description)
+        pullHabitData(setData) 
     }
 
+    function setData(snapshot) {
+        let arr = []
+        snapshot.forEach(shot => {
+            if(shot.key != "user") {
+                obj = shot.val()
+                obj.key = shot.key
+                arr.push(obj)
+            }
+        })
+        setHabits(arr)
+    }
+    
+    //On app startup, pull the data from db and sort it based on completion
     useEffect(() => {
+        pullHabitData(setData)
         let tmpHabits = habits.slice()
         tmpHabits.sort((a,b) => {return a.completed - b.completed})
         setHabits(tmpHabits)
@@ -34,24 +48,27 @@ export default function HabitPage() {
         setHabits(tmpHabits)
     }
 
-    remove = (i) => {
-        let tmpNames = names.slice()
-        tmpNames.splice(i,1)
-        setHabits(tmpNames)
+    remove = (key) => {
+        //call to model
+        removesHabit(key, setData)
     }
 
     showAddForm = () => setAddModalVisible(prev => !prev);
 
-    editHabit = () => {
-        //TODO
-        alert("Todo")
+    editHabit = (key, title, description, frequency) => {
+        editsHabit(key, title, description, frequency)
+        pullHabitData(setData)
     }
 
-    showEditForm = (index) => {
-        setEditModalVisible(prev => !prev)
+    EmptyView = () => {
+        return(
+            <View>
+                <Text>
+                    There are no habits. Click the "plus" button to add a new habit!
+                </Text>
+            </View>
+        )
     }
-
-    updateIndex = (index) => setCurrentIndex(index);
      
 
     return(
@@ -85,14 +102,15 @@ export default function HabitPage() {
                 </View>
 
             </View >
+
             <FlatList
                 data = {habits}
+                ListEmptyComponent={this.EmptyView}
                 renderItem = {({ item, index }) => <Habit item={item}
                                                           index={index}
-                                                          showEditForm={this.showEditForm}
                                                           editHabit={this.editHabit}
-                                                          handleCheck={this.handleCheck}
-                                                          updateIndex={this.updateIndex} />}   
+                                                          remove={this.remove}
+                                                          handleCheck={this.handleCheck}/>}   
                 //to be used when firebase data comes in
                 //keyExtractor={item => item.toString()}
             />

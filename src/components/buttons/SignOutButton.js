@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, StyleSheet, TouchableOpacity, Alert} from 'react-native';
-import { handleSignOut, navLogin } from '../../routes/navigationController';
+import { handleSignOut } from '../../routes/navigationController';
 
 export default function SignOutButton({navigation}) {
     return(

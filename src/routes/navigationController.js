@@ -16,7 +16,7 @@ import { createDrawerNavigator, DrawerItem } from '@react-navigation/drawer';
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 import firebase from 'firebase'
 // model calls
-import {addNewUser} from "../../model/dbModel"
+import {addNewUser, deleteUser} from "../../model/dbModel"
 //import {Restart} from 'fiction-expo-restart';
 
 const firebaseConfig = {
@@ -55,7 +55,6 @@ export function handleSignUp(email, password, navigation) {
   firebase.auth()
     .createUserWithEmailAndPassword(email, password)
     .then(user => {
-      console.log("SLDKFJKLSDJF", user)
       addNewUser(user)
       navigation.navigate('Login')
       console.log('User account has been created!');
@@ -77,9 +76,10 @@ export function handleSignOut(navigation){
 }
 
 export function handleDeleteAccount(navigation){
-    firebase.auth().signOut().then(() => {console.log('user signed out')});
-    //alert('signed out!');
-    //Restart();
+    //call to model
+    deleteUser()
+    //navigate
+    navigation.navigate("Login");
 }
 
 export function navSignUp(navigation) {navigation.navigate('Signup')}
