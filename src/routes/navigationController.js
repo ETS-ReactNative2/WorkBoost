@@ -63,7 +63,7 @@ export function handleSignUp(email, password, navigation) {
       if (error.code === 'auth/email-already-in-use')
         alert('That email address is already in use.');
       if (error.code === 'auth/weak-password')
-        alert('Your password is too weak.');
+        alert('Your password is too weak. \n Please use a combination of upper and \n lowercase letters and numbers.');
       if (error.code === 'auth/invalid-email')
         alert('That email address is invalid.');
         navigation.navigate('Signup')
