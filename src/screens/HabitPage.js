@@ -73,6 +73,18 @@ export default function HabitPage() {
                               editHabit={this.editHabit}/>
             </Modal>
 
+            <View style={styles.addTaskRow}>
+                <View style={styles.textStyle}>
+                    <Text style={styles.fontStyle}>
+                        Habits
+                    </Text>
+                </View>
+                <View style={styles.addButtonStyle}>
+                    <AddButton style={styles.addButtonStyle} showAddForm={showAddForm}
+                                addTask={this.addTask}/>
+                </View>
+
+            </View >
             <FlatList
                 data = {habits}
                 renderItem = {({ item, index }) => <Habit item={item}
@@ -85,10 +97,30 @@ export default function HabitPage() {
                 //keyExtractor={item => item.toString()}
             />
 
-            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <AddButton showAddForm={this.showAddForm}
-                                addHabit={this.addHabit}/>
-            </View >
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    addTaskRow:{
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        backgroundColor: 'white',
+        borderBottomWidth: 1,
+        borderBottomColor: 'lightgrey'
+    },
+    addButtonStyle: {
+        flex: .5,
+        alignContent: "center",
+        paddingRight: '2%'
+    },
+    textStyle:{
+        flex:3,
+        paddingLeft: '3%'
+    },
+    fontStyle:{
+        fontWeight: 'bold',
+        fontSize: 32
+    }
+});

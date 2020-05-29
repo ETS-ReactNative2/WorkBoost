@@ -74,7 +74,18 @@ export default function TaskPage() {
                               showEditForm={this.showEditForm}
                               editTask={this.editTask}/>
             </Modal>
+            <View style={styles.addTaskRow}>
+                <View style={styles.textStyle}>
+                    <Text style={styles.fontStyle}>
+                        Tasks
+                    </Text>
+                </View>
+                <View style={styles.addButtonStyle}>
+                    <AddButton style={styles.addButtonStyle} showAddForm={this.showAddForm}
+                                addTask={this.addTask}/>
+                </View>
 
+            </View >
             <FlatList
                 data = {tasks}
                 renderItem = {({ item, index }) => <Task item={item} 
@@ -86,11 +97,32 @@ export default function TaskPage() {
                 //to be used when firebase data comes in
                 //keyExtractor={item => item.toString()}
             />
-            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <AddButton showAddForm={this.showAddForm}
-                               addTask={this.addTask}/>
-            </View >
+            
         </View> 
 
     )
 }
+
+const styles = StyleSheet.create({
+    addTaskRow:{
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        backgroundColor: 'white',
+        borderBottomWidth: 1,
+        borderBottomColor: 'lightgrey'
+    },
+    addButtonStyle: {
+        flex: .5,
+        alignContent: "center",
+        paddingRight: '2%'
+    },
+    textStyle:{
+        flex:3,
+        paddingLeft: '3%'
+    },
+    fontStyle:{
+        fontWeight: 'bold',
+        fontSize: 32
+    }
+});
