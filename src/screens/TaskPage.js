@@ -4,7 +4,7 @@ import Modal from 'react-native-modal'
 import Task from '../components/Task'
 import AddButton from '../components/buttons/AddButton'
 import AddTaskForm from '../screens/AddTaskPage'
-const {saveTask, pullTaskData, removesTask, editsTask, updateComplete} = require('../../model/dbModel.js');
+const {saveTask, pullTaskData, removesTask, editsTask, updateCompleteTask} = require('../../model/dbModel.js');
 
 export default function TaskPage() {
     const [tasks, setTasks] = useState([])
@@ -42,7 +42,7 @@ export default function TaskPage() {
     showAddForm = () => setAddModalVisible(prev => !prev);
 
     completedDb = (key) => {
-        updateComplete(key)
+        updateCompleteTask(key)
         let tmpTasks = tasks.slice()
         tmpTasks.sort((a,b) => {return a.completed - b.completed})
         setTasks(tmpTasks)
