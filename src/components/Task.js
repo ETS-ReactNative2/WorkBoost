@@ -22,27 +22,26 @@ export default function Task(props) {
                             editTask={props.editTask}/>
             </Modal>
             <Card style={props.item.completed ? {opacity:0.5} : {}}
-                key={props.item.key.toString()}>
-                <CardItem header key={(props.item.key + 100).toString()} style={{ height: 55 }}>
+                key={props.item.key}>
+                <CardItem header key={props.item.key + 100} style={{ height: 55 }}>
                     <Body>
                         <Text style={{fontWeight:"bold", fontSize:20}}>{props.item.name}</Text>
                     </Body>
                     <Right>
                         <CheckBox style = {{marginRight:11}}
                                 onPress={() => {
-                                    props.completedDb(props.item.key)
-                                    props.handleCheck(props.index)
+                                    props.handleTaskCompletion(props.item.key)
                                 }}
                                 checked={props.item.completed} />
                     </Right>
                 </CardItem>
-                <CardItem key={(props.item.key + 1000).toString()} style={{ height: 43 }}>
+                <CardItem key={props.item.key + 1000} style={{ height: 43 }}>
                     <Body>
                         <Text>{props.item.description}</Text>
                     </Body>
                     <Right>
                         <EditButton editTask={props.item.completed? ()=>{} : props.editTask}
-                                    showEditForm={props.item.completed? ()=>{}: this.showEditForm}
+                                    showEditForm={this.showEditForm}
                                     index={props.index}
                                     updateIndex={props.updateIndex}/>
                     </Right>

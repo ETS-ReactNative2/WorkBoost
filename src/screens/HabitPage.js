@@ -9,7 +9,7 @@ import AddHabitForm from '../screens/AddHabitPage'
 import EditHabitForm from '../screens/EditHabitPage'
 import CompHabitForm from '../screens/CompleteHabitPage'
 import { removesHabit } from '../../model/dbModel';
-const {saveHabit, pullHabitData, editsHabit, updateCompleteHabit, updateStreak} = require('../../model/dbModel.js');
+const {saveHabit, pullHabitData, editsHabit, completeHabitModel} = require('../../model/dbModel.js');
 
 export default function HabitPage() {
 
@@ -30,6 +30,7 @@ export default function HabitPage() {
                 arr.push(obj)
             }
         })
+        arr.sort((a,b) => {return a.completed - b.completed})
         setHabits(arr)
     }
     
@@ -41,19 +42,8 @@ export default function HabitPage() {
         setHabits(tmpHabits)
     }, [])
 
-    completedHabit = (key, streak) => {
-        updateCompleteHabit(key)
-        updateStreak(key, streak)
-        let tmpHabits = habits.slice()
-        tmpHabits.sort((a,b) => {return a.completed - b.completed})
-        setHabits(tmpHabits)
-    }
-
-    handleCheck = (index) => {
-        let tmpHabits = habits.slice() 
-        tmpHabits[index] = {...tmpHabits[index], completed: !tmpHabits[index].completed}
-        tmpHabits.sort((a,b) => {return a.completed - b.completed}) 
-        setHabits(tmpHabits)
+    handleHabitCompletion = (key, streak) => {
+        completeHabitModel(key, streak, setData)
     }
 
     remove = (key) => {
@@ -96,8 +86,7 @@ export default function HabitPage() {
                                                           index={index}
                                                           editHabit={this.editHabit}
                                                           remove={this.remove}
-                                                          completedHabit={this.completedHabit}
-                                                          handleCheck={this.handleCheck}/>}   
+                                                          handleHabitCompletion={this.handleHabitCompletion}/>}   
                 //to be used when firebase data comes in
                 //keyExtractor={item => item.toString()}
             />

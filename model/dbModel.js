@@ -51,7 +51,6 @@ export function saveHabit(title, description) {
   const user = firebase.auth().currentUser;
   var userId = firebase.database().ref(`habitLists/habits_${user.uid}`);
   var habitId = userId.push();
-  // console.log(title)
   habitId.set({
       'name': title,
       'description': description,
@@ -76,16 +75,16 @@ export function editsHabit(key, title, description, frequency) {
   var habit = firebase.database().ref(`habitLists/habits_${user.uid}/${key}`);
   habit.update({ name: title, description: description, frequency: frequency});
 }
-export function updateCompleteHabit(key) {
+// updates streak and completion
+export function completeHabitModel(key, streak, callBack) {
   const user = firebase.auth().currentUser;
   var habit = firebase.database().ref(`habitLists/habits_${user.uid}/${key}`);
-  habit.update({ completed: true});
+  habit.update({streak: streak, completed: true})
+    .then(() => {
+      pullHabitData(callBack)
+    })
 }
-export function updateStreak(key, streak) {
-  const user = firebase.auth().currentUser;
-  var habit = firebase.database().ref(`habitLists/habits_${user.uid}/${key}`);
-  habit.update({ streak: streak});
-}
+
 //DELETE
 export function removesHabit(key, callBack) {
   const user = firebase.auth().currentUser;
@@ -129,10 +128,13 @@ export function editsTask(key, title, description) {
   var task = firebase.database().ref(`taskLists/tasks_${user.uid}/${key}`);
   task.update({ name: title, description: description});
 }
-export function updateCompleteTask(key) {
+export function completeTaskModel(key, callBack) {
   const user = firebase.auth().currentUser;
   var task = firebase.database().ref(`taskLists/tasks_${user.uid}/${key}`);
-  task.update({ completed: true});
+  task.update({ completed: true})
+    .then(() => {
+      pullTaskData(callBack)
+    })
 }
 //DELETE
 export function removesTask(key, callBack) {
@@ -150,5 +152,5 @@ export function removesTask(key, callBack) {
 
 module.exports = {addNewUser, saveHabit, saveTask, pullHabitData, pullTaskData, 
                   editsTask, editsHabit, removesHabit, removesTask, deleteUser, 
-                  updateCompleteTask, updateCompleteHabit, updateStreak}
+                  completeTaskModel, completeHabitModel}
 

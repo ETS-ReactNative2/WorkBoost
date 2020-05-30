@@ -13,10 +13,6 @@ export default function Habit(props) {
 
     showEditForm = () => setEditModalVisible(prev => !prev);
     showCompForm = () => setCompModalVisible(prev => !prev);
-    completeHabit = () => {
-        props.completedHabit(props.item.key, props.item.streak+1)
-        props.handleCheck(props.index)
-    }
 
     return(
         <View>
@@ -37,17 +33,17 @@ export default function Habit(props) {
                    onSwipeComplete={() => showCompForm()}
                    swipeDirection="down">
                 <CompHabitForm showCompForm={this.showCompForm}
-                              //index ={}
-                              name={props.item.name}
-                              streak={props.item.streak + 1}
-                              closeForm={this.showCompForm}
-                              completeHabit={this.completeHabit}
+                               name={props.item.name}
+                               streak={props.item.streak + 1}
+                               closeForm={this.showCompForm}
+                               id={props.item.key}
+                               handleHabitCompletion={props.handleHabitCompletion}
                               />
             </Modal>
             <TouchableOpacity onPress={props.item.completed? ()=>{} : this.showCompForm}>
             <Card style={props.item.completed ? {opacity:0.5} : {}}
                     key={props.item.key}>
-                <CardItem header key={props.item.key} style={{ height: 60, width: 419}}>
+                <CardItem header key={props.item.key + 100} style={{ height: 60, width: 419}}>
                     <Body>
                         <Text style={{fontWeight:"bold", fontSize:20}}>{props.item.name}</Text>
                         <View style = {{flexDirection: 'row'}}>
@@ -58,11 +54,10 @@ export default function Habit(props) {
                     </Body>
                     <Right>
                         <EditButton editHabit={props.editHabit}
-                                showEditForm={this.showEditForm}
-                                updateIndex={props.updateIndex}/>
+                                showEditForm={this.showEditForm}/>
                     </Right>
                 </CardItem>
-                <CardItem key={(props.item.key + 1000).toString()} style={{ height: 43 }}>
+                <CardItem key={props.item.key + 1000} style={{ height: 43 }}>
                     <Body>
                         <Text>{props.item.description}</Text>
                     </Body>
