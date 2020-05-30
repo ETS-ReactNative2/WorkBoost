@@ -27,12 +27,15 @@ export default function LoginPage(props) {
         value={password}
       />
       <Button title="Login" onPress={() => {
-        setPassword("")
+        //setPassword("")
         handleLogin(email, password, props.navigation)} 
         }/>
       <Button
         title="Don't have an account? Sign Up"
-        onPress={() => navSignUp(props.navigation)}
+        onPress={() => {
+          setPassword("")
+          setEmail("")
+          navSignUp(props.navigation)}}
       />
     </View>
   )
