@@ -9,7 +9,7 @@ import AddHabitForm from '../screens/AddHabitPage'
 import EditHabitForm from '../screens/EditHabitPage'
 import CompHabitForm from '../screens/CompleteHabitPage'
 import { removesHabit } from '../../model/dbModel';
-const {saveHabit, pullHabitData, editsHabit, updateCompleteHabit} = require('../../model/dbModel.js');
+const {saveHabit, pullHabitData, editsHabit, updateCompleteHabit, updateStreak} = require('../../model/dbModel.js');
 
 export default function HabitPage() {
 
@@ -18,6 +18,7 @@ export default function HabitPage() {
 
     addHabit = (title, description) => {   
         saveHabit(title, description)
+        pullHabitData(setData)
     }
 
     function setData(snapshot) {
@@ -40,8 +41,9 @@ export default function HabitPage() {
         setHabits(tmpHabits)
     }, [])
 
-    completedHabit = (key) => {
+    completedHabit = (key, streak) => {
         updateCompleteHabit(key)
+        updateStreak(key, streak)
         let tmpHabits = habits.slice()
         tmpHabits.sort((a,b) => {return a.completed - b.completed})
         setHabits(tmpHabits)

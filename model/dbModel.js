@@ -81,6 +81,11 @@ export function updateCompleteHabit(key) {
   var habit = firebase.database().ref(`habitLists/habits_${user.uid}/${key}`);
   habit.update({ completed: true});
 }
+export function updateStreak(key, streak) {
+  const user = firebase.auth().currentUser;
+  var habit = firebase.database().ref(`habitLists/habits_${user.uid}/${key}`);
+  habit.update({ streak: streak});
+}
 //DELETE
 export function removesHabit(key, callBack) {
   const user = firebase.auth().currentUser;
@@ -145,5 +150,5 @@ export function removesTask(key, callBack) {
 
 module.exports = {addNewUser, saveHabit, saveTask, pullHabitData, pullTaskData, 
                   editsTask, editsHabit, removesHabit, removesTask, deleteUser, 
-                  updateCompleteTask, updateCompleteHabit}
+                  updateCompleteTask, updateCompleteHabit, updateStreak}
 

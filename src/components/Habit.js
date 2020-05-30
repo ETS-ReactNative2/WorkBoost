@@ -14,7 +14,7 @@ export default function Habit(props) {
     showEditForm = () => setEditModalVisible(prev => !prev);
     showCompForm = () => setCompModalVisible(prev => !prev);
     completeHabit = () => {
-        props.completedHabit(props.item.key)
+        props.completedHabit(props.item.key, props.item.streak+1)
         props.handleCheck(props.index)
     }
 
