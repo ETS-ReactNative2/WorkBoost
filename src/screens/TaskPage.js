@@ -4,7 +4,7 @@ import Modal from 'react-native-modal'
 import Task from '../components/Task'
 import AddButton from '../components/buttons/AddButton'
 import AddTaskForm from '../screens/AddTaskPage'
-const {saveTask, pullTaskData, removesTask, editsTask, updateCompleteTask} = require('../../model/dbModel.js');
+const {saveTask, pullTaskData, removesTask, editsTask, completeTaskModel} = require('../../model/dbModel.js');
 
 export default function TaskPage() {
     const [tasks, setTasks] = useState([])
@@ -19,6 +19,7 @@ export default function TaskPage() {
                 arr.push(obj)
             }
         })
+        arr.sort((a,b) => {return a.completed - b.completed})
         setTasks(arr)
     }
 
@@ -41,18 +42,8 @@ export default function TaskPage() {
 
     showAddForm = () => setAddModalVisible(prev => !prev);
 
-    completedDb = (key) => {
-        updateCompleteTask(key)
-        let tmpTasks = tasks.slice()
-        tmpTasks.sort((a,b) => {return a.completed - b.completed})
-        setTasks(tmpTasks)
-    }
-
-    handleCheck = (index) => {
-        let tmpTasks = tasks.slice() 
-        tmpTasks[index] = {...tmpTasks[index], completed: !tmpTasks[index].completed}
-        tmpTasks.sort((a,b) => {return a.completed - b.completed}) 
-        setTasks(tmpTasks)
+    handleTaskCompletion = (key) => {
+        completeTaskModel(key, setData)
     }
 
     editTask =(key, title, description) => {
@@ -86,8 +77,7 @@ export default function TaskPage() {
                                                          index={index}
                                                          editTask={this.editTask}
                                                          remove={this.remove}
-                                                         completedDb={this.completedDb}
-                                                         handleCheck={this.handleCheck}/>}   
+                                                         handleTaskCompletion={this.handleTaskCompletion}/>}   
                 //to be used when firebase data comes in
                 //keyExtractor={item => item.toString()}
             />
