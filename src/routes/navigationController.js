@@ -36,7 +36,7 @@ export function handleLogin(email, password, navigation) {
   firebase.auth()
     .signInWithEmailAndPassword(email, password)
     .then(() => {
-      navigation.navigate('App')
+      //navigation.navigate('App')
       navigation.reset({
         index: 0,
         routes: [{ name: 'App' }],
