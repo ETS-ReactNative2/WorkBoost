@@ -9,7 +9,7 @@ import AddHabitForm from '../screens/AddHabitPage'
 import EditHabitForm from '../screens/EditHabitPage'
 import CompHabitForm from '../screens/CompleteHabitPage'
 import { removesHabit } from '../../model/dbModel';
-const {saveHabit, pullHabitData, editsHabit} = require('../../model/dbModel.js');
+const {saveHabit, pullHabitData, editsHabit, updateCompleteHabit, updateStreak} = require('../../model/dbModel.js');
 
 export default function HabitPage() {
 
@@ -18,7 +18,7 @@ export default function HabitPage() {
 
     addHabit = (title, description) => {   
         saveHabit(title, description)
-        pullHabitData(setData) 
+        pullHabitData(setData)
     }
 
     function setData(snapshot) {
@@ -40,6 +40,14 @@ export default function HabitPage() {
         tmpHabits.sort((a,b) => {return a.completed - b.completed})
         setHabits(tmpHabits)
     }, [])
+
+    completedHabit = (key, streak) => {
+        updateCompleteHabit(key)
+        updateStreak(key, streak)
+        let tmpHabits = habits.slice()
+        tmpHabits.sort((a,b) => {return a.completed - b.completed})
+        setHabits(tmpHabits)
+    }
 
     handleCheck = (index) => {
         let tmpHabits = habits.slice() 
@@ -88,6 +96,7 @@ export default function HabitPage() {
                                                           index={index}
                                                           editHabit={this.editHabit}
                                                           remove={this.remove}
+                                                          completedHabit={this.completedHabit}
                                                           handleCheck={this.handleCheck}/>}   
                 //to be used when firebase data comes in
                 //keyExtractor={item => item.toString()}
