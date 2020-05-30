@@ -8,17 +8,18 @@ import habitData from '../sample_habit_data.json'
 import AddHabitForm from '../screens/AddHabitPage'
 import EditHabitForm from '../screens/EditHabitPage'
 import CompHabitForm from '../screens/CompleteHabitPage'
-import { removesHabit } from '../../model/dbModel';
-const {saveHabit, pullHabitData, editsHabit, completeHabitModel} = require('../../model/dbModel.js');
+import { removesHabit, removesHabitModel } from '../../model/dbModel';
+const {saveHabitModel, pullHabitDataModel, editsHabitModel, completeHabitModel} = require('../../model/dbModel.js');
 
 export default function HabitPage() {
 
     const [habits, setHabits] = useState([])
     const [addModalVisible, setAddModalVisible] = useState(false)
 
+    //add habits
     addHabit = (title, description) => {   
-        saveHabit(title, description)
-        pullHabitData(setData)
+        saveHabitModel(title, description)
+        pullHabitDataModel(setData)
     }
 
     function setData(snapshot) {
@@ -36,26 +37,29 @@ export default function HabitPage() {
     
     //On app startup, pull the data from db and sort it based on completion
     useEffect(() => {
-        pullHabitData(setData)
+        pullHabitDataModel(setData)
         let tmpHabits = habits.slice()
         tmpHabits.sort((a,b) => {return a.completed - b.completed})
         setHabits(tmpHabits)
     }, [])
 
+    //update completion and streaks
     handleHabitCompletion = (key, streak, complete) => {
         completeHabitModel(key, streak, complete, setData)
     }
 
+    //remove habit
     remove = (key) => {
         //call to model
-        removesHabit(key, setData)
+        removesHabitModel(key, setData)
     }
 
     showAddForm = () => setAddModalVisible(prev => !prev);
 
+    //edit habit
     editHabit = (key, title, description, frequency) => {
-        editsHabit(key, title, description, frequency)
-        pullHabitData(setData)
+        editsHabitModel(key, title, description, frequency)
+        pullHabitDataModel(setData)
     }
 
     EmptyView = () => {

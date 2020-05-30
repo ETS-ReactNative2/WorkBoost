@@ -47,7 +47,7 @@ export function deleteUser() {
 
 //Habit CRUD
 //CREATE
-export function saveHabit(title, description) {
+export function saveHabitModel(title, description) {
   const user = firebase.auth().currentUser;
   var userId = firebase.database().ref(`habitLists/habits_${user.uid}`);
   var habitId = userId.push();
@@ -60,7 +60,7 @@ export function saveHabit(title, description) {
   });
 }
 //READ
-export function pullHabitData(callBack) {
+export function pullHabitDataModel(callBack) {
   const user = firebase.auth().currentUser
   firebase.database()
     .ref(`habitLists/habits_${user.uid}`)
@@ -70,7 +70,7 @@ export function pullHabitData(callBack) {
     })
 }
 //UPDATE
-export function editsHabit(key, title, description, frequency) {
+export function editsHabitModel(key, title, description, frequency) {
   const user = firebase.auth().currentUser;
   var habit = firebase.database().ref(`habitLists/habits_${user.uid}/${key}`);
   habit.update({ name: title, description: description, frequency: frequency});
@@ -81,18 +81,18 @@ export function completeHabitModel(key, streak, complete, callBack) {
   var habit = firebase.database().ref(`habitLists/habits_${user.uid}/${key}`);
   habit.update({streak: streak, completed: complete})
     .then(() => {
-      pullHabitData(callBack)
+      pullHabitDataModel(callBack)
     })
 }
 
 //DELETE
-export function removesHabit(key, callBack) {
+export function removesHabitModel(key, callBack) {
   const user = firebase.auth().currentUser;
   var habit = firebase.database().ref(`habitLists/habits_${user.uid}/${key}`);
   habit.remove()
     .then(function() {
       console.log("Remove succeeded.")
-      pullHabitData(callBack)
+      pullHabitDataModel(callBack)
     })
     .catch(function(error) {
       console.log("Remove failed: " + error.message)
@@ -101,7 +101,7 @@ export function removesHabit(key, callBack) {
 
 //TASK CRUD
 //CREATE
-export function saveTask(title, description) {
+export function saveTaskModel(title, description) {
   const user = firebase.auth().currentUser;
   var userId = firebase.database().ref(`taskLists/tasks_${user.uid}`);
   var taskId = userId.push();
@@ -113,7 +113,7 @@ export function saveTask(title, description) {
   });
 }
 //READ
-export function pullTaskData(callBack) {
+export function pullTaskDataModel(callBack) {
   const user = firebase.auth().currentUser
   firebase.database()
     .ref(`taskLists/tasks_${user.uid}`)
@@ -123,7 +123,7 @@ export function pullTaskData(callBack) {
     })
 }
 //UPDATE
-export function editsTask(key, title, description) {
+export function editsTaskModel(key, title, description) {
   const user = firebase.auth().currentUser;
   var task = firebase.database().ref(`taskLists/tasks_${user.uid}/${key}`);
   task.update({ name: title, description: description});
@@ -133,24 +133,24 @@ export function completeTaskModel(key, callBack) {
   var task = firebase.database().ref(`taskLists/tasks_${user.uid}/${key}`);
   task.update({ completed: true})
     .then(() => {
-      pullTaskData(callBack)
+      pullTaskDataModel(callBack)
     })
 }
 //DELETE
-export function removesTask(key, callBack) {
+export function removesTaskModel(key, callBack) {
   const user = firebase.auth().currentUser;
   var habit = firebase.database().ref(`taskLists/tasks_${user.uid}/${key}`);
   habit.remove()
     .then(function() {
       console.log("Remove succeeded.")
-      pullTaskData(callBack)
+      pullTaskDataModel(callBack)
     })
     .catch(function(error) {
       console.log("Remove failed: " + error.message)
     });
 }
 
-module.exports = {addNewUser, saveHabit, saveTask, pullHabitData, pullTaskData, 
-                  editsTask, editsHabit, removesHabit, removesTask, deleteUser, 
+module.exports = {addNewUser, saveHabitModel, saveTaskModel, pullHabitDataModel, pullTaskDataModel, 
+                  editsTaskModel, editsHabitModel, removesHabitModel, removesTaskModel, deleteUser, 
                   completeTaskModel, completeHabitModel}
 

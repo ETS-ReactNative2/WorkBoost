@@ -4,7 +4,7 @@ import Modal from 'react-native-modal'
 import Task from '../components/Task'
 import AddButton from '../components/buttons/AddButton'
 import AddTaskForm from '../screens/AddTaskPage'
-const {saveTask, pullTaskData, removesTask, editsTask, completeTaskModel} = require('../../model/dbModel.js');
+const {saveTaskModel, pullTaskDataModel, removesTaskModel, editsTaskModel, completeTaskModel} = require('../../model/dbModel.js');
 
 export default function TaskPage() {
     const [tasks, setTasks] = useState([])
@@ -25,30 +25,34 @@ export default function TaskPage() {
 
     //logic for "component did mount" first time organizing of state based on completion
     useEffect(() => {
-            pullTaskData(setData)
+            pullTaskDataModel(setData)
             let tmpTasks = tasks.slice()
             tmpTasks.sort((a,b) => {return a.completed - b.completed})
             setTasks(tmpTasks)
     }, [])
 
+    //add task
     addTask = (title, description) => {
-        saveTask(title, description)
-        pullTaskData(setData)
+        saveTaskModel(title, description)
+        pullTaskDataModel(setData)
     }
 
+    //remove task
     remove = (key) => {
-        removesTask(key, setData)
+        removesTaskModel(key, setData)
     }
 
     showAddForm = () => setAddModalVisible(prev => !prev);
 
+    //updates completion
     handleTaskCompletion = (key) => {
         completeTaskModel(key, setData)
     }
 
+    //edit task
     editTask =(key, title, description) => {
-        editsTask(key, title, description)
-        pullTaskData(setData)
+        editsTaskModel(key, title, description)
+        pullTaskDataModel(setData)
     }
     
     EmptyView = () => {
