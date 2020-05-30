@@ -24,7 +24,8 @@ export default function Habit(props) {
                 <EditHabitForm item={props.item}
                                showEditForm={this.showEditForm}
                                remove={props.remove}
-                               editHabit={props.editHabit}/>
+                               editHabit={props.editHabit}
+                               handleHabitCompletion={props.handleHabitCompletion}/>
             </Modal>
 
 

@@ -76,10 +76,10 @@ export function editsHabit(key, title, description, frequency) {
   habit.update({ name: title, description: description, frequency: frequency});
 }
 // updates streak and completion
-export function completeHabitModel(key, streak, callBack) {
+export function completeHabitModel(key, streak, complete, callBack) {
   const user = firebase.auth().currentUser;
   var habit = firebase.database().ref(`habitLists/habits_${user.uid}/${key}`);
-  habit.update({streak: streak, completed: true})
+  habit.update({streak: streak, completed: complete})
     .then(() => {
       pullHabitData(callBack)
     })

@@ -42,8 +42,8 @@ export default function HabitPage() {
         setHabits(tmpHabits)
     }, [])
 
-    handleHabitCompletion = (key, streak) => {
-        completeHabitModel(key, streak, setData)
+    handleHabitCompletion = (key, streak, complete) => {
+        completeHabitModel(key, streak, complete, setData)
     }
 
     remove = (key) => {

@@ -30,7 +30,7 @@ export default function CompleteHabitPage(props) {
                         <TouchableOpacity
                             style={styles.doneButton}
                             onPress={() => {
-                                        props.handleHabitCompletion(props.id, props.streak);
+                                        props.handleHabitCompletion(props.id, props.streak, true);
                                         props.closeForm()
                                             }}
                         >
