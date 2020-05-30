@@ -54,8 +54,7 @@ export default function Habit(props) {
                     </Body>
                     <Right>
                         <EditButton editHabit={props.editHabit}
-                                showEditForm={this.showEditForm}
-                                updateIndex={props.updateIndex}/>
+                                showEditForm={this.showEditForm}/>
                     </Right>
                 </CardItem>
                 <CardItem key={props.item.key + 1000} style={{ height: 43 }}>

@@ -71,6 +71,16 @@ export default function EditHabitPage(props) {
                             <Text style={styles.saveButtonText}>Remove</Text>
                         </TouchableOpacity>
                     </View>
+                    <View style={styles.inputContainer}>
+                        <TouchableOpacity
+                            style={styles.saveButton}
+                            onPress={() => {
+                                console.log("Amy")
+                            }}
+                        >
+                            <Text style={styles.saveButtonText}>Revert Completion</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </ScrollView>
         </View>
