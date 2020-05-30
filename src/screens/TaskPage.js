@@ -4,7 +4,7 @@ import Modal from 'react-native-modal'
 import Task from '../components/Task'
 import AddButton from '../components/buttons/AddButton'
 import AddTaskForm from '../screens/AddTaskPage'
-const {saveTask, pullTaskData, removesTask, editsTask} = require('../../model/dbModel.js');
+const {saveTask, pullTaskData, removesTask, editsTask, updateComplete} = require('../../model/dbModel.js');
 
 export default function TaskPage() {
     const [tasks, setTasks] = useState([])
@@ -40,6 +40,13 @@ export default function TaskPage() {
     }
 
     showAddForm = () => setAddModalVisible(prev => !prev);
+
+    completedDb = (key) => {
+        updateComplete(key)
+        let tmpTasks = tasks.slice()
+        tmpTasks.sort((a,b) => {return a.completed - b.completed})
+        setTasks(tmpTasks)
+    }
 
     handleCheck = (index) => {
         let tmpTasks = tasks.slice() 
@@ -79,6 +86,7 @@ export default function TaskPage() {
                                                          index={index}
                                                          editTask={this.editTask}
                                                          remove={this.remove}
+                                                         completedDb={this.completedDb}
                                                          handleCheck={this.handleCheck}/>}   
                 //to be used when firebase data comes in
                 //keyExtractor={item => item.toString()}

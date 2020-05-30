@@ -119,6 +119,11 @@ export function editsTask(key, title, description) {
   var task = firebase.database().ref(`taskLists/tasks_${user.uid}/${key}`);
   task.update({ name: title, description: description});
 }
+export function updateComplete(key) {
+  const user = firebase.auth().currentUser;
+  var task = firebase.database().ref(`taskLists/tasks_${user.uid}/${key}`);
+  task.update({ completed: true});
+}
 //DELETE
 export function removesTask(key, callBack) {
   const user = firebase.auth().currentUser;
@@ -134,5 +139,5 @@ export function removesTask(key, callBack) {
 }
 
 module.exports = {addNewUser, saveHabit, saveTask, pullHabitData, pullTaskData, 
-                  editsTask, editsHabit, removesHabit, removesTask, deleteUser}
+                  editsTask, editsHabit, removesHabit, removesTask, deleteUser, updateComplete}
 
