@@ -32,6 +32,7 @@ export default function AddHabitPage(props) {
                         placeholder="Habit Title"
                         onBlur={Keyboard.dismiss}
                         value={title}
+                        maxLength={25}
                         onChangeText={title => setTitle(title)}
                     />
                     <TextInput
@@ -39,15 +40,16 @@ export default function AddHabitPage(props) {
                         placeholder="Habit Description"
                         onBlur={Keyboard.dismiss}
                         value={description}
+                        maxLength={45}
                         onChangeText={description => setDescription(description)}
                     />
                     <View style={styles.inputContainer}>
                         <TouchableOpacity
                             style={styles.saveButton}
                             onPress={() => {
-                                if (title == "" || description == "") {alert('One of these fields appears to be empty.');}
-                                else {props.addHabit(title,description); }
-                                props.showAddForm()
+                                if (title == "" || description == "") alert('One of these fields appears to be empty.');
+                                else  {props.addHabit(title,description); 
+                                     props.showAddForm()}
                             }}
                         >
                             <Text style={styles.saveButtonText}>Save</Text>

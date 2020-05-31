@@ -32,20 +32,22 @@ export default function AddTaskPage(props) {
                         placeholder="Task Title"
                         onBlur={Keyboard.dismiss}
                         value={title}
+                        maxLength={25}
                         onChangeText={title => setTitle(title)}
                     />
                     <TextInput
                         style={styles.textInput}
-                        placeholder="Task Description"
+                        placeholder="Task Description (Optional)"
                         onBlur={Keyboard.dismiss}
                         value={description}
+                        maxLength={40}
                         onChangeText={description => setDescription(description)}
                     />
                     <View style={styles.inputContainer}>
                         <TouchableOpacity
                             style={styles.saveButton}
                             onPress={() => {
-                                if (title == "" || description == "") {alert('One of these fields appears to be empty.');}
+                                if (title == "") {alert('Missing task title');}
                                 else{props.addTask(title,description)
                                     props.showAddForm()}
                             }}>

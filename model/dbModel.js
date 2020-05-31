@@ -1,4 +1,6 @@
-import firebase from 'firebase'
+import firebase, { functions } from 'firebase'
+
+//auto delete task and auto reset habit
 
 // First time sign up data creation
 export function addNewUser() {
@@ -76,10 +78,10 @@ export function editsHabit(key, title, description, frequency) {
   habit.update({ name: title, description: description, frequency: frequency});
 }
 // updates streak and completion
-export function completeHabitModel(key, streak, callBack) {
+export function completeHabitModel(key, streak, completed, callBack) {
   const user = firebase.auth().currentUser;
   var habit = firebase.database().ref(`habitLists/habits_${user.uid}/${key}`);
-  habit.update({streak: streak, completed: true})
+  habit.update({streak: streak, completed: completed})
     .then(() => {
       pullHabitData(callBack)
     })
