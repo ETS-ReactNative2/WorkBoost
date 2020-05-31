@@ -100,6 +100,17 @@ export default function TaskPage() {
                 <AddTaskForm showAddForm={this.showAddForm}
                              addTask={this.addTask}/>
             </Modal>
+             <View style={styles.addTaskRow}>
+                <View styles={styles.textStyle}>
+                    <Text style={styles.fontStyle}>
+                        Tasks
+                    </Text>
+                </View>
+                <View style={styles.addButtonStyle}>
+                    <AddButton showAddForm={this.showAddForm}
+                                    addHabit={this.addTask}/>
+                </View >
+            </View>
             <FlatList
                 data = {tasks}
                 ListEmptyComponent={this.EmptyView}
@@ -114,11 +125,38 @@ export default function TaskPage() {
                 //to be used when firebase data comes in
                 //keyExtractor={item => item.toString()}
             />
-            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <AddButton showAddForm={this.showAddForm}
-                               addTask={this.addTask}/>
-            </View >
         </View> 
 
     )
 }
+
+const styles = StyleSheet.create({
+    addTaskRow:{
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+        backgroundColor: 'white',
+        borderBottomWidth: 1,
+        borderBottomColor: 'lightgrey',
+        width:'100%'
+    },
+    addButtonStyle: {
+        flex: 1,
+        alignContent: "flex-end",
+        alignItems: "flex-end"
+    },
+    textStyle:{
+        flex:1,
+        alignItems:'center'
+    },
+    fontStyle:{
+        fontWeight: 'bold',
+        fontSize: 32,
+        paddingLeft:'3%'
+    },
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+     }
+});

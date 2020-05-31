@@ -9,7 +9,7 @@ export default function SignupPage(props) {
 
   return (
     <View style={styles.container}>
-      <Text>Sign Up</Text>
+      <Text style = {{fontSize: 20}}>Register a new account!</Text>
       <TextInput
         placeholder="Email"
         autoCapitalize="none"
@@ -25,10 +25,11 @@ export default function SignupPage(props) {
         onChangeText={password => setPassword(password)}
         value={password}
       />
-      <Button title="Sign Up" onPress={() => {
+      <Button color = "#4d2600" title="Sign Up" onPress={() => {
         //setPassword("")
         handleSignUp(email, password, props.navigation)}} />
       <Button
+        color = "#4d2600"
         title="Already have an account? Login"
         onPress={() => {
           setPassword("")
