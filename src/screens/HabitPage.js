@@ -9,6 +9,7 @@ import AddHabitForm from '../screens/AddHabitPage'
 import EditHabitForm from '../screens/EditHabitPage'
 import CompHabitForm from '../screens/CompleteHabitPage'
 import { removesHabit, removesHabitModel } from '../../model/dbModel';
+import { right } from 'inquirer/lib/utils/readline';
 const {saveHabitModel, pullHabitDataModel, editsHabitModel, completeHabitModel} = require('../../model/dbModel.js');
 
 export default function HabitPage() {
@@ -74,7 +75,7 @@ export default function HabitPage() {
      
 
     return(
-        <View> 
+        <View style={styles.container}> 
             <Modal style={{margin:0, marginTop:60, backgroundColor:"#FFF"}}
                    isVisible={addModalVisible}
                    onSwipeComplete={() => showAddForm()}
@@ -83,6 +84,18 @@ export default function HabitPage() {
                               addHabit={this.addHabit}/>
             </Modal>
 
+            <View style={styles.addTaskRow}>
+                <View styles={styles.textStyle}>
+                    <Text style={styles.fontStyle}>
+                        Habits
+                    </Text>
+                </View>
+                <View style={styles.addButtonStyle}>
+                    <AddButton showAddForm={this.showAddForm}
+                                    addHabit={this.addHabit}/>
+                </View >
+            </View>
+            
             <FlatList
                 data = {habits}
                 ListEmptyComponent={this.EmptyView}
@@ -94,11 +107,37 @@ export default function HabitPage() {
                 //to be used when firebase data comes in
                 //keyExtractor={item => item.toString()}
             />
-
-            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <AddButton showAddForm={this.showAddForm}
-                                addHabit={this.addHabit}/>
-            </View >
+            
         </View>
     )
 }
+const styles = StyleSheet.create({
+    addTaskRow:{
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+        backgroundColor: 'white',
+        borderBottomWidth: 1,
+        borderBottomColor: 'lightgrey',
+        width:'100%'
+    },
+    addButtonStyle: {
+        flex: 1,
+        alignContent: "flex-end",
+        alignItems: "flex-end"
+    },
+    textStyle:{
+        flex:1,
+        alignItems:'center'
+    },
+    fontStyle:{
+        fontWeight: 'bold',
+        fontSize: 32,
+        paddingLeft:'3%'
+    },
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+     }
+});
