@@ -72,6 +72,9 @@ export default function TimerPage() {
 
     useEffect(() => {
         let interval = null;
+        if (remainingSecs == 1){
+            setExitModalActive(false);
+        }
         if (remainingSecs == 0){
             toggleCompleteModal();
             playAlarm();
