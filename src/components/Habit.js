@@ -35,7 +35,7 @@ export default function Habit(props) {
                    swipeDirection="down">
                 <CompHabitForm showCompForm={this.showCompForm}
                                name={props.item.name}
-                               streak={props.item.streak + 1}
+                               streak={props.item.streak}
                                closeForm={this.showCompForm}
                                id={props.item.key}
                                handleHabitCompletion={props.handleHabitCompletion}
@@ -53,7 +53,7 @@ export default function Habit(props) {
                             <Text style={{fontSize:13, paddingTop: 5}}> Frequency: {props.item.frequency}</Text>
                         </View>
                     </Body>
-                    <Right>
+                    <Right style={{flex: 0.2}}>
                         <EditButton editHabit={props.editHabit}
                                 showEditForm={this.showEditForm}/>
                     </Right>

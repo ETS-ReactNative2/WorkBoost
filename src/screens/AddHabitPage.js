@@ -32,6 +32,7 @@ export default function AddHabitPage(props) {
                         placeholder="Habit Title"
                         onBlur={Keyboard.dismiss}
                         value={title}
+                        maxLength={25}
                         onChangeText={title => setTitle(title)}
                     />
                     <TextInput
@@ -39,6 +40,7 @@ export default function AddHabitPage(props) {
                         placeholder="Habit Description"
                         onBlur={Keyboard.dismiss}
                         value={description}
+                        maxLength={45}
                         onChangeText={description => setDescription(description)}
                     />
                     <View style={styles.inputContainer}>
