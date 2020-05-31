@@ -90,7 +90,9 @@ export default function TimerPage() {
     }, [isActive, remainingSecs]);
 
     endEarly = () => {
-        toggleExitModal()
+        if(remainingSecs != 1){
+            toggleExitModal()
+        }
     }
 
     reset = () => {
