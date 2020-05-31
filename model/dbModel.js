@@ -128,10 +128,10 @@ export function editsTaskModel(key, title, description) {
   var task = firebase.database().ref(`taskLists/tasks_${user.uid}/${key}`);
   task.update({ name: title, description: description});
 }
-export function completeTaskModel(key, callBack) {
+export function completeTaskModel(key, complete, callBack) {
   const user = firebase.auth().currentUser;
   var task = firebase.database().ref(`taskLists/tasks_${user.uid}/${key}`);
-  task.update({ completed: true})
+  task.update({ completed: complete})
     .then(() => {
       pullTaskDataModel(callBack)
     })

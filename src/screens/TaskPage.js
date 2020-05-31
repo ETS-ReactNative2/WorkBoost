@@ -45,8 +45,8 @@ export default function TaskPage() {
     showAddForm = () => setAddModalVisible(prev => !prev);
 
     //updates completion
-    handleTaskCompletion = (key) => {
-        completeTaskModel(key, setData)
+    handleTaskCompletion = (key, complete) => {
+        completeTaskModel(key, complete, setData)
     }
 
     //edit task
