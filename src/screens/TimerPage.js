@@ -18,9 +18,9 @@ const getRemaining = (time) => {
 }
 
 export default function TimerPage() {
-    const [remainingSecs, setRemainingSecs] = useState(1);
+    const [remainingSecs, setRemainingSecs] = useState(5);
     const [isActive, setIsActive] = useState(false);
-    const [prevTime, setPrevTime] = useState(1);
+    const [prevTime, setPrevTime] = useState(5);
     const [exitModalActive, setExitModalActive] = useState(false);
     const [completeModalActive, setCompleteModalActive] = useState(false);
     const { mins, secs } = getRemaining(remainingSecs);
@@ -130,8 +130,8 @@ export default function TimerPage() {
                                stopAlarm={this.stopAlarm}/>
             </Modal>
 
-            <Slider minimumTrackTintColor='blue' thumbTintColor="#4588f5" disabled={isActive} style={styles.sliderStyle} minimumValue={300}
-                maximumValue={3600} step={300} value={prevTime} onValueChange={(e) => {setRemainingSecs(e*secsToMin)}}></Slider>
+            <Slider minimumTrackTintColor='blue' thumbTintColor="#4588f5" disabled={isActive} style={styles.sliderStyle} minimumValue={5}
+                maximumValue={60} step={5} value={prevTime} onValueChange={(e) => {setRemainingSecs(e*secsToMin)}}></Slider>
             <StatusBar barStyle="light-content" />
             <Text style={styles.timerText}>{`${mins}:${secs}`}</Text>
             <TouchableOpacity disabled={isActive} onPress={this.toggle} style={styles.button}>
