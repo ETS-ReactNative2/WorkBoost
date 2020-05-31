@@ -2,7 +2,11 @@ import React, { Component, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, StatusBar, TouchableOpacity, Dimensions, Modal, TouchableHighlight } from 'react-native';
 import {Slider} from 'react-native-elements'
 import { rem } from 'prelude-ls';
+import ExitTimerForm from '../screens/ExitTimerPage'
+import CompleteTimerForm from '../screens/CompleteTimerPage'
+import {Audio} from 'expo-av'
 
+const soundObject = new Audio.Sound()
 
 const screen = Dimensions.get('window');
 const formatNumber = number => `0${number}`.slice(-2);
@@ -14,10 +18,11 @@ const getRemaining = (time) => {
 }
 
 export default function TimerPage() {
-    const [remainingSecs, setRemainingSecs] = useState(300);
+    const [remainingSecs, setRemainingSecs] = useState(1);
     const [isActive, setIsActive] = useState(false);
-    const [prevTime, setPrevTime] = useState(300);
-    const [modalActive, setModalActive] = useState(false);
+    const [prevTime, setPrevTime] = useState(1);
+    const [exitModalActive, setExitModalActive] = useState(false);
+    const [completeModalActive, setCompleteModalActive] = useState(false);
     const { mins, secs } = getRemaining(remainingSecs);
     const secsToMin = 1;
 
@@ -27,11 +32,49 @@ export default function TimerPage() {
         setPrevTime(remainingSecs);
     }
 
+    playAlarm = async () => {
+        try {
+            await soundObject.unloadAsync();
+            await soundObject.loadAsync(require('../audio/the_calm_alarm.mp3'));
+            await soundObject.playAsync();
+            // Your sound is playing!
+          } catch (error) {
+              console.log("error")
+            // An error occurred!
+          }
+
+    }
+
+    playBreakAlarm = async () => {
+        try {
+            await soundObject.unloadAsync();
+            await soundObject.loadAsync(require('../audio/calm_morning_alarm.mp3'));
+            await soundObject.playAsync();
+            // Your sound is playing!
+          } catch (error) {
+              console.log("error")
+            // An error occurred!
+          }
+
+    }
+
+    stopAlarm = async () => {
+        try {
+            await soundObject.stopAsync();
+            // Your sound is stopping!
+          } catch (error) {
+              console.log("error")
+            // An error occurred!
+          }
+
+    }
+
+
     useEffect(() => {
         let interval = null;
         if (remainingSecs == 0){
-            alert("Timer is Done");
-            reset();
+            toggleCompleteModal();
+            playAlarm();
         } else if (isActive) {
             interval = setInterval(() => {
                 setRemainingSecs(remainingSecs => remainingSecs - 1);
@@ -44,7 +87,7 @@ export default function TimerPage() {
     }, [isActive, remainingSecs]);
 
     endEarly = () => {
-        toggleModal()
+        toggleExitModal()
     }
 
     reset = () => {
@@ -52,31 +95,39 @@ export default function TimerPage() {
             setIsActive(false);
     }
 
-    toggleModal = () => {
-        setModalActive(!modalActive);
+    resetButton = () => {
+        reset();
+        stopAlarm();
+    }
+
+    toggleExitModal = () => {
+        setExitModalActive(!exitModalActive);
+    }
+
+    toggleCompleteModal = () => {
+        if(exitModalActive){
+            toggleExitModal();
+        }
+        setCompleteModalActive(!completeModalActive);
     }
 
     return(
         <View style={styles.container}>
-            <Modal animationType="slide" transparent={true} visible={modalActive}>
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <Text style={styles.modalText}>Quit Timer Early?</Text>                   
-                        <TouchableHighlight
-                            style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                            onPress={() => {
-                            toggleModal()
-                            reset()
-                            }}
-                        >
-                            <Text style={styles.textStyle}>Yes</Text>
-                        </TouchableHighlight>
-                        <TouchableHighlight style={{...styles.openButton, backgroundColor: "#2196F3"} }onPress = {() => {toggleModal()}}>
-                            
-                            <Text style={styles.textStyle}>No</Text>
-                        </TouchableHighlight>
-                    </View>
-                </View>
+
+
+            <Modal animationType="slide" transparent={true} visible={!completeModalActive && exitModalActive}>
+                <ExitTimerForm 
+                               toggleExitModal={this.toggleExitModal}
+                               reset={this.reset}/>
+            </Modal>
+
+            <Modal animationType="slide" transparent={true} visible={completeModalActive}>
+                <CompleteTimerForm 
+                               toggleCompleteModal={this.toggleCompleteModal}
+                               reset={this.reset}
+                               breakActive={completeModalActive}
+                               playBreakAlarm={this.playBreakAlarm}
+                               stopAlarm={this.stopAlarm}/>
             </Modal>
 
             <Slider minimumTrackTintColor='blue' thumbTintColor="#4588f5" disabled={isActive} style={styles.sliderStyle} minimumValue={300}
@@ -86,7 +137,7 @@ export default function TimerPage() {
             <TouchableOpacity disabled={isActive} onPress={this.toggle} style={styles.button}>
                 <Text style={styles.buttonText}>{ 'Start'}</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={isActive ? endEarly : this.reset} style={[styles.button, styles.buttonReset]}>
+            <TouchableOpacity onPress={isActive ? endEarly : this.resetButton} style={[styles.button, styles.buttonReset]}>
                 <Text style={[styles.buttonText, styles.buttonTextReset]}>Reset</Text>
             </TouchableOpacity>
         </View>
