@@ -10,7 +10,7 @@ export default function LoginPage(props) {
     <View style={styles.container}>
       <Image style = {{ width: 200, height: 200, marginBottom:10 }}
                 source = {require('../pictures/logo.png')}/>
-      <Text>Welcome to WorkBoost!</Text>
+      <Text style = {{fontSize: 20}}>Welcome to WorkBoost!</Text>
       <TextInput
         style={styles.textInput}
         autoCapitalize="none"
@@ -26,11 +26,12 @@ export default function LoginPage(props) {
         onChangeText={password => setPassword(password)}
         value={password}
       />
-      <Button title="Login" onPress={() => {
+      <Button color = "#4d2600" title="Login" onPress={() => {
         //setPassword("")
         handleLogin(email, password, props.navigation)} 
         }/>
       <Button
+        color = "#4d2600"
         title="Don't have an account? Sign Up"
         onPress={() => {
           setPassword("")
