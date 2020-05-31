@@ -48,6 +48,8 @@ export function deleteUser() {
 //Habit CRUD
 //CREATE
 export function saveHabitModel(title, description) {
+  let today = new Date()
+  let date = (today.getMonth()+1) + "-" + today.getDate() + "-" + today.getFullYear()
   const user = firebase.auth().currentUser;
   var userId = firebase.database().ref(`habitLists/habits_${user.uid}`);
   var habitId = userId.push();
@@ -56,18 +58,23 @@ export function saveHabitModel(title, description) {
       'description': description,
       'streak': 0,
       'completed': false,
+      'dateCreated': date,
+      'lastCompleted': date,
       'frequency': "daily"
   });
 }
 //READ
 export function pullHabitDataModel(callBack) {
-  const user = firebase.auth().currentUser
-  firebase.database()
-    .ref(`habitLists/habits_${user.uid}`)
-    .once('value')
-    .then(snapshot => {
-      callBack(snapshot)
-    })
+  return new Promise((resolve,reject) => {
+    const user = firebase.auth().currentUser
+    firebase.database()
+      .ref(`habitLists/habits_${user.uid}`)
+      .once('value')
+      .then(snapshot => {
+        callBack(snapshot)
+      })
+      .then(() => resolve())
+  })
 }
 //UPDATE
 export function editsHabitModel(key, title, description, frequency) {
@@ -76,13 +83,19 @@ export function editsHabitModel(key, title, description, frequency) {
   habit.update({ name: title, description: description, frequency: frequency});
 }
 // updates streak and completion
-export function completeHabitModel(key, streak, complete, callBack) {
+export function completeHabitModel(key, streak, complete, date, callBack) {
   const user = firebase.auth().currentUser;
   var habit = firebase.database().ref(`habitLists/habits_${user.uid}/${key}`);
-  habit.update({streak: streak, completed: complete})
+  habit.update({streak: streak, completed: complete, lastCompleted: date})
     .then(() => {
       pullHabitDataModel(callBack)
     })
+}
+// used when refreshing habits next day
+export function refreshHabitModel(key, streak, complete) {
+  const user = firebase.auth().currentUser;
+  var habit = firebase.database().ref(`habitLists/habits_${user.uid}/${key}`);
+  habit.update({streak: streak, completed: complete})
 }
 
 //DELETE
@@ -102,6 +115,8 @@ export function removesHabitModel(key, callBack) {
 //TASK CRUD
 //CREATE
 export function saveTaskModel(title, description) {
+  let today = new Date()
+  let date = (today.getMonth()+1) + "-" + today.getDate() + "-" + today.getFullYear()
   const user = firebase.auth().currentUser;
   var userId = firebase.database().ref(`taskLists/tasks_${user.uid}`);
   var taskId = userId.push();
@@ -109,11 +124,13 @@ export function saveTaskModel(title, description) {
   taskId.set({
       'name': title,
       'description': description,
+      'dateCreated': date,
       'completed': false
   });
 }
 //READ
 export function pullTaskDataModel(callBack) {
+  return new Promise((resolve,reject) => {
   const user = firebase.auth().currentUser
   firebase.database()
     .ref(`taskLists/tasks_${user.uid}`)
@@ -121,6 +138,8 @@ export function pullTaskDataModel(callBack) {
     .then(snapshot => {
       callBack(snapshot)
     })
+    .then(() => resolve())
+  })
 }
 //UPDATE
 export function editsTaskModel(key, title, description) {
@@ -137,10 +156,16 @@ export function completeTaskModel(key, complete, callBack) {
     })
 }
 //DELETE
+export function refreshRemoveTaskModel(key) {
+  const user = firebase.auth().currentUser;
+  var task = firebase.database().ref(`taskLists/tasks_${user.uid}/${key}`);
+  task.remove()
+}
+
 export function removesTaskModel(key, callBack) {
   const user = firebase.auth().currentUser;
-  var habit = firebase.database().ref(`taskLists/tasks_${user.uid}/${key}`);
-  habit.remove()
+  var task = firebase.database().ref(`taskLists/tasks_${user.uid}/${key}`);
+  task.remove()
     .then(function() {
       console.log("Remove succeeded.")
       pullTaskDataModel(callBack)
@@ -152,5 +177,5 @@ export function removesTaskModel(key, callBack) {
 
 module.exports = {addNewUser, saveHabitModel, saveTaskModel, pullHabitDataModel, pullTaskDataModel, 
                   editsTaskModel, editsHabitModel, removesHabitModel, removesTaskModel, deleteUser, 
-                  completeTaskModel, completeHabitModel}
+                  completeTaskModel, completeHabitModel, refreshRemoveTaskModel, refreshHabitModel}
 

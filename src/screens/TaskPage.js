@@ -4,11 +4,39 @@ import Modal from 'react-native-modal'
 import Task from '../components/Task'
 import AddButton from '../components/buttons/AddButton'
 import AddTaskForm from '../screens/AddTaskPage'
-const {saveTaskModel, pullTaskDataModel, removesTaskModel, editsTaskModel, completeTaskModel} = require('../../model/dbModel.js');
+const {saveTaskModel, pullTaskDataModel, removesTaskModel, editsTaskModel, completeTaskModel, refreshRemoveTaskModel} = require('../../model/dbModel.js');
 
 export default function TaskPage() {
     const [tasks, setTasks] = useState([])
     const [addModalVisible, setAddModalVisible] = useState(false)
+    const [fetching, setFetching] = useState(false)
+
+    function refreshData(snapshot) {
+        setFetching(true)
+        let today = new Date()
+        let curMonth = today.getMonth()+1
+        let curDay = today.getDate()
+        let arr = []
+
+        snapshot.forEach(shot => {
+            if(shot.key != "user") {
+                let prevDate = shot.val().dateCreated.split("-")
+                let prevMonth = prevDate[0]
+                let prevDay = prevDate[1]
+                if(curDay > prevDay || curMonth != prevMonth) {
+                    refreshRemoveTaskModel(shot.key)
+                    alert("removed tasks due to new day")
+                }
+                else {
+                    obj = shot.val()
+                    obj.key = shot.key
+                    arr.push(obj)
+                }
+            }
+        })
+        arr.sort((a,b) => {return a.completed - b.completed})
+        setTasks(arr)
+    }
 
     function setData(snapshot) {
         let arr = []
@@ -25,10 +53,8 @@ export default function TaskPage() {
 
     //logic for "component did mount" first time organizing of state based on completion
     useEffect(() => {
-            pullTaskDataModel(setData)
-            let tmpTasks = tasks.slice()
-            tmpTasks.sort((a,b) => {return a.completed - b.completed})
-            setTasks(tmpTasks)
+            pullTaskDataModel(refreshData)
+            .then(() => setFetching(false))
     }, [])
 
     //add task
@@ -58,8 +84,8 @@ export default function TaskPage() {
     EmptyView = () => {
         return(
             <View>
-                <Text>
-                    There are no Tasks. Click the "plus" button to add a new task!
+                <Text style={{textAlign: "center", fontSize: 20, padding:10}}>
+                    There are no Tasks for the day. Click the "plus" button to add a new task!
                 </Text>
             </View>
         )
@@ -77,6 +103,9 @@ export default function TaskPage() {
             <FlatList
                 data = {tasks}
                 ListEmptyComponent={this.EmptyView}
+                onRefresh={() => pullTaskDataModel(refreshData)
+                                 .then(() => setFetching(false))}
+                refreshing={fetching}
                 renderItem = {({ item, index }) => <Task item={item} 
                                                          index={index}
                                                          editTask={this.editTask}
