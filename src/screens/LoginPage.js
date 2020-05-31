@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, TextInput, View, Button, AsyncStorage, Image} from 'react-native'
+import { StyleSheet, Text, TextInput, View, Button, Image} from 'react-native'
 import {handleLogin, navSignUp} from "../routes/navigationController"
 
 export default function LoginPage(props) {
-  const [email, setEmail] = useState("test@test.com")
-  const [password, setPassword] = useState("Test1234")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
   return (
     <View style={styles.container}>
