@@ -29,7 +29,10 @@ export default function CompleteHabitPage(props) {
                 <View style={styles.inputContainer}>
                         <TouchableOpacity
                             style={styles.doneButton}
-                            onPress={() => { props.completeHabit(); props.closeForm(); }}
+                            onPress={() => {
+                                        props.handleHabitCompletion(props.id, props.streak, true);
+                                        props.closeForm()
+                                            }}
                         >
                         <Text style={styles.saveButtonText}>Done</Text>
                         </TouchableOpacity>
