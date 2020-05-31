@@ -9,11 +9,8 @@ import TaskPage  from '../screens/TaskPage';
 import FriendsPage from '../screens/FriendsPage';
 import HelpPage from '../screens/HelpPage';
 import SettingsPage from '../screens/SettingsPage';
-import {NavigationContainer} from "@react-navigation/native";
-import { StackActions, NavigationActions } from 'react-navigation';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator, DrawerItem } from '@react-navigation/drawer';
-import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 import firebase from 'firebase'
 // model calls
 import {addNewUser, deleteUser} from "../../model/dbModel"
@@ -187,7 +184,6 @@ function MainDrawer({navigation}) {
   return (
     <Drawer.Navigator>
       <Drawer.Screen name="Home" component={MyHome} />
-      <Drawer.Screen name="Friends" component={Friends} />
       <Drawer.Screen name="Settings" component={Settings} navigation = {navigation}/>
       <Drawer.Screen name="Help" component={Help} />
     </Drawer.Navigator>
@@ -195,29 +191,10 @@ function MainDrawer({navigation}) {
 }   
 export default function MyStack() {
   return (
-    <Big.Navigator screenOptions={{headerShown: false}}>
+    <Big.Navigator screenOptions={{headerShown: false}} initialRouteName="Login">
       <Big.Screen name="Login" component={LoginPage} />
       <Big.Screen name="Signup" component={SignupPage} />
       <Big.Screen name="App" component={MainDrawer} />
     </Big.Navigator>
   );
 }
-/*
-export default createAppContainer(
-  createSwitchNavigator(
-    {
-      Login: {
-        screen: LoginPage
-      },
-      Signup: {
-        screen: SignupPage
-      },
-      App: {
-        screen: MainDrawer
-      }
-    },
-    {
-      initialRouteName: 'Login',
-    },
-  )
-);*/
