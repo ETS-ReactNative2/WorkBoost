@@ -21,7 +21,7 @@ export default function Task(props) {
                             remove={props.remove}
                             editTask={props.editTask}/>
             </Modal>
-            <Card style={props.item.completed ? {opacity:0.5} : {}}
+            <Card style={props.item.completed ? styles.fadedCard : styles.card}
                 key={props.item.key}>
                 <CardItem header key={props.item.key + 100} style={{ height: 55, width: 410 }}>
                     <Body>
@@ -50,3 +50,13 @@ export default function Task(props) {
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    card: {
+        borderColor:"brown",
+    },
+    fadedCard: {
+        borderColor:"brown",
+        opacity: 0.5
+    }
+})

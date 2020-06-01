@@ -113,7 +113,7 @@ export default function HabitPage() {
                                     addHabit={this.addHabit}/>
                 </View >
             </View>
-                {/* <ImageBackground source={require('../pictures/coffeeBackground.png')} style={styles.background}> */}
+                <ImageBackground source={require('../pictures/coffeeBackground.png')} style={styles.background}>
                     <FlatList
                         data = {habits}
                         ListEmptyComponent={this.EmptyView}
@@ -131,7 +131,7 @@ export default function HabitPage() {
                         //to be used when firebase data comes in
                         //keyExtractor={item => item.toString()}
                     />
-            {/* </ImageBackground> */}
+            </ImageBackground>
         </View>
     )
 }
@@ -164,9 +164,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
      },
-    //  background: {
-    //     flex: 1,
-    //     resizeMode: "cover",
-    //     justifyContent: "center"
-    //  }
+     background: {
+        flex: 1,
+        resizeMode: "cover",
+        justifyContent: "center"
+     }
 });
