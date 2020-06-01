@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert, Image } from 'react-native';
+import { View, Text, StyleSheet, FlatList, ImageBackground, TouchableOpacity, Alert, Image } from 'react-native';
 import Modal from 'react-native-modal'
 import Task from '../components/Task'
 import AddButton from '../components/buttons/AddButton'
@@ -111,20 +111,22 @@ export default function TaskPage() {
                                     addHabit={this.addTask}/>
                 </View >
             </View>
-            <FlatList
-                data = {tasks}
-                ListEmptyComponent={this.EmptyView}
-                onRefresh={() => pullTaskDataModel(refreshData)
-                                 .then(() => setFetching(false))}
-                refreshing={fetching}
-                renderItem = {({ item, index }) => <Task item={item} 
-                                                         index={index}
-                                                         editTask={this.editTask}
-                                                         remove={this.remove}
-                                                         handleTaskCompletion={this.handleTaskCompletion}/>}   
-                //to be used when firebase data comes in
-                //keyExtractor={item => item.toString()}
-            />
+            <ImageBackground source={require('../pictures/coffeeBackground.png')} style={styles.background}>
+                <FlatList
+                    data = {tasks}
+                    ListEmptyComponent={this.EmptyView}
+                    onRefresh={() => pullTaskDataModel(refreshData)
+                                    .then(() => setFetching(false))}
+                    refreshing={fetching}
+                    renderItem = {({ item, index }) => <Task item={item} 
+                                                            index={index}
+                                                            editTask={this.editTask}
+                                                            remove={this.remove}
+                                                            handleTaskCompletion={this.handleTaskCompletion}/>}   
+                    //to be used when firebase data comes in
+                    //keyExtractor={item => item.toString()}
+                />
+            </ImageBackground>
         </View> 
 
     )
@@ -158,5 +160,10 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+     },
+     background: {
+        flex: 1,
+        resizeMode: "cover",
+        justifyContent: "center"
      }
 });
