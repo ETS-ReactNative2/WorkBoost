@@ -48,8 +48,9 @@ export default function AddHabitPage(props) {
                             style={styles.saveButton}
                             onPress={() => {
                                 if (title == "") {alert('Missing Task Title');}
-                                else {props.addHabit(title,description); }
+                                else {props.addHabit(title,description);
                                 props.showAddForm()
+                                }
                             }}
                         >
                             <Text style={styles.saveButtonText}>Save</Text>
