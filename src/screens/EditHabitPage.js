@@ -18,6 +18,24 @@ export default function EditHabitPage(props) {
         )
     }
 
+    function RevertButton() {
+        if(!props.item.completed) {
+           return(<View></View>) 
+        }
+        return(
+            <View style={styles.inputContainer}>
+                <TouchableOpacity
+                    style={styles.saveButton}
+                    onPress={() => {
+                        props.handleHabitCompletion(props.item.key, props.item.streak-1, false, props.item.lastCompleted)
+                        props.showEditForm()
+                    }}>
+                    <Text style={styles.saveButtonText}>Revert Completion</Text>
+                </TouchableOpacity>
+            </View>
+        )
+    }
+
     return(
         <View style={styles.container}>
             <View>
@@ -56,8 +74,7 @@ export default function EditHabitPage(props) {
                                 if (title == "") {alert('Missing Task Title');}
                                 else {props.editHabit(props.item.key.toString(),title,description, frequency);
                                      props.showEditForm();}
-                            }}
-                        >
+                            }}>
                             <Text style={styles.saveButtonText}>Save</Text>
                         </TouchableOpacity>
                     </View>
@@ -71,16 +88,7 @@ export default function EditHabitPage(props) {
                             <Text style={styles.saveButtonText}>Remove</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={styles.inputContainer}>
-                        <TouchableOpacity
-                            style={styles.saveButton}
-                            onPress={() => {
-                                props.handleHabitCompletion(props.item.key, props.item.streak-1, false, props.item.lastCompleted);
-                            }}
-                        >
-                            <Text style={styles.saveButtonText}>Revert Completion</Text>
-                        </TouchableOpacity>
-                    </View>
+                    <RevertButton />
                 </View>
             </ScrollView>
         </View>
