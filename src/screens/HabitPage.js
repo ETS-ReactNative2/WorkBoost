@@ -94,7 +94,7 @@ export default function HabitPage() {
 
     return(
         <View style={styles.container}> 
-            <Modal style={{margin:0, marginTop:60, backgroundColor:"#FFF"}}
+            <Modal style={{margin:0, height: '70%', marginTop:60, marginBottom: 60}}
                    isVisible={addModalVisible}
                    onSwipeComplete={() => showAddForm()}
                    swipeDirection="down">

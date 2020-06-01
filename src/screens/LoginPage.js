@@ -3,8 +3,8 @@ import { StyleSheet, Text, TextInput, View, Button, Image} from 'react-native'
 import {handleLogin, navSignUp} from "../routes/navigationController"
 
 export default function LoginPage(props) {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("test@test.com")
+  const [password, setPassword] = useState("Test1234")
 
   return (
     <View style={styles.container}>
