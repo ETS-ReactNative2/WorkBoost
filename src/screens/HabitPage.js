@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert, Image, TouchableHighlight } from 'react-native';
+import { View, Text, StyleSheet, FlatList, ImageBackground, TouchableOpacity, Alert, Image, TouchableHighlight } from 'react-native';
 import Modal from 'react-native-modal'
 import Habit from '../components/Habit'
 import AddButton from '../components/buttons/AddButton'
@@ -113,25 +113,25 @@ export default function HabitPage() {
                                     addHabit={this.addHabit}/>
                 </View >
             </View>
-            
-            <FlatList
-                data = {habits}
-                ListEmptyComponent={this.EmptyView}
-                onRefresh={() => {
-                    pullHabitDataModel(refreshData)
-                    .then(() => pullHabitDataModel(setData))
-                    .then(() => setFetching(false))
-                }}
-                refreshing={fetching}
-                renderItem = {({ item, index }) => <Habit item={item}
-                                                          index={index}
-                                                          editHabit={this.editHabit}
-                                                          remove={this.remove}
-                                                          handleHabitCompletion={this.handleHabitCompletion}/>}   
-                //to be used when firebase data comes in
-                //keyExtractor={item => item.toString()}
-            />
-            
+                {/* <ImageBackground source={require('../pictures/coffeeBackground.png')} style={styles.background}> */}
+                    <FlatList
+                        data = {habits}
+                        ListEmptyComponent={this.EmptyView}
+                        onRefresh={() => {
+                            pullHabitDataModel(refreshData)
+                            .then(() => pullHabitDataModel(setData))
+                            .then(() => setFetching(false))
+                        }}
+                        refreshing={fetching}
+                        renderItem = {({ item, index }) => <Habit item={item}
+                                                                index={index}
+                                                                editHabit={this.editHabit}
+                                                                remove={this.remove}
+                                                                handleHabitCompletion={this.handleHabitCompletion}/>}   
+                        //to be used when firebase data comes in
+                        //keyExtractor={item => item.toString()}
+                    />
+            {/* </ImageBackground> */}
         </View>
     )
 }
@@ -163,5 +163,10 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-     }
+     },
+    //  background: {
+    //     flex: 1,
+    //     resizeMode: "cover",
+    //     justifyContent: "center"
+    //  }
 });

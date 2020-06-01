@@ -42,7 +42,7 @@ export default function Habit(props) {
                               />
             </Modal>
             <TouchableOpacity onPress={props.item.completed? ()=>{} : this.showCompForm}>
-            <Card style={props.item.completed ? {opacity:0.5} : {}}
+            <Card style={props.item.completed ? styles.fadedCard : styles.card}
                     key={props.item.key}>
                 <CardItem header key={props.item.key + 100} style={{ height: 60, width: 410}}>
                     <Body>
@@ -68,3 +68,13 @@ export default function Habit(props) {
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    card: {
+        borderColor:"brown",
+    },
+    fadedCard: {
+        borderColor:"brown",
+        opacity: 0.5
+    }
+})
