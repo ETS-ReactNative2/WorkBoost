@@ -98,7 +98,7 @@ function DrawerButton(props) {
   return(
     <TouchableOpacity onPress={() => props.navigation.openDrawer()}>
       <Image
-        style = {{ width: 30, height: 30, marginLeft:5, color: "#9f8574"}}
+        style = {{ width: 30, height: 30, marginLeft:5}}
         source = {require('../pictures/menu.png')}
       />
     </TouchableOpacity>
@@ -106,7 +106,7 @@ function DrawerButton(props) {
 }
 
 function LogoIcon(){
-  return (<Image style = {{ width: 44, height: 44, marginBottom:10 }}
+  return (<Image style = {{ width: 50, height: 50, marginBottom:10 }}
                  source = {require('../pictures/logo.png')}/>);
 }
 
@@ -183,7 +183,7 @@ function Help({navigation}) {
  
 function MainDrawer({navigation}) {
   return (
-    <Drawer.Navigator>
+    <Drawer.Navigator drawerStyle={{backgroundColor: "#f2e6d9"}} drawerContentOptions={{activeBackgroundColor:"#f8f2ec", activeTintColor:"#bd8242"}}>
       <Drawer.Screen name="Home" component={MyHome} />
       <Drawer.Screen name="Settings" component={Settings} navigation = {navigation}/>
       <Drawer.Screen name="Help" component={Help} />
