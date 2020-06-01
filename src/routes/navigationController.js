@@ -106,7 +106,7 @@ function DrawerButton(props) {
 }
 
 function LogoIcon(){
-  return (<Image style = {{ width: 44, height: 44, marginBottom:10 }}
+  return (<Image style = {{ width: 50, height: 50, marginBottom:10 }}
                  source = {require('../pictures/logo.png')}/>);
 }
 
