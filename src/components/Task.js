@@ -23,7 +23,7 @@ export default function Task(props) {
             </Modal>
             <Card style={props.item.completed ? {opacity:0.5} : {}}
                 key={props.item.key}>
-                <CardItem header key={props.item.key + 100} style={{ height: 55, width: 419 }}>
+                <CardItem header key={props.item.key + 100} style={{ height: 55, width: 410 }}>
                     <Body>
                         <Text style={{fontWeight:"bold", fontSize:20}}>{props.item.name}</Text>
                     </Body>
@@ -35,7 +35,7 @@ export default function Task(props) {
                                 checked={props.item.completed} />
                     </Right>
                 </CardItem>
-                <CardItem key={props.item.key + 1000} style={{ height: 43, width: 419 }}>
+                <CardItem key={props.item.key + 1000} style={{ height: 43, width: 410 }}>
                     <Body>
                         <Text>{props.item.description}</Text>
                     </Body>

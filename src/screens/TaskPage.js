@@ -92,7 +92,7 @@ export default function TaskPage() {
     }
 
     return(
-        <View> 
+        <View style={styles.container}> 
             <Modal style={{margin:0, marginTop:60, backgroundColor:"#FFF"}}
                    isVisible={addModalVisible}
                    onSwipeComplete={() => showAddForm()}

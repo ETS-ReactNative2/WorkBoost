@@ -134,7 +134,7 @@ export default function TimerPage() {
                                stopAlarm={this.stopAlarm}/>
             </Modal>
 
-            <Slider minimumTrackTintColor='blue' thumbTintColor="#4588f5" disabled={isActive} style={styles.sliderStyle} minimumValue={5}
+            <Slider minimumTrackTintColor='#bf8040' thumbTintColor="#734d26" disabled={isActive} style={styles.sliderStyle} minimumValue={5}
                 maximumValue={60} step={5} value={prevTime} onValueChange={(e) => {setRemainingSecs(e*secsToMin)}}></Slider>
             <StatusBar barStyle="light-content" />
             <Text style={styles.timerText}>{`${mins}:${secs}`}</Text>
@@ -163,7 +163,7 @@ const styles = StyleSheet.create(
     },
     button: {
         borderWidth: 10,
-        borderColor: '#0e97ed',
+        borderColor: '#86592d',
         width: screen.width / 2,
         height: screen.width / 2,
         borderRadius: screen.width / 2,
@@ -172,7 +172,7 @@ const styles = StyleSheet.create(
     },
     buttonText: {
         fontSize: 45,
-        color: 'blue'
+        color: '#86592d'
     },
     timerText: {
         color: 'black',
@@ -181,10 +181,10 @@ const styles = StyleSheet.create(
     },
     buttonReset: {
         marginTop: 20,
-        borderColor: "red",
+        borderColor: "#e6ccb3",
     },
     buttonTextReset: {
-        color: "red"
+        color: "#e6ccb3"
     },
     buttonTextSmall: {
         fontSize: 30,

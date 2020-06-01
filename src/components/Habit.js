@@ -44,7 +44,7 @@ export default function Habit(props) {
             <TouchableOpacity onPress={props.item.completed? ()=>{} : this.showCompForm}>
             <Card style={props.item.completed ? {opacity:0.5} : {}}
                     key={props.item.key}>
-                <CardItem header key={props.item.key + 100} style={{ height: 60, width: 419}}>
+                <CardItem header key={props.item.key + 100} style={{ height: 60, width: 410}}>
                     <Body>
                         <Text style={{fontWeight:"bold", fontSize:20}}>{props.item.name}</Text>
                         <View style = {{flexDirection: 'row'}}>
