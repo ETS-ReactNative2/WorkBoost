@@ -47,7 +47,7 @@ export default function AddHabitPage(props) {
                         <TouchableOpacity
                             style={styles.saveButton}
                             onPress={() => {
-                                if (title == "") {alert('Missing Task Title');}
+                                if (title == "") {alert('Missing Habit Title');}
                                 else {props.addHabit(title,description);
                                 props.showAddForm()
                                 }
