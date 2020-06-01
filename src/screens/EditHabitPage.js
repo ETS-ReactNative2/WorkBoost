@@ -39,7 +39,7 @@ export default function EditHabitPage(props) {
     return(
         <View style={styles.container}>
             <View>
-                <Header containerStyle={{backgroundColor:'#F5FCFF', paddingTop:0, marginTop:0}}
+                <Header containerStyle={{backgroundColor:'#ffff', paddingTop:0, marginTop:0}}
                         leftComponent={<BackButton />}
                         centerComponent={{text: 'Edit Habit', style: {fontSize:35}}}
                 />

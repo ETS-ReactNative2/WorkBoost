@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Switch, StyleSheet } from 'react-native';
 
 export default function ToggleNotifications() {
-    const [isEnabled, setIsEnabled] = useState(false);
+    const [isEnabled, setIsEnabled] = useState(true);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
     return(
         <View style={{flexDirection:'row'}}>

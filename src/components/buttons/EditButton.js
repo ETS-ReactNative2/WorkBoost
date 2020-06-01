@@ -8,7 +8,7 @@ export default function EditButton(props) {
                         justifyContent: 'center',
                         borderRadius: 5}}
                         onPress={() => props.showEditForm()}>
-            <Image style={{width:30,height:30}} source={editIcon}/>
+            <Image style={{width:23,height:23}} source={editIcon}/>
         </TouchableOpacity>
     )
 }
