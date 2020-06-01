@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
         backgroundColor:'#6f4e37',
         borderRadius:10,
         borderWidth: 1,
-        borderColor: '#fff'
+        borderColor: '#6f4e37'
       },
       buttonText:{
         fontSize:19,

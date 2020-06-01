@@ -98,7 +98,7 @@ function DrawerButton(props) {
   return(
     <TouchableOpacity onPress={() => props.navigation.openDrawer()}>
       <Image
-        style = {{ width: 30, height: 30, marginLeft:5, color: "#9f8574"}}
+        style = {{ width: 30, height: 30, marginLeft:5}}
         source = {require('../pictures/menu.png')}
       />
     </TouchableOpacity>
