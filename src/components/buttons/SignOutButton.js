@@ -7,7 +7,7 @@ export default function SignOutButton({navigation}) {
         <TouchableOpacity
                 style={styles.signOutButton}
                 onPress={() => handleSignOut(navigation)} 
-                underlayColor='#fff'>
+                underlayColor='#9f8574'>
                 <Text style={styles.buttonText}>SIGN OUT</Text>
         </TouchableOpacity>
     )
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         marginTop:10,
         paddingTop:10,
         paddingBottom:10,
-        backgroundColor:'#000066',
+        backgroundColor:'#6f4e37',
         borderRadius:10,
         borderWidth: 1,
         borderColor: '#fff'

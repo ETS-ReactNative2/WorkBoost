@@ -8,7 +8,7 @@ export default function AddButton(props) {
             onPress={() =>
             props.showAddForm()
             }>
-            <FontAwesome name="plus" color="#4588f5" size={35} />
+            <FontAwesome name="plus" color="#9f8574" size={35} />
         </TouchableOpacity>
     )
 }

@@ -7,7 +7,7 @@ export default function DeleteAccountButton({navigation}) {
         <TouchableOpacity
                 style={styles.deleteButton}
                 onPress={() => handleDeleteAccount(navigation)}
-                underlayColor='#fff'>
+                underlayColor='#cfc0b7'>
                 <Text style={styles.buttonText}>DELETE ACCOUNT</Text>
         </TouchableOpacity>
     )
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         marginTop:10,
         paddingTop:10,
         paddingBottom:10,
-        backgroundColor:'#cc3300',
+        backgroundColor:'#9f8574',
         borderRadius:10,
         borderWidth: 1,
         borderColor: '#fff'
