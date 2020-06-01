@@ -39,7 +39,7 @@ export default function EditHabitPage(props) {
     return(
         <View style={styles.container}>
             <View>
-                <Header containerStyle={{backgroundColor:'#F5FCFF', paddingTop:0, marginTop:0}}
+                <Header containerStyle={{backgroundColor:'#ffff', paddingTop:0, marginTop:0}}
                         leftComponent={<BackButton />}
                         centerComponent={{text: 'Edit Habit', style: {fontSize:35}}}
                 />
@@ -80,7 +80,7 @@ export default function EditHabitPage(props) {
                     </View>
                     <View style={styles.inputContainer}>
                         <TouchableOpacity
-                            style={styles.saveButton}
+                            style={styles.removeButton}
                             onPress={() => {
                                 props.remove(props.item.key);
                             }}
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       paddingTop: 45,
-      backgroundColor: '#F5FCFF',
+      backgroundColor: '#ffff',
     },
     header: {
       fontSize: 25,
@@ -121,10 +121,19 @@ const styles = StyleSheet.create({
     },
     saveButton: {
         borderWidth: 1,
-        borderColor: '#007BFF',
-        backgroundColor: '#007BFF',
+        borderRadius:20,
+        borderColor: '#996633',
+        backgroundColor: '#996633',
         padding: 15,
-        margin: 5
+        margin: 10
+      },
+      removeButton: {
+        borderWidth: 1,
+        borderRadius:20,
+        borderColor: '#4d3319',
+        backgroundColor: '#4d3319',
+        padding: 15,
+        margin: 10
       },
     saveButtonText: {
         color: '#FFFFFF',

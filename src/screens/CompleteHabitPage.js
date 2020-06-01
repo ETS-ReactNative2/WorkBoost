@@ -70,8 +70,9 @@ const styles = StyleSheet.create({
     },
     doneButton: {
         borderWidth: 1,
-        borderColor: '#007BFF',
-        backgroundColor: '#007BFF',
+        borderRadius:20,
+        borderColor: '#ac7339',
+        backgroundColor: '#ac7339',
         padding: 15,
         margin: 5
       },

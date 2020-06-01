@@ -20,7 +20,7 @@ export default function AddTaskPage(props) {
     return(
         <View style={styles.container}>
             <View>
-                <Header containerStyle={{backgroundColor:'#F5FCFF', paddingTop:0, marginTop:0}}
+                <Header containerStyle={{backgroundColor:'#ffff', paddingTop:0, marginTop:0}}
                         leftComponent={<BackButton />}
                         centerComponent={{text: 'Add Task', style: {fontSize:35}}}
                 />
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       paddingTop: 45,
-      backgroundColor: '#F5FCFF',
+      backgroundColor: '#ffff',
     },
     header: {
       fontSize: 25,
@@ -86,8 +86,9 @@ const styles = StyleSheet.create({
     },
     saveButton: {
         borderWidth: 1,
-        borderColor: '#007BFF',
-        backgroundColor: '#007BFF',
+        borderRadius:20,
+        borderColor: '#dfbf9f',
+        backgroundColor: '#dfbf9f',
         padding: 15,
         margin: 5
       },

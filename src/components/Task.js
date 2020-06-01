@@ -28,7 +28,7 @@ export default function Task(props) {
                         <Text style={{fontWeight:"bold", fontSize:20}}>{props.item.name}</Text>
                     </Body>
                     <Right style={{flex: 0.2}}>
-                        <CheckBox style = {{marginRight:11}}
+                        <CheckBox color ="#d9b38c" style = {{marginRight:11, borderColor: "#996633"}}
                                 onPress={() => {
                                     props.handleTaskCompletion(props.item.key, !props.item.completed)
                                 }}
