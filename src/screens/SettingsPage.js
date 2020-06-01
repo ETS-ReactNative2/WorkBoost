@@ -19,11 +19,11 @@ export default function SettingsPage({navigation}) {
 
 const styles = StyleSheet.create({
     container: {
+      backgroundColor: "#ebd9c6",
       flex: 1,
     },
     titleText: {
         fontSize: 30,
-        fontWeight: "bold",
         textAlign: "center",
         marginBottom:20,
         marginTop:20

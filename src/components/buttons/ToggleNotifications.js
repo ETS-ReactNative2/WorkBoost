@@ -8,8 +8,8 @@ export default function ToggleNotifications() {
         <View style={{flexDirection:'row'}}>
         <Text style={styles.normalText}>Notifications</Text> 
         <Switch
-            trackColor={{ false: "#767577", true: "#006600" }} 
-            thumbColor={isEnabled ? "#99ff99" : "#f4f3f4"}
+            trackColor={{ false: "#392613", true: "#d2a679" }} 
+            thumbColor={isEnabled ? "#f2e6d9" : "#f4f3f4"}
             ios_backgroundColor="#3e3e3e"
             onValueChange={toggleSwitch}
             value={isEnabled}

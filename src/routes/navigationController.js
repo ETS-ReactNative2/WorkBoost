@@ -182,7 +182,7 @@ function Help({navigation}) {
  
 function MainDrawer({navigation}) {
   return (
-    <Drawer.Navigator>
+    <Drawer.Navigator drawerStyle={{backgroundColor: "#f2e6d9"}} drawerContentOptions={{activeBackgroundColor:"#f8f2ec", activeTintColor:"#bd8242"}}>
       <Drawer.Screen name="Home" component={MyHome} />
       <Drawer.Screen name="Settings" component={Settings} navigation = {navigation}/>
       <Drawer.Screen name="Help" component={Help} />
