@@ -1,7 +1,6 @@
 import React, { Component, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, StatusBar, TouchableOpacity, Dimensions, Modal, TouchableHighlight } from 'react-native';
 import {Slider} from 'react-native-elements'
-import { rem } from 'prelude-ls';
 import ExitTimerForm from '../screens/ExitTimerPage'
 import CompleteTimerForm from '../screens/CompleteTimerPage'
 import {Audio} from 'expo-av'

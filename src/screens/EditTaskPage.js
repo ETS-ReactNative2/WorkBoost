@@ -36,7 +36,7 @@ export default function EditTaskPage(props) {
                     />
                     <TextInput
                         style={styles.textInput}
-                        placeholder="Task Description"
+                        placeholder="Task Description (Optional)"
                         onBlur={Keyboard.dismiss}
                         value={description}
                         onChangeText={text => setDescription(text)}
@@ -45,7 +45,7 @@ export default function EditTaskPage(props) {
                         <TouchableOpacity
                             style={styles.saveButton}
                             onPress={() => {
-                                if (title == "" || description == "") {alert('One of these fields appears to be empty.');}
+                                if (title == "") {alert('Missing Task Title');}
                                 else {props.editTask(props.item.key ,title,description)
                                      props.showEditForm()}
                             }}>
