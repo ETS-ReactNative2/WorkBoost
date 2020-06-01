@@ -98,7 +98,7 @@ function DrawerButton(props) {
   return(
     <TouchableOpacity onPress={() => props.navigation.openDrawer()}>
       <Image
-        style = {{ width: 30, height: 30, marginLeft:5 }}
+        style = {{ width: 30, height: 30, marginLeft:5, color: "#9f8574"}}
         source = {require('../pictures/menu.png')}
       />
     </TouchableOpacity>
@@ -114,7 +114,8 @@ function BottomTabs() {
     return (
         <Tab.Navigator initialRouteName="Timer"
         tabBarOptions= {{
-          labelStyle: {
+          labelStyle: { 
+            color: "#9f8574",
             fontSize: 17,
             margin: 0,
             padding: 0,
