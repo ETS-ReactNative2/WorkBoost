@@ -13,7 +13,7 @@ export default function ExitTimerPage(props) {
                             source = {require('../pictures/sad_logo.png')}
                         />                   
                         <TouchableHighlight
-                            style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+                            style={{ ...styles.openButton, backgroundColor: "#dfbf9f" }}
                             onPress={() => {
                             props.toggleExitModal()
                             props.reset()
@@ -21,7 +21,7 @@ export default function ExitTimerPage(props) {
                         >
                             <Text style={styles.textStyle}>Yes, I'm a quitter</Text>
                         </TouchableHighlight>
-                        <TouchableHighlight style={{...styles.openButton, backgroundColor: "#2196F3"} }onPress = {() => {props.toggleExitModal()}}>
+                        <TouchableHighlight style={{...styles.openButton, backgroundColor: "#86592d"} }onPress = {() => {props.toggleExitModal()}}>
                             
                             <Text style={styles.textStyle}>No, I can do this!</Text>
                         </TouchableHighlight>
@@ -42,18 +42,6 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       margin: 10,
       fontWeight: 'bold'
-    },
-    inputContainer: {
-        paddingTop: 15
-      },
-    textInput: {
-        borderColor: '#CCCCCC',
-        borderTopWidth: 1,
-        borderBottomWidth: 1,
-        height: 50,
-        fontSize: 20,
-        paddingLeft: 20,
-        paddingRight: 40
     },
     doneButton: {
         borderWidth: 1,

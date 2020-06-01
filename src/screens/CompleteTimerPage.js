@@ -47,7 +47,7 @@ export default function CompleteTimerPage(props) {
                         />
                         <Text style={styles.timerText}>{`${mins}:${secs}`}</Text>          
                         <TouchableHighlight
-                            style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+                            style={{ ...styles.openButton, backgroundColor: "#dfbf9f" }}
                             onPress={() => {
                             props.toggleCompleteModal()
                             props.reset()
@@ -57,7 +57,7 @@ export default function CompleteTimerPage(props) {
                             <Text style={styles.textStyle}>Skip Break</Text>
                         </TouchableHighlight>
                         <TouchableHighlight
-                            style={{ ...styles.openButton, backgroundColor: "red" }}
+                            style={{ ...styles.openButton, backgroundColor: "#86592d" }}
                             onPress={() => {
                             props.stopAlarm();
                             }}
@@ -70,21 +70,12 @@ export default function CompleteTimerPage(props) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      paddingTop: 45,
-      alignItems:'center',
-      backgroundColor: '#FFFFFF',
-    },
     header: {
       fontSize: 25,
       textAlign: 'center',
       margin: 10,
       fontWeight: 'bold'
     },
-    inputContainer: {
-        paddingTop: 15
-      },
     textInput: {
         borderColor: '#CCCCCC',
         borderTopWidth: 1,
