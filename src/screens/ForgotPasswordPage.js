@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, TextInput, View, Button, Image} from 'react-native'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Button, Image} from 'react-native'
 import {handleForgotPassword} from "../routes/navigationController"
 
 export default function ForgotPasswordPage(props) {
@@ -18,10 +18,18 @@ export default function ForgotPasswordPage(props) {
           onChangeText={email => setEmail(email)}
           value={email}
         />
-        <Button color = "#4d2600" title="Send Email" onPress={() => {
+        {/* <Button color = "#4d2600" title="Send Email" onPress={() => {
           //setPassword("")
           handleForgotPassword(email, props.navigation)} 
-          }/>
+          }/> */}
+          <TouchableOpacity 
+            style = {styles.button}
+            activeOpacity = { .5 }
+            onPress={() => {handleForgotPassword(email, props.navigation)}}>
+            <Text style = {styles.text}>
+               Send Email
+            </Text>
+         </TouchableOpacity>
       </View>
     )
 }
@@ -39,5 +47,21 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1,
     marginTop: 8
+  },
+  text: {
+      color:'#fff',
+      textAlign:'center',
+  },
+  button: {
+    marginTop:10,
+    paddingTop:15,
+    paddingBottom:15,
+    marginLeft:10,
+    marginRight:10,
+    width:200,
+    borderRadius:10,
+    borderWidth: 1,
+    borderColor: '#9f8574',
+    backgroundColor: '#b7a295'
   }
 })
