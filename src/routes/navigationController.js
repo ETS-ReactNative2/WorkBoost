@@ -6,7 +6,7 @@ import LoginPage from '../screens/LoginPage';
 import SignupPage from '../screens/SignupPage';
 import HabitPage from '../screens/HabitPage';
 import TaskPage  from '../screens/TaskPage';
-import FriendsPage from '../screens/FriendsPage';
+import TipsPage from '../screens/TipsPage';
 import HelpPage from '../screens/HelpPage';
 import SettingsPage from '../screens/SettingsPage';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -141,12 +141,12 @@ function MyHome({navigation}) {
     );
   }
 
-function Friends({navigation}) {
+function Tips({navigation}) {
     return (
       <Stack.Navigator>
         <Stack.Screen
-          name="Friends"
-          component={FriendsPage}
+          name="Tips"
+          component={TipsPage}
           options={{ headerTitle: () => <LogoIcon />,
                       headerLeft:  () => <DrawerButton navigation={navigation} />}}
         />
@@ -185,6 +185,7 @@ function MainDrawer({navigation}) {
   return (
     <Drawer.Navigator drawerStyle={{backgroundColor: "#f2e6d9"}} drawerContentOptions={{activeBackgroundColor:"#f8f2ec", activeTintColor:"#bd8242"}}>
       <Drawer.Screen name="Home" component={MyHome} />
+      <Drawer.Screen name="Tips" component={Tips} />
       <Drawer.Screen name="Settings" component={Settings} navigation = {navigation}/>
       <Drawer.Screen name="Help" component={Help} />
     </Drawer.Navigator>
