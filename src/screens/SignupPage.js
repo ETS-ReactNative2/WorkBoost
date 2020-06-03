@@ -1,6 +1,6 @@
 // SignUp.js
 import React, {useState} from 'react'
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Button } from 'react-native'
 import {handleSignUp, navLogin} from "../routes/navigationController"
 
 export default function SignupPage(props) {
@@ -25,9 +25,14 @@ export default function SignupPage(props) {
         onChangeText={password => setPassword(password)}
         value={password}
       />
-      <Button color = "#4d2600" title="Sign Up" onPress={() => {
-        //setPassword("")
-        handleSignUp(email, password, props.navigation)}} />
+      <TouchableOpacity 
+          style = {styles.button}
+          activeOpacity = { .5 }
+          onPress={() => {handleSignUp(email, password, props.navigation)}}>
+          <Text style = {styles.text}>
+              Sign Up
+          </Text>
+        </TouchableOpacity>
       <Button
         color = "#4d2600"
         title="Already have an account? Login"
@@ -53,5 +58,21 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1,
     marginTop: 8
+  },
+  text: {
+    color:'#fff',
+    textAlign:'center',
+  },
+  button: {
+    marginTop:10,
+    paddingTop:15,
+    paddingBottom:15,
+    marginLeft:10,
+    marginRight:10,
+    width:200,
+    borderRadius:10,
+    borderWidth: 1,
+    borderColor: '#9f8574',
+    backgroundColor: '#b7a295'
   }
 })

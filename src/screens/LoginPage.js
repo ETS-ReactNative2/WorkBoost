@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, TextInput, View, Button, Image} from 'react-native'
-import {handleLogin, navSignUp} from "../routes/navigationController"
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Button, Image} from 'react-native'
+import {handleLogin, navSignUp, navForgotPassword} from "../routes/navigationController"
 
 export default function LoginPage(props) {
   const [email, setEmail] = useState("")
@@ -26,17 +26,32 @@ export default function LoginPage(props) {
         onChangeText={password => setPassword(password)}
         value={password}
       />
-      <Button color = "#4d2600" title="Login" onPress={() => {
-        //setPassword("")
-        handleLogin(email, password, props.navigation)} 
-        }/>
+      <TouchableOpacity 
+          style = {styles.button}
+          activeOpacity = { .5 }
+          onPress={() => {handleLogin(email, password, props.navigation)}}>
+          <Text style = {styles.text}>
+              Login
+          </Text>
+        </TouchableOpacity>
       <Button
         color = "#4d2600"
+        backgroundColor = "#f8f2ec"
         title="Don't have an account? Sign Up"
         onPress={() => {
           setPassword("")
           setEmail("")
           navSignUp(props.navigation)}}
+      />
+      <Button
+        color = "#4d2600"
+        backgroundColor = "#f8f2ec"
+        title="Forgot password?"
+        onPress={() => {
+          setPassword("")
+          setEmail("")
+          navForgotPassword(props.navigation)
+        }}
       />
     </View>
   )
@@ -55,5 +70,21 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1,
     marginTop: 8
+  },
+  text: {
+    color:'#fff',
+    textAlign:'center',
+  },
+  button: {
+    marginTop:10,
+    paddingTop:15,
+    paddingBottom:15,
+    marginLeft:10,
+    marginRight:10,
+    width:200,
+    borderRadius:10,
+    borderWidth: 1,
+    borderColor: '#9f8574',
+    backgroundColor: '#b7a295'
   }
 })
