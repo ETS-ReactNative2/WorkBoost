@@ -18,11 +18,7 @@ export default function ForgotPasswordPage(props) {
           onChangeText={email => setEmail(email)}
           value={email}
         />
-        {/* <Button color = "#4d2600" title="Send Email" onPress={() => {
-          //setPassword("")
-          handleForgotPassword(email, props.navigation)} 
-          }/> */}
-          <TouchableOpacity 
+         <TouchableOpacity 
             style = {styles.button}
             activeOpacity = { .5 }
             onPress={() => {handleForgotPassword(email, props.navigation)}}>
@@ -30,6 +26,14 @@ export default function ForgotPasswordPage(props) {
                Send Email
             </Text>
          </TouchableOpacity>
+         <Button
+          color = "#4d2600"
+          title="Remember your password? Login"
+          onPress={() => {
+            setPassword("")
+            setEmail("")
+            navLogin(props.navigation)}}
+        />
       </View>
     )
 }

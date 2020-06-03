@@ -6,6 +6,7 @@ export default function AddTaskPage(props) {
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [dueDate, setDueDate] = useState("");
 
     function BackButton() {
         return(
@@ -43,12 +44,21 @@ export default function AddTaskPage(props) {
                         maxLength={40}
                         onChangeText={description => setDescription(description)}
                     />
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder="Due Date (M-D-YYYY)"
+                        onBlur={Keyboard.dismiss}
+                        value={dueDate}
+                        maxLength={40}
+                        onChangeText={dueDate => setDueDate(dueDate)}
+                    />
                     <View style={styles.inputContainer}>
                         <TouchableOpacity
                             style={styles.saveButton}
                             onPress={() => {
                                 if (title == "") {alert('Missing Task Title');}
-                                else{props.addTask(title,description)
+                                else if (dueDate == "") {alert('Missing Due Date');}
+                                else{props.addTask(title,description, dueDate)
                                     props.showAddForm()}
                             }}>
                             <Text style={styles.saveButtonText}>Save</Text>

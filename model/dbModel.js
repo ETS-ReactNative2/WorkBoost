@@ -114,7 +114,7 @@ export function removesHabitModel(key, callBack) {
 
 //TASK CRUD
 //CREATE
-export function saveTaskModel(title, description) {
+export function saveTaskModel(title, description, dueDate) {
   let today = new Date()
   let date = (today.getMonth()+1) + "-" + today.getDate() + "-" + today.getFullYear()
   const user = firebase.auth().currentUser;
@@ -125,6 +125,7 @@ export function saveTaskModel(title, description) {
       'name': title,
       'description': description,
       'dateCreated': date,
+      'dueDate': dueDate,
       'completed': false
   });
 }
@@ -142,10 +143,10 @@ export function pullTaskDataModel(callBack) {
   })
 }
 //UPDATE
-export function editsTaskModel(key, title, description) {
+export function editsTaskModel(key, title, description, dueDate) {
   const user = firebase.auth().currentUser;
   var task = firebase.database().ref(`taskLists/tasks_${user.uid}/${key}`);
-  task.update({ name: title, description: description});
+  task.update({ name: title, description: description, dueDate: dueDate});
 }
 export function completeTaskModel(key, complete, callBack) {
   const user = firebase.auth().currentUser;

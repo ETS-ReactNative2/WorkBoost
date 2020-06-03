@@ -23,9 +23,16 @@ export default function TaskPage() {
                 let prevDate = shot.val().dateCreated.split("-")
                 let prevMonth = prevDate[0]
                 let prevDay = prevDate[1]
-                if(curDay > prevDay || curMonth != prevMonth) {
+                // if(curDay > prevDay || curMonth != prevMonth) {
+                //     refreshRemoveTaskModel(shot.key)
+                //     alert("removed tasks due to new day")
+                // }
+                let due = shot.val().dueDate.split("-")
+                let dueMonth = due[0]
+                let dueDay = due[1]
+                if(curMonth > dueMonth || (curDay > dueDay && curMonth == dueMonth)) {
                     refreshRemoveTaskModel(shot.key)
-                    alert("removed tasks due to new day")
+                    alert("task has passed its due date")
                 }
                 else {
                     obj = shot.val()
@@ -58,8 +65,8 @@ export default function TaskPage() {
     }, [])
 
     //add task
-    addTask = (title, description) => {
-        saveTaskModel(title, description)
+    addTask = (title, description, dueDate) => {
+        saveTaskModel(title, description, dueDate)
         pullTaskDataModel(setData)
     }
 
@@ -76,8 +83,8 @@ export default function TaskPage() {
     }
 
     //edit task
-    editTask =(key, title, description) => {
-        editsTaskModel(key, title, description)
+    editTask =(key, title, description, dueDate) => {
+        editsTaskModel(key, title, description, dueDate)
         pullTaskDataModel(setData)
     }
     
