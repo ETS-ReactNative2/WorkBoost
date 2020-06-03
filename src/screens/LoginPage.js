@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TextInput, View, Button, Image} from 'react-native'
-import {handleLogin, navSignUp} from "../routes/navigationController"
+import {handleLogin, navSignUp, navForgotPassword} from "../routes/navigationController"
 
 export default function LoginPage(props) {
   const [email, setEmail] = useState("")
@@ -32,11 +32,22 @@ export default function LoginPage(props) {
         }/>
       <Button
         color = "#4d2600"
+        backgroundColor = "#f8f2ec"
         title="Don't have an account? Sign Up"
         onPress={() => {
           setPassword("")
           setEmail("")
           navSignUp(props.navigation)}}
+      />
+      <Button
+        color = "#4d2600"
+        backgroundColor = "#f8f2ec"
+        title="Forgot password?"
+        onPress={() => {
+          setPassword("")
+          setEmail("")
+          navForgotPassword(props.navigation)
+        }}
       />
     </View>
   )

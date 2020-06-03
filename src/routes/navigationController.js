@@ -7,6 +7,7 @@ import SignupPage from '../screens/SignupPage';
 import HabitPage from '../screens/HabitPage';
 import TaskPage  from '../screens/TaskPage';
 import FriendsPage from '../screens/FriendsPage';
+import ForgotPasswordPage from '../screens/ForgotPasswordPage';
 import HelpPage from '../screens/HelpPage';
 import SettingsPage from '../screens/SettingsPage';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -91,8 +92,15 @@ export function handleDeleteAccount(navigation){
       });
 }
 
+export function handleForgotPassword(email, navigation){
+    firebase.auth().sendPasswordResetEmail(email).then(() => {console.log(`email has been sent to ${email}!`)});
+    navigation.navigate('Login')
+}
+
+
 export function navSignUp(navigation) {navigation.navigate('Signup')}
 export function navLogin(navigation) {navigation.navigate("Login")}
+export function navForgotPassword(navigation) {navigation.navigate("ForgotPassword")}
 
 function DrawerButton(props) {
   return(
@@ -194,6 +202,7 @@ export default function MyStack() {
   return (
     <Big.Navigator screenOptions={{headerShown: false}} initialRouteName="Login">
       <Big.Screen name="Login" component={LoginPage} />
+      <Big.Screen name="ForgotPassword" component={ForgotPasswordPage} />
       <Big.Screen name="Signup" component={SignupPage} />
       <Big.Screen name="App" component={MainDrawer} />
     </Big.Navigator>
