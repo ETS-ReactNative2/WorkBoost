@@ -26,6 +26,9 @@ export default function Task(props) {
                 <CardItem header key={props.item.key + 100} style={{ height: 55, width: 410 }}>
                     <Body>
                         <Text style={{fontWeight:"bold", fontSize:20}}>{props.item.name}</Text>
+                        <View style = {{flexDirection: 'row'}}>
+                            <Text style={{fontSize:13, paddingTop: 3}}> Due Date {props.item.dueDate}</Text>
+                        </View>
                     </Body>
                     <Right style={{flex: 0.2}}>
                         <CheckBox color ="#d9b38c" style = {{marginRight:11, borderColor: "#996633"}}

@@ -30,9 +30,10 @@ export default function TaskPage() {
                 let due = shot.val().dueDate.split("-")
                 let dueMonth = due[0]
                 let dueDay = due[1]
+                //checks to see if the due date has passed
                 if(curMonth > dueMonth || (curDay > dueDay && curMonth == dueMonth)) {
                     refreshRemoveTaskModel(shot.key)
-                    alert("task has passed its due date")
+                    alert("Task has passed its due date")
                 }
                 else {
                     obj = shot.val()
