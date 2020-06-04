@@ -10,7 +10,9 @@ export default function EditTaskPage(props) {
     const [description, setDescription] = useState(props.item.description);
     const [dueDate, setDueDate] = useState(props.item.dueDate);
 
-    const [date, setDate] = useState(new Date(1598051730000));
+    // console.log(dueDate)
+    let changeDate = dueDate.split('-')
+    const [date, setDate] = useState(new Date(changeDate[2], changeDate[0]-1, changeDate[1]));
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
     const [pressed, setPressed] = useState(false);

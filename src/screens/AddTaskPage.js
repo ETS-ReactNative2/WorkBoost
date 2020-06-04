@@ -7,7 +7,7 @@ export default function AddTaskPage(props) {
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [dueDate, setDueDate] = useState("");
+    const [dueDate, setDueDate] = useState("8-21-2020");
 
     const [date, setDate] = useState(new Date(1598051730000));
     const [mode, setMode] = useState('date');
