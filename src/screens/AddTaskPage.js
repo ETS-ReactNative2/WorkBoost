@@ -114,7 +114,7 @@ export default function AddTaskPage(props) {
                         onChangeText={description => setDescription(description)}
                     />
                     <View>
-                        <Button onPress={showDatepicker} title="Show date picker!" />
+                        <Button onPress={showDatepicker} title="Show date picker!" color='#9f8574'/>
                     </View>
                     {show && (
                         <DateTimePicker
