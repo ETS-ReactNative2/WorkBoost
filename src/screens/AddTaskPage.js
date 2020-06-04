@@ -1,10 +1,6 @@
 import React, { Component, useState } from 'react';
 import { View, ScrollView, TextInput, Button, Platform, Keyboard, TouchableOpacity, StyleSheet, Text, Alert, Image } from 'react-native';
-import {Header} from 'react-native-elements'
-// // import DateDropdown from '../components/buttons/DateDropdown.js'
-// import DropDownPicker from 'react-native-dropdown-picker';
-// // import {Dropdown } from 'react-native-dropdown';
-// import PickerCascader  from 'react-native-picker-cascader';
+import {Header} from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default function AddTaskPage(props) {
