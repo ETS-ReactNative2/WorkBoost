@@ -23,14 +23,12 @@ In order to run the simulation, run the following code:
    3. `pod install --repo-update`
    4. `cd ..`
    5.`npx react-native run-ios`
-
-  I added script for this, run : npm run Jason
   
 ---
 ## Windows setup
 
 1. npm install firebase
-2. npm i
-3. npx expo start
+2. npm install -g expo-cli
+3. npm i OR yarn
+4. npx expo start
 
-(Not sure)

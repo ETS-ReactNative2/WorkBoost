@@ -1,19 +1,40 @@
-import React, { Component, useState } from 'react';
-import { View, ScrollView, TextInput, Keyboard, TouchableOpacity, StyleSheet, Text, Alert, Image } from 'react-native';
+import React, { Component, useState, useEffect } from 'react';
+import { View, ScrollView, TextInput, Keyboard, TouchableOpacity, StyleSheet, Text, Button, Image } from 'react-native';
 import {Header} from 'react-native-elements'
 
 export default function AddHabitPage(props) {
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [days, setDays] = useState([false,false,false,false,false,false,false])
+
+    function closeModal() {
+        //setDays([false,false,false,false,false,false,false])
+        props.showAddForm()
+    }
 
     function BackButton() {
         return(
-            <TouchableOpacity onPress={() => props.showAddForm()}>
+            <TouchableOpacity onPress={() => closeModal()}>
                 <Image source={require("../pictures/cancel.png")}
                     style={{width:30, height:30}}
                 />
             </TouchableOpacity>
+        )
+    }
+
+    function DayButton(props) {
+        return(
+            <TouchableOpacity style={days[props.index] ? styles.selected : {}}>
+                <Button title={props.title} 
+                        color = "#734d26"
+                        onPress={() => {
+                            let newDays = [...days]
+                            newDays[props.index] = !days[props.index]
+                            setDays(newDays)
+                        }}
+                />
+            </TouchableOpacity>   
         )
     }
 
@@ -43,12 +64,24 @@ export default function AddHabitPage(props) {
                         maxLength={45}
                         onChangeText={description => setDescription(description)}
                     />
+                    <View>
+                        <Text style={{fontSize:20, textAlign:"center", paddingTop:10, paddingBottom:10}}>Repeat (Day of Week)</Text>
+                        <View style={{flexDirection:"row", justifyContent:"center"}}>
+                            <DayButton index={0} title={"Sun"}/>
+                            <DayButton index={1} title={"Mon"}/>
+                            <DayButton index={2} title={"Tue"}/>
+                            <DayButton index={3} title={"Wed"}/>
+                            <DayButton index={4} title={"Thu"}/>
+                            <DayButton index={5} title={"Fri"}/>
+                            <DayButton index={6} title={"Sat"}/>
+                        </View>
+                    </View>
                     <View style={styles.inputContainer}>
                         <TouchableOpacity
                             style={styles.saveButton}
                             onPress={() => {
                                 if (title == "") {alert('Missing Habit Title');}
-                                else {props.addHabit(title,description);
+                                else {props.addHabit(title,description, days);
                                 props.showAddForm()
                                 }
                             }}
@@ -99,5 +132,8 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 20,
         textAlign: 'center'
+    },
+    selected: {
+        backgroundColor:"#dfbf9f"
     }
   });

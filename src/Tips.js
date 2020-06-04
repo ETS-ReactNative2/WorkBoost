@@ -50,9 +50,15 @@ const quotes=[
     }, {
     "quote": "If a task will only take two minutes or less, do it immediately to avoid a long to-do list.",
     }, {
-    "quote": "Elon Musk schedules his days in five-minute slots? Is he onto something?",
+    "quote": "Elon Musk schedules his days in five-minute slots. Is he onto something?",
     }, {
     "quote": "Take a break to admire your completed tasks, and give yourself a well-deserved pat on the back.",
+    }, {
+    "quote": "Eat the frog. Tackle the hardest tasks first!",
+    }, {
+    "quote": "At the end of the week, review your productivity to know where to improve.",
+    }, {
+    "quote": "Getting some exercise in can boost your mood when you're feeling down.",
     }
 ]
 export default quotes

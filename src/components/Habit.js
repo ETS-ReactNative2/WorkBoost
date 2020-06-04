@@ -14,6 +14,27 @@ export default function Habit(props) {
     showEditForm = () => setEditModalVisible(prev => !prev);
     showCompForm = () => setCompModalVisible(prev => !prev);
 
+    function dayToString(freqs) {
+        let dayString = ""
+        if(freqs[0]) dayString += "Su "
+        if(freqs[1]) dayString += "M "
+        if(freqs[2]) dayString += "Tu "
+        if(freqs[3]) dayString += "W "
+        if(freqs[4]) dayString += "Th "
+        if(freqs[5]) dayString += "F "
+        if(freqs[6]) dayString += "Sa"
+        return dayString
+    }
+
+    function completedOrRightDay(completed, freqs) {
+        let today = new Date()
+        let day = today.getDay()
+        if (completed || !freqs[day]) {
+            return false
+        }
+        return true
+    }
+
     return(
         <View>
 
@@ -41,8 +62,8 @@ export default function Habit(props) {
                                handleHabitCompletion={props.handleHabitCompletion}
                               />
             </Modal>
-            <TouchableOpacity onPress={props.item.completed? ()=>{} : this.showCompForm}>
-            <Card style={props.item.completed ? styles.fadedCard : styles.card}
+            <TouchableOpacity onPress={completedOrRightDay(props.item.completed, props.item.frequency) ? this.showCompForm : ()=>{}}>
+            <Card style={completedOrRightDay(props.item.completed, props.item.frequency) ? styles.card : styles.fadedCard}
                     key={props.item.key}>
                 <CardItem header key={props.item.key + 100} style={{ height: 60, width: 410}}>
                     <Body>
@@ -50,7 +71,7 @@ export default function Habit(props) {
                         <View style = {{flexDirection: 'row'}}>
                             <Text style={{fontSize:13, paddingTop: 5}}>Streak: {props.item.streak}</Text>
                             <Image style = {{ width: 15, height: 15, marginTop: 3 }} source = {require('../pictures/fire.png')}/>
-                            <Text style={{fontSize:13, paddingTop: 5}}> Frequency: {props.item.frequency}</Text>
+                            <Text style={{fontSize:13, paddingTop: 5}}> Frequency: {dayToString(props.item.frequency)}</Text>
                         </View>
                     </Body>
                     <Right style={{flex: 0.2}}>

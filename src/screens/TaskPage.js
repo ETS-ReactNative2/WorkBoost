@@ -43,6 +43,7 @@ export default function TaskPage() {
             }
         })
         arr.sort((a,b) => {return a.completed - b.completed})
+        arr.sort((c,d) => {if(!c.completed && !d.completed) {return c.dueDate>d.dueDate}})
         setTasks(arr)
     }
 
@@ -56,6 +57,7 @@ export default function TaskPage() {
             }
         })
         arr.sort((a,b) => {return a.completed - b.completed})
+        arr.sort((c,d) => {if(!c.completed && !d.completed) {return c.dueDate>d.dueDate}})
         setTasks(arr)
     }
 

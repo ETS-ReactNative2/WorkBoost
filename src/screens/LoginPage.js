@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF'
+    backgroundColor: '#f2e6d9'
   },
   textInput: {
     height: 40,
@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color:'#fff',
+    fontSize:17,
     textAlign:'center',
   },
   button: {

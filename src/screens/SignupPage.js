@@ -1,6 +1,6 @@
 // SignUp.js
 import React, {useState} from 'react'
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, Button } from 'react-native'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Button } from 'react-native'
 import {handleSignUp, navLogin} from "../routes/navigationController"
 
 export default function SignupPage(props) {
@@ -9,6 +9,8 @@ export default function SignupPage(props) {
 
   return (
     <View style={styles.container}>
+       <Image style = {{ width: 200, height: 200, marginBottom:10 }}
+                source = {require('../pictures/logo.png')}/>
       <Text style = {{fontSize: 20}}>Register a new account!</Text>
       <TextInput
         placeholder="Email"
@@ -50,7 +52,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF'
+    backgroundColor: '#f2e6d9'
   },
   textInput: {
     height: 40,
@@ -61,6 +63,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color:'#fff',
+    fontSize:17,
     textAlign:'center',
   },
   button: {

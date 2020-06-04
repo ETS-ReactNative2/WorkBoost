@@ -1,12 +1,81 @@
 import React, { Component, useState } from 'react';
-import { View, ScrollView, TextInput, Keyboard, TouchableOpacity, StyleSheet, Text, Alert, Image } from 'react-native';
-import {Header} from 'react-native-elements'
+import { View, ScrollView, TextInput, Button, Platform, Keyboard, TouchableOpacity, StyleSheet, Text, Alert, Image } from 'react-native';
+import {Header} from 'react-native-elements';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default function AddTaskPage(props) {
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [dueDate, setDueDate] = useState("");
+    const [dueDate, setDueDate] = useState("8-21-2020");
+
+    const [date, setDate] = useState(new Date(1598051730000));
+    const [mode, setMode] = useState('date');
+    const [show, setShow] = useState(false);
+    const [pressed, setPressed] = useState(false);
+
+    const onChange = (event, selectedDate) => {
+        setShow(Platform.OS === 'ios');
+        setDate(selectedDate);
+        let transform = selectedDate.toString().split(' ');
+        let monthName = transform[1];
+        let day = transform[2];
+        let year = transform[3];
+        let month = 0;
+        
+        switch(monthName) {
+            case 'Jan':
+                month = 1;
+            break;
+            case 'Feb':
+                month = 2;
+            break;
+            case 'Mar':
+                month = 3;
+            break;
+            case 'Apr':
+                month = 4;
+            break;
+            case 'May':
+                month = 5;
+            break;
+            case 'Jun':
+                month = 6;
+            break;
+            case 'Jul':
+                month = 7;
+            break;
+            case 'Aug':
+                month = 8;
+            break;
+            case 'Sep':
+                month=9;
+            break;
+            case 'Oct':
+                month=10;
+            break;
+            case 'Nov':
+                month=11;
+            break;
+            case 'Dec':
+                month=12;
+            break;
+
+        }
+        setDueDate(`${month}-${day}-${year}`);
+        console.log(dueDate)
+        
+    };
+
+    const showMode = currentMode => {
+        setShow(true);
+        setPressed(true);
+        setMode(currentMode);
+    };
+
+    const showDatepicker = () => {
+        showMode('date');
+    };
 
     function BackButton() {
         return(
@@ -44,21 +113,27 @@ export default function AddTaskPage(props) {
                         maxLength={40}
                         onChangeText={description => setDescription(description)}
                     />
-                    <TextInput
-                        style={styles.textInput}
-                        placeholder="Due Date (M-D-YYYY)"
-                        onBlur={Keyboard.dismiss}
-                        value={dueDate}
-                        maxLength={40}
-                        onChangeText={dueDate => setDueDate(dueDate)}
-                    />
+                    <View>
+                        <Button onPress={showDatepicker} title="Show date picker!" color='#9f8574'/>
+                    </View>
+                    {show && (
+                        <DateTimePicker
+                        testID="dateTimePicker"
+                        value={date}
+                        mode="date"
+                        is24Hour={true}
+                        display="default"
+                        onChange={onChange}
+                        />
+                    )}
                     <View style={styles.inputContainer}>
                         <TouchableOpacity
                             style={styles.saveButton}
                             onPress={() => {
                                 if (title == "") {alert('Missing Task Title');}
-                                else if (dueDate == "") {alert('Missing Due Date');}
-                                else{props.addTask(title,description, dueDate)
+                                else if (!pressed) {alert('Missing Due Date');}
+                                else{
+                                    props.addTask(title,description, dueDate)
                                     props.showAddForm()}
                             }}>
                             <Text style={styles.saveButtonText}>Save</Text>
