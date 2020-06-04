@@ -15,7 +15,7 @@ import { createDrawerNavigator, DrawerItem } from '@react-navigation/drawer';
 import firebase from 'firebase'
 // model calls
 import {addNewUser, deleteUser} from "../../model/dbModel"
-//import {Restart} from 'fiction-expo-restart';
+import ProfilePage from "../screens/ProfilePage"
 
 const firebaseConfig = {
   apiKey: "AIzaSyC-9RLuVtRr2exJDAHjLqB4NoWg0P451XE",
@@ -188,6 +188,19 @@ function Help({navigation}) {
     );
   }
 
+function Profile({navigation}) {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Profile"
+          component={ProfilePage}
+          options={{ headerTitle: () => <LogoIcon />,
+                      headerLeft: () => <DrawerButton navigation={navigation} />}}
+        />
+      </Stack.Navigator>
+    );
+}
+
  
 function MainDrawer({navigation}) {
   return (
@@ -196,6 +209,7 @@ function MainDrawer({navigation}) {
       <Drawer.Screen name="Tips" component={Tips} />
       <Drawer.Screen name="Settings" component={Settings} navigation = {navigation}/>
       <Drawer.Screen name="Help" component={Help} />
+      <Drawer.Screen name="Profile" component={Profile} />
     </Drawer.Navigator>
   );
 }   

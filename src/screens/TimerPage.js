@@ -4,6 +4,7 @@ import {Slider} from 'react-native-elements'
 import ExitTimerForm from '../screens/ExitTimerPage'
 import CompleteTimerForm from '../screens/CompleteTimerPage'
 import {Audio} from 'expo-av'
+const {pullTotalTime, addTotalTime} = require('../../model/dbModel.js');
 
 const soundObject = new Audio.Sound()
 
@@ -24,6 +25,7 @@ export default function TimerPage() {
     const [completeModalActive, setCompleteModalActive] = useState(false);
     const { mins, secs } = getRemaining(remainingSecs);
     const secsToMin = 1;
+    const [timeProductive,setTimeProductive] = useState(0);
 
 
     toggle = () => {
@@ -71,12 +73,19 @@ export default function TimerPage() {
 
     useEffect(() => {
         let interval = null;
+        if(remainingSecs == 4){
+            pullTotalTime(setTimeProductive);
+            console.log(timeProductive);
+        }
         if (remainingSecs == 1){
             setExitModalActive(false);
+
         }
         if (remainingSecs == 0){
             toggleCompleteModal();
             playAlarm();
+            addTotalTime(timeProductive + prevTime);
+            console.log(timeProductive + prevTime)
         } else if (isActive) {
             interval = setInterval(() => {
                 setRemainingSecs(remainingSecs => remainingSecs - 1);
@@ -84,6 +93,7 @@ export default function TimerPage() {
         } 
         else if (!isActive && remainingSecs != 0) {
             clearInterval(interval);
+            console.log(remainingSecs);
         }
         return () => clearInterval(interval);
     }, [isActive, remainingSecs]);

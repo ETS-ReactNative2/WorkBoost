@@ -17,10 +17,24 @@ export function addNewUser() {
     'user': user.email
   })
 
+  var date = new Date();
+  var month = date.getUTCMonth() + 1;
+  var day = date.getUTCDate();
+  var year = date.getUTCFullYear();
+  fullDate = month + "-" + day + "-" + year;
+  var profiles = firebase.database().ref('profiles');
+  var profile = profiles.child(`profile_${user.uid}`);
+  profile.set({
+    'user': user.email,
+    'timeProductive': 0,
+    'accountCreationDate': fullDate
+  })
+
   newUser.set({
       'email': user.email,
       'habit_list_id': habitList.key,
-      'task_list_id': taskList.key
+      'task_list_id': taskList.key,
+      'profile_id': profile.key
   });
 
 }
@@ -36,14 +50,57 @@ export function deleteUser() {
 
       var taskLists = firebase.database().ref('taskLists');
       var taskListId = taskLists.child(`tasks_${user.uid}`)
+
+      var profiles = firebase.database().ref('profiles');
+      var profile = profiles.child(`profile_${user.uid}`);
   
       habitListId.remove();
       taskListId.remove();
+      profile.remove();
       userId.remove();
   
       //remove
       firebase.auth().currentUser.delete().then(() => {console.log('User deleted')});
 }
+
+//Account Creation Date Read
+export function pullCreationDate(callBack) {
+    return new Promise((resolve,reject) => {
+      const user = firebase.auth().currentUser
+      firebase.database()
+        .ref(`profiles/profile_${user.uid}`)
+        .child("accountCreationDate")
+        .once('value')
+        .then(snapshot => {
+            console.log(snapshot)
+            callBack(snapshot.val())
+        })
+        .then(() => resolve())
+    })
+  }
+
+//Total Time Read and Update
+export function pullTotalTime(callBack) {
+    return new Promise((resolve,reject) => {
+      const user = firebase.auth().currentUser
+      firebase.database()
+        .ref(`profiles/profile_${user.uid}`)
+        .child("timeProductive")
+        .once('value')
+        .then(snapshot => {
+            console.log(snapshot)
+            callBack(snapshot.val())
+        })
+        .then(() => resolve())
+    })
+  }
+
+export function addTotalTime(time) {
+    const user = firebase.auth().currentUser;
+    var profile = firebase.database().ref(`profiles/profile_${user.uid}`);
+    profile.update({ timeProductive: time});
+  }
+
 
 //Habit CRUD
 //CREATE
@@ -178,5 +235,6 @@ export function removesTaskModel(key, callBack) {
 
 module.exports = {addNewUser, saveHabitModel, saveTaskModel, pullHabitDataModel, pullTaskDataModel, 
                   editsTaskModel, editsHabitModel, removesHabitModel, removesTaskModel, deleteUser, 
-                  completeTaskModel, completeHabitModel, refreshRemoveTaskModel, refreshHabitModel}
+                  completeTaskModel, completeHabitModel, refreshRemoveTaskModel, refreshHabitModel,
+                  pullTotalTime, addTotalTime, pullCreationDate}
 
