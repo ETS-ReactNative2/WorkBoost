@@ -9,8 +9,8 @@ export default function DeleteAccountPage(props) {
                     <View style={styles.modalView}>
                         <Text style={styles.header}>Delete Your Account?</Text>
                         <Image
-                            style = {{ width: 200, height: 200 }}
-                            source = {require('../pictures/sad_logo.png')}
+                            style = {{ width: 250, height: 250 }}
+                            source = {require('../pictures/mad_logo.png')}
                         />                   
                         <TouchableHighlight
                             style={{ ...styles.openButton, backgroundColor: "#dfbf9f" }}
