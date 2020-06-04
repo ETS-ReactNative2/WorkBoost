@@ -17,10 +17,58 @@ export default function AddTaskPage(props) {
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
 
+    var pressed = false;
+
     const onChange = (event, selectedDate) => {
         setShow(Platform.OS === 'ios');
         setDate(selectedDate);
-        console.log(selectedDate);
+        let transform = selectedDate.toString().split(' ');
+        let monthName = transform[1];
+        let day = transform[2];
+        let year = transform[3];
+        let month = 0;
+        
+        switch(monthName) {
+            case 'Jan':
+                month = 1;
+            break;
+            case 'Feb':
+                month = 2;
+            break;
+            case 'Mar':
+                month = 3;
+            break;
+            case 'Apr':
+                month = 4;
+            break;
+            case 'May':
+                month = 5;
+            break;
+            case 'Jun':
+                month = 6;
+            break;
+            case 'Jul':
+                month = 7;
+            break;
+            case 'Aug':
+                month = 8;
+            break;
+            case 'Sep':
+                month=9;
+            break;
+            case 'Oct':
+                month=10;
+            break;
+            case 'Nov':
+                month=11;
+            break;
+            case 'Dec':
+                month=12;
+            break;
+
+        }
+        setDueDate(`${month}-${day}-${year}`);
+        console.log(dueDate)
         
     };
 
@@ -69,14 +117,6 @@ export default function AddTaskPage(props) {
                         maxLength={40}
                         onChangeText={description => setDescription(description)}
                     />
-                    {/* <TextInput
-                        style={styles.textInput}
-                        placeholder="Due Date (M-D-YYYY)"
-                        onBlur={Keyboard.dismiss}
-                        value={dueDate}
-                        maxLength={40}
-                        onChangeText={dueDate => setDueDate(dueDate)}
-                    /> */}
                     <View>
                         <Button onPress={showDatepicker} title="Show date picker!" />
                     </View>
@@ -95,7 +135,7 @@ export default function AddTaskPage(props) {
                             style={styles.saveButton}
                             onPress={() => {
                                 if (title == "") {alert('Missing Task Title');}
-                                // else if (dueDate == "") {alert('Missing Due Date');}
+                                // else if (!pressed) {alert('Missing Due Date');}
                                 else{
                                     props.addTask(title,description, dueDate)
                                     props.showAddForm()}
