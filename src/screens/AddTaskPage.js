@@ -7,13 +7,12 @@ export default function AddTaskPage(props) {
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [dueDate, setDueDate] = useState("");
+    const [dueDate, setDueDate] = useState("8-21-2020");
 
     const [date, setDate] = useState(new Date(1598051730000));
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
-
-    var pressed = false;
+    const [pressed, setPressed] = useState(false);
 
     const onChange = (event, selectedDate) => {
         setShow(Platform.OS === 'ios');
@@ -70,6 +69,7 @@ export default function AddTaskPage(props) {
 
     const showMode = currentMode => {
         setShow(true);
+        setPressed(true);
         setMode(currentMode);
     };
 
@@ -131,7 +131,7 @@ export default function AddTaskPage(props) {
                             style={styles.saveButton}
                             onPress={() => {
                                 if (title == "") {alert('Missing Task Title');}
-                                // else if (!pressed) {alert('Missing Due Date');}
+                                else if (!pressed) {alert('Missing Due Date');}
                                 else{
                                     props.addTask(title,description, dueDate)
                                     props.showAddForm()}
