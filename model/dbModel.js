@@ -47,7 +47,7 @@ export function deleteUser() {
 
 //Habit CRUD
 //CREATE
-export function saveHabitModel(title, description) {
+export function saveHabitModel(title, description, frequency, callBack) {
   let today = new Date()
   let date = (today.getMonth()+1) + "-" + today.getDate() + "-" + today.getFullYear()
   const user = firebase.auth().currentUser;
@@ -59,9 +59,10 @@ export function saveHabitModel(title, description) {
       'streak': 0,
       'completed': false,
       'dateCreated': date,
-      'lastCompleted': date,
-      'frequency': "daily"
-  });
+      'lastRefresh': date,
+      'frequency': frequency
+  })
+  .then(() => pullHabitDataModel(callBack))
 }
 //READ
 export function pullHabitDataModel(callBack) {
@@ -83,19 +84,19 @@ export function editsHabitModel(key, title, description, frequency) {
   habit.update({ name: title, description: description, frequency: frequency});
 }
 // updates streak and completion
-export function completeHabitModel(key, streak, complete, date, callBack) {
+export function completeHabitModel(key, streak, complete, callBack) {
   const user = firebase.auth().currentUser;
   var habit = firebase.database().ref(`habitLists/habits_${user.uid}/${key}`);
-  habit.update({streak: streak, completed: complete, lastCompleted: date})
+  habit.update({streak: streak, completed: complete})
     .then(() => {
       pullHabitDataModel(callBack)
     })
 }
 // used when refreshing habits next day
-export function refreshHabitModel(key, streak, complete) {
+export function refreshHabitModel(key, streak, date, complete) {
   const user = firebase.auth().currentUser;
   var habit = firebase.database().ref(`habitLists/habits_${user.uid}/${key}`);
-  habit.update({streak: streak, completed: complete})
+  habit.update({streak: streak, completed: complete, lastRefresh: date})
 }
 
 //DELETE

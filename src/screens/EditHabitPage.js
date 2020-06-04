@@ -1,11 +1,11 @@
 import React, { Component, useState } from 'react';
-import { View, ScrollView, TextInput, Keyboard, TouchableOpacity, StyleSheet, Text, Alert, Image } from 'react-native';
+import { View, ScrollView, TextInput, Keyboard, TouchableOpacity, StyleSheet, Text, Alert, Image, Button } from 'react-native';
 import {Header} from 'react-native-elements'
 
 export default function EditHabitPage(props) {
 
     const [title, setTitle] = useState(props.item.name);
-    const [frequency, setFrequency] = useState(props.item.frequency);
+    const [days, setDays] = useState(props.item.frequency);
     const [description, setDescription] = useState(props.item.description);
 
     function BackButton() {
@@ -18,6 +18,20 @@ export default function EditHabitPage(props) {
         )
     }
 
+    function DayButton(props) {
+        return(
+            <TouchableOpacity style={days[props.index] ? styles.selected : {}}>
+                <Button title={props.title} 
+                        onPress={() => {
+                            let newDays = [...days]
+                            newDays[props.index] = !days[props.index]
+                            setDays(newDays)
+                        }}
+                />
+            </TouchableOpacity>   
+        )
+    }
+
     function RevertButton() {
         if(!props.item.completed) {
            return(<View></View>) 
@@ -27,7 +41,7 @@ export default function EditHabitPage(props) {
                 <TouchableOpacity
                     style={styles.saveButton}
                     onPress={() => {
-                        props.handleHabitCompletion(props.item.key, props.item.streak-1, false, props.item.lastCompleted)
+                        props.handleHabitCompletion(props.item.key, props.item.streak-1, false)
                         props.showEditForm()
                     }}>
                     <Text style={styles.saveButtonText}>Revert Completion</Text>
@@ -60,19 +74,24 @@ export default function EditHabitPage(props) {
                         value={description}
                         onChangeText={text => setDescription(text)}
                     />
-                    <TextInput
-                        style={styles.textInput}
-                        placeholder="Habit Frequency"
-                        onBlur={Keyboard.dismiss}
-                        value={frequency}
-                        onChangeText={text => setFrequency(text)}
-                    />
+                    <View>
+                        <Text style={{fontSize:20, textAlign:"center"}}>Repeat (Day of Week)</Text>
+                        <View style={{flexDirection:"row", justifyContent:"center"}}>
+                            <DayButton index={0} title={"Sun"}/>
+                            <DayButton index={1} title={"Mon"}/>
+                            <DayButton index={2} title={"Tue"}/>
+                            <DayButton index={3} title={"Wed"}/>
+                            <DayButton index={4} title={"Thu"}/>
+                            <DayButton index={5} title={"Fri"}/>
+                            <DayButton index={6} title={"Sat"}/>
+                        </View>
+                    </View>
                     <View style={styles.inputContainer}>
                         <TouchableOpacity
                             style={styles.saveButton}
                             onPress={() => {
                                 if (title == "") {alert('Missing Habit Title');}
-                                else {props.editHabit(props.item.key.toString(),title,description, frequency);
+                                else {props.editHabit(props.item.key.toString(),title,description, days);
                                      props.showEditForm();}
                             }}>
                             <Text style={styles.saveButtonText}>Save</Text>
@@ -139,5 +158,8 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 20,
         textAlign: 'center'
+    },
+    selected: {
+        backgroundColor:"#808080"
     }
   });
