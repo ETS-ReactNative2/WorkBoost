@@ -1,12 +1,11 @@
 import React from 'react';
 import { Text, StyleSheet, TouchableOpacity, Alert} from 'react-native';
-import { handleDeleteAccount } from '../../routes/navigationController';
 
-export default function DeleteAccountButton({navigation}) {
+export default function DeleteAccountButton(props) {
     return(
         <TouchableOpacity
                 style={styles.deleteButton}
-                onPress={() => handleDeleteAccount(navigation)}
+                onPress={() => props.toggleDeleteModal()}
                 underlayColor='#cfc0b7'>
                 <Text style={styles.buttonText}>DELETE ACCOUNT</Text>
         </TouchableOpacity>

@@ -68,7 +68,6 @@ export function handleSignUp(email, password, navigation) {
         alert('Your password is too weak.');
       if (error.code === 'auth/invalid-email')
         alert('That email address is invalid.');
-        navigation.navigate('Signup')
     });
 }
 
@@ -93,8 +92,18 @@ export function handleDeleteAccount(navigation){
 }
 
 export function handleForgotPassword(email, navigation){
-    firebase.auth().sendPasswordResetEmail(email).then(() => {console.log(`email has been sent to ${email}!`)});
-    navigation.navigate('Login')
+  firebase.auth()
+    .sendPasswordResetEmail(email)
+    .then(() => {
+      console.log(`email has been sent to ${email}!`)
+      alert('Sent! Check your email for the reset link.')
+    })
+    .catch(error => {
+      if (error.code === 'auth/user-not-found')
+        alert('There is no user corresponding to that email');
+      if (error.code === 'auth/invalid-email')
+        alert('That email address is invalid.');
+    });
 }
 
 

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View, Button, Image} from 'react-native'
 import {handleForgotPassword} from "../routes/navigationController"
+import { navLogin } from "../routes/navigationController"
 
 export default function ForgotPasswordPage(props) {
     const [email, setEmail] = useState("")
 
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={styles.container}>
         
         <Image style = {{ width: 200, height: 200, marginBottom:10 }}
                 source = {require('../pictures/logo.png')}/>
@@ -30,7 +31,6 @@ export default function ForgotPasswordPage(props) {
           color = "#4d2600"
           title="Remember your password? Login"
           onPress={() => {
-            setPassword("")
             setEmail("")
             navLogin(props.navigation)}}
         />
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF'
+    backgroundColor: '#f2e6d9'
   },
   textInput: {
     height: 40,
@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
   },
   text: {
       color:'#fff',
+      fontSize:17,
       textAlign:'center',
   },
   button: {

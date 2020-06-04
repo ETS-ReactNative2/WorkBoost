@@ -9,6 +9,7 @@
     "Gary": "cd ios && rm -rf build/ && pod install --repo-update && cd .. && npx react-native run-ios"
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "^2.4.0",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/bottom-tabs": "^5.4.4",
     "@react-navigation/drawer": "^5.7.5",
