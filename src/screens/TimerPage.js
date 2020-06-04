@@ -24,11 +24,15 @@ export default function TimerPage() {
     const [completeModalActive, setCompleteModalActive] = useState(false);
     const { mins, secs } = getRemaining(remainingSecs);
     const secsToMin = 1;
-
+    const [endTime, setEndTime] = useState(null);
 
     toggle = () => {
         setIsActive(!isActive);
         setPrevTime(remainingSecs);
+        var rn = new Date()
+        var left = remainingSecs
+        rn.setSeconds(rn.getSeconds() + left)
+        setEndTime(rn)
     }
 
     playAlarm = async () => {
@@ -70,17 +74,28 @@ export default function TimerPage() {
 
 
     useEffect(() => {
+        var n = new Date()
         let interval = null;
-        if (remainingSecs == 1){
+        if (remainingSecs <= 1 || Math.ceil((endTime - n) / 1000) < 2){
             setExitModalActive(false);
         }
         if (remainingSecs == 0){
-            toggleCompleteModal();
-            playAlarm();
+            setTimeout(() => {
+                toggleCompleteModal();
+                playAlarm();
+            }, 1000)
         } else if (isActive) {
             interval = setInterval(() => {
-                setRemainingSecs(remainingSecs => remainingSecs - 1);
-            }, 1000);           
+                if (Math.ceil((endTime - n) / 1000) < remainingSecs) {
+                    if (Math.ceil((endTime - n) / 1000) < 0) {
+                        setRemainingSecs(0)
+                    } else {
+                        setRemainingSecs(Math.ceil((endTime - n) / 1000))
+                    }
+                } else {
+                    setRemainingSecs(remainingSecs => remainingSecs - 1);
+                }  
+            }, 1000);       
         } 
         else if (!isActive && remainingSecs != 0) {
             clearInterval(interval);
@@ -89,7 +104,7 @@ export default function TimerPage() {
     }, [isActive, remainingSecs]);
 
     endEarly = () => {
-        if(remainingSecs != 1){
+        if(remainingSecs >= 1){
             toggleExitModal()
         }
     }
