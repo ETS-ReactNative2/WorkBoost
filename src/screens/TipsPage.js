@@ -19,7 +19,6 @@ export default function TipsPage() {
         const randTip = randomTip();
         setTip(randTip)
         shuffleTips(tips)
-        setTip(randTip)
     };
   
     return (
