@@ -156,7 +156,7 @@ export default function TimerPage() {
             </Modal>
 
             <Slider minimumTrackTintColor='#bf8040' thumbTintColor="#734d26" disabled={isActive} style={styles.sliderStyle} minimumValue={5}
-                maximumValue={60} step={5} value={prevTime} onValueChange={(e) => {setRemainingSecs(e*secsToMin)}}></Slider>
+                maximumValue={60} step={5} value={prevTime} onValueChange={(e) => {setRemainingSecs(e*secsToMin); setPrevTime(e*secsToMin)}}></Slider>
             <StatusBar barStyle="light-content" />
             <Text style={styles.timerText}>{`${mins}:${secs}`}</Text>
             <TouchableOpacity disabled={isActive} onPress={this.toggle} style={styles.button}>
