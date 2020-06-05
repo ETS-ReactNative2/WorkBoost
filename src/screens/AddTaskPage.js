@@ -5,14 +5,15 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default function AddTaskPage(props) {
 
+    let today = new Date();
+
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [dueDate, setDueDate] = useState("8-21-2020");
+    const [dueDate, setDueDate] = useState(`${today.getMonth()+1}-${today.getDate()}-${today.getFullYear()}`);
 
-    const [date, setDate] = useState(new Date(1598051730000));
+    const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
-    const [show, setShow] = useState(false);
-    const [pressed, setPressed] = useState(false);
+    const [show, setShow] = useState(true);
 
     const onChange = (event, selectedDate) => {
         setShow(Platform.OS === 'ios');
@@ -69,7 +70,6 @@ export default function AddTaskPage(props) {
 
     const showMode = currentMode => {
         setShow(true);
-        setPressed(true);
         setMode(currentMode);
     };
 
@@ -113,9 +113,6 @@ export default function AddTaskPage(props) {
                         maxLength={40}
                         onChangeText={description => setDescription(description)}
                     />
-                    <View>
-                        <Button onPress={showDatepicker} title="Show date picker!" color='#9f8574'/>
-                    </View>
                     {show && (
                         <DateTimePicker
                         testID="dateTimePicker"
@@ -131,7 +128,6 @@ export default function AddTaskPage(props) {
                             style={styles.saveButton}
                             onPress={() => {
                                 if (title == "") {alert('Missing Task Title');}
-                                else if (!pressed) {alert('Missing Due Date');}
                                 else{
                                     props.addTask(title,description, dueDate)
                                     props.showAddForm()}

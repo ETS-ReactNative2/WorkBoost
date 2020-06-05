@@ -10,12 +10,10 @@ export default function EditTaskPage(props) {
     const [description, setDescription] = useState(props.item.description);
     const [dueDate, setDueDate] = useState(props.item.dueDate);
 
-    // console.log(dueDate)
     let changeDate = dueDate.split('-')
     const [date, setDate] = useState(new Date(changeDate[2], changeDate[0]-1, changeDate[1]));
     const [mode, setMode] = useState('date');
-    const [show, setShow] = useState(false);
-    const [pressed, setPressed] = useState(false);
+    const [show, setShow] = useState(true);
 
     const onChange = (event, selectedDate) => {
         setShow(Platform.OS === 'ios');
@@ -72,7 +70,6 @@ export default function EditTaskPage(props) {
 
     const showMode = currentMode => {
         setShow(true);
-        setPressed(true);
         setMode(currentMode);
     };
 
@@ -114,9 +111,6 @@ export default function EditTaskPage(props) {
                         value={description}
                         onChangeText={text => setDescription(text)}
                     />
-                    <View>
-                        <Button onPress={showDatepicker} title="Show date picker!" color='#9f8574'/>
-                    </View>
                     {show && (
                         <DateTimePicker
                         testID="dateTimePicker"
@@ -132,7 +126,6 @@ export default function EditTaskPage(props) {
                             style={styles.saveButton}
                             onPress={() => {
                                 if (title == "") {alert('Missing Task Title');}
-                                else if (!pressed) {alert('Missing Due Date');}
                                 else {props.editTask(props.item.key ,title,description, dueDate)
                                      props.showEditForm()}
                             }}>
