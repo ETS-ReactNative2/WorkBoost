@@ -158,19 +158,6 @@ function MyHome({navigation}) {
     );
   }
 
-function Tips({navigation}) {
-    return (
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Tips"
-          component={TipsPage}
-          options={{ headerTitle: () => <LogoIcon />,
-                      headerLeft:  () => <DrawerButton navigation={navigation} />}}
-        />
-    </Stack.Navigator>
-    );
-  }
-
 function Settings({navigation}) {
     return (
       <Stack.Navigator>
@@ -215,7 +202,6 @@ function MainDrawer({navigation}) {
   return (
     <Drawer.Navigator drawerStyle={{backgroundColor: "#f2e6d9"}} drawerContentOptions={{activeBackgroundColor:"#f8f2ec", activeTintColor:"#bd8242"}}>
       <Drawer.Screen name="Home" component={MyHome} />
-      <Drawer.Screen name="Tips" component={Tips} />
       <Drawer.Screen name="Settings" component={Settings} navigation = {navigation}/>
       <Drawer.Screen name="Help" component={Help} />
       <Drawer.Screen name="Profile" component={Profile} />

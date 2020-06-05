@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, StatusBar, TouchableOpacity, Dimensions, Modal,
 import {Slider} from 'react-native-elements'
 import ExitTimerForm from '../screens/ExitTimerPage'
 import CompleteTimerForm from '../screens/CompleteTimerPage'
+import TipsPopup from '../screens/TipsPage'
 import {Audio} from 'expo-av'
 const {pullTotalTime, addTotalTime} = require('../../model/dbModel.js');
 
@@ -23,6 +24,8 @@ export default function TimerPage() {
     const [prevTime, setPrevTime] = useState(5);
     const [exitModalActive, setExitModalActive] = useState(false);
     const [completeModalActive, setCompleteModalActive] = useState(false);
+    const [tipModalActive, setTipModalActive] = useState(true);
+
     const { mins, secs } = getRemaining(remainingSecs);
     const secsToMin = 1;
     const [timeProductive,setTimeProductive] = useState(0);
@@ -132,6 +135,10 @@ export default function TimerPage() {
         setExitModalActive(!exitModalActive);
     }
 
+    toggleTipModal = () => {
+        setTipModalActive(!tipModalActive);
+    }
+
     toggleCompleteModal = () => {
         if(exitModalActive){
             toggleExitModal();
@@ -142,6 +149,10 @@ export default function TimerPage() {
     return(
         <View style={styles.container}>
 
+            <Modal animationType="slide" transparent={true} visible={tipModalActive}>
+                <TipsPopup 
+                               toggleTipModal={this.toggleTipModal}/>
+            </Modal>
 
             <Modal animationType="slide" transparent={true} visible={!completeModalActive && exitModalActive}>
                 <ExitTimerForm 
