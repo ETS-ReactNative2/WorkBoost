@@ -15,44 +15,37 @@ export default function HabitPage() {
     function refreshData(snapshot) {
         setFetching(true)
         let today = new Date()
-        let date = (today.getMonth()+1) + "-" + today.getDate() + "-" + today.getFullYear()
-        let yesterday = today.getDate() - 1
-        if (yesterday === -1) yesterday = 6;
-
+        let date = today.getMonth()+1 + "-" + today.getDate() + "-" + today.getFullYear()
         snapshot.forEach(shot => {
             if(shot.key != "user") {
                 if (date !== shot.val().lastRefresh) {
-                    let freqs = shot.val().frequency
-                    if (freqs[yesterday]) {
-                        if (!shot.val().completed)
-                            refreshHabitModel(shot.key, 0, date, false)
-                        else
-                            refreshHabitModel(shot.key, shot.val().streak, date, false)
+                    var freqs = shot.val().frequency
+                    let lastComp = shot.val().lastCompletion.split("-")
+                    let dLast = new Date(lastComp[2], lastComp[0]-1, lastComp[1])                //last completion date
+                    let dCur  = new Date(today.getFullYear(), today.getMonth(), today.getDate()) //today's date
+                    // find out when next completion is
+                    let i = dLast.getDay()
+                    let numDays = 0
+                    let nextComp = new Date(dLast)
+                    while(true) {
+                        i = (i+1) % 7
+                        numDays++
+                        if (freqs[i]) {
+                            nextComp.setDate(dLast.getDate() + numDays)
+                            break
+                        }
+                    }
+                    let daysSince = (dCur - dLast) / 86400000
+                    let daysUntilNextComp = (nextComp - dLast) / 86400000
+                    if(daysSince > daysUntilNextComp) {
+                        refreshHabitModel(shot.key, 0, date, false)
+                    }
+                    else {
+                        refreshHabitModel(shot.key, shot.val().streak, date, false)
                     }
                 }
             }
         })
-        // let today = new Date()
-        // let curMonth = today.getMonth()+1
-        // let curDay = today.getDate()
-        // snapshot.forEach(shot => {
-        //     if(shot.key != "user") {
-        //         let prevDate = shot.val().lastCompleted.split("-")
-        //         let prevMonth = prevDate[0]
-        //         let prevDay = prevDate[1]
-        //         //if next day
-        //         if(curDay > prevDay || curMonth != prevMonth) {
-        //             //if not completed in prev day
-        //             if(!shot.val().completed) {
-        //                 refreshHabitModel(shot.key, 0, false)
-        //             }
-        //             //if was completed in prev day
-        //             else {
-        //                 refreshHabitModel(shot.key, shot.val().streak, false)
-        //             }
-        //         }
-        //     }
-        // })
     }
 
     function setData(snapshot) {
@@ -65,7 +58,7 @@ export default function HabitPage() {
             }
         })
         let date = new Date()
-        let today = date.getDate()
+        let today = date.getDay()
         arr.sort((a,b) => {return a.completed - b.completed})
         arr.sort((a,b) => {return b.frequency[today] - a.frequency[today]})
         setHabits(arr)
@@ -84,8 +77,8 @@ export default function HabitPage() {
     }
 
     //update completion and streaks
-    handleHabitCompletion = (key, streak, complete) => {
-        completeHabitModel(key, streak, complete, setData)
+    handleHabitCompletion = (key, streak, complete, revert) => {
+        completeHabitModel(key, streak, complete, revert, setData)
     }
 
     //remove habit

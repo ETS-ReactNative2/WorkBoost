@@ -59,6 +59,8 @@ export function saveHabitModel(title, description, frequency, callBack) {
       'streak': 0,
       'completed': false,
       'dateCreated': date,
+      'prevLastCompletion': date,
+      'lastCompletion': date,
       'lastRefresh': date,
       'frequency': frequency
   })
@@ -84,12 +86,30 @@ export function editsHabitModel(key, title, description, frequency) {
   habit.update({ name: title, description: description, frequency: frequency});
 }
 // updates streak and completion
-export function completeHabitModel(key, streak, complete, callBack) {
+export function completeHabitModel(key, streak, complete, revert, callBack) {
   const user = firebase.auth().currentUser;
   var habit = firebase.database().ref(`habitLists/habits_${user.uid}/${key}`);
-  habit.update({streak: streak, completed: complete})
+  let dbLastCompletion, dbPrevLastCompletion
+  habit.once('value')
+    .then(snapshot => {
+      dbLastCompletion = snapshot.val().lastCompletion
+      dbPrevLastCompletion = snapshot.val().prevLastCompletion
+    })
     .then(() => {
-      pullHabitDataModel(callBack)
+      if(revert) {
+        habit.update({streak: streak, completed: complete, lastCompletion: dbPrevLastCompletion})
+        .then(() => {
+          pullHabitDataModel(callBack)
+        })
+      }
+      else {
+        let date = new Date()
+        let today = date.getMonth()+1 + "-" + date.getDate() + "-" + date.getFullYear()
+        habit.update({streak: streak, completed: complete, lastCompletion: today, prevLastCompletion: dbLastCompletion})
+        .then(() => {
+          pullHabitDataModel(callBack)
+        })
+      }
     })
 }
 // used when refreshing habits next day
