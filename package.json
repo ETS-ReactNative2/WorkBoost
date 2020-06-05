@@ -19,6 +19,7 @@
     "eslint": "^7.0.0",
     "expo": "^37.0.12",
     "expo-av": "^8.1.0",
+    "expo-screen-orientation": "^1.0.0",
     "expo-updates": "~0.2.0",
     "fiction-expo-restart": "^1.0.4",
     "firebase": "^7.14.5",

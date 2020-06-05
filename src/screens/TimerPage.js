@@ -82,7 +82,6 @@ export default function TimerPage() {
         if (remainingSecs <= 1 || Math.ceil((endTime - n) / 1000) < 2){
             setExitModalActive(false);
             pullTotalTime(setTimeProductive);
-            console.log(timeProductive);
 
         }
         if (remainingSecs == 0){
@@ -90,7 +89,6 @@ export default function TimerPage() {
                 toggleCompleteModal();
                 playAlarm();
                 addTotalTime(timeProductive + prevTime);
-                console.log(timeProductive + prevTime)
             }, 1000)
         } else if (isActive) {
             interval = setInterval(() => {
@@ -107,7 +105,6 @@ export default function TimerPage() {
         } 
         else if (!isActive && remainingSecs != 0) {
             clearInterval(interval);
-            console.log(remainingSecs);
         }
         return () => clearInterval(interval);
     }, [isActive, remainingSecs]);
