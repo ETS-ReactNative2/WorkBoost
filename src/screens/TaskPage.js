@@ -16,6 +16,7 @@ export default function TaskPage() {
         let today = new Date()
         let curMonth = today.getMonth()+1
         let curDay = today.getDate()
+        let curYear = today.getFullYear()
         let arr = []
 
         snapshot.forEach(shot => {
@@ -30,6 +31,7 @@ export default function TaskPage() {
                 let due = shot.val().dueDate.split("-")
                 let dueMonth = due[0]
                 let dueDay = due[1]
+                let dueYear = due[2]
                 //checks to see if the due date has passed
                 if(curMonth > dueMonth || (curDay > dueDay && curMonth == dueMonth)) {
                     refreshRemoveTaskModel(shot.key)

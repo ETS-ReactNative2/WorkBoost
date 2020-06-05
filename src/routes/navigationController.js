@@ -6,7 +6,6 @@ import LoginPage from '../screens/LoginPage';
 import SignupPage from '../screens/SignupPage';
 import HabitPage from '../screens/HabitPage';
 import TaskPage  from '../screens/TaskPage';
-import TipsPage from '../screens/TipsPage';
 import ForgotPasswordPage from '../screens/ForgotPasswordPage';
 import HelpPage from '../screens/HelpPage';
 import SettingsPage from '../screens/SettingsPage';
@@ -15,7 +14,7 @@ import { createDrawerNavigator, DrawerItem } from '@react-navigation/drawer';
 import firebase from 'firebase'
 // model calls
 import {addNewUser, deleteUser} from "../../model/dbModel"
-//import {Restart} from 'fiction-expo-restart';
+import ProfilePage from "../screens/ProfilePage"
 
 const firebaseConfig = {
   apiKey: "AIzaSyC-9RLuVtRr2exJDAHjLqB4NoWg0P451XE",
@@ -158,19 +157,6 @@ function MyHome({navigation}) {
     );
   }
 
-function Tips({navigation}) {
-    return (
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Tips"
-          component={TipsPage}
-          options={{ headerTitle: () => <LogoIcon />,
-                      headerLeft:  () => <DrawerButton navigation={navigation} />}}
-        />
-    </Stack.Navigator>
-    );
-  }
-
 function Settings({navigation}) {
     return (
       <Stack.Navigator>
@@ -197,12 +183,25 @@ function Help({navigation}) {
     );
   }
 
+function Profile({navigation}) {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Profile"
+          component={ProfilePage}
+          options={{ headerTitle: () => <LogoIcon />,
+                      headerLeft: () => <DrawerButton navigation={navigation} />}}
+        />
+      </Stack.Navigator>
+    );
+}
+
  
 function MainDrawer({navigation}) {
   return (
     <Drawer.Navigator drawerStyle={{backgroundColor: "#f2e6d9"}} drawerContentOptions={{activeBackgroundColor:"#f8f2ec", activeTintColor:"#bd8242"}}>
       <Drawer.Screen name="Home" component={MyHome} />
-      <Drawer.Screen name="Tips" component={Tips} />
+      <Drawer.Screen name="Productivity" component={Profile} />
       <Drawer.Screen name="Settings" component={Settings} navigation = {navigation}/>
       <Drawer.Screen name="Help" component={Help} />
     </Drawer.Navigator>

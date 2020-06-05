@@ -22,6 +22,7 @@ export default function EditHabitPage(props) {
         return(
             <TouchableOpacity style={days[props.index] ? styles.selected : {}}>
                 <Button title={props.title} 
+                        color = "#734d26"
                         onPress={() => {
                             let newDays = [...days]
                             newDays[props.index] = !days[props.index]
@@ -75,7 +76,7 @@ export default function EditHabitPage(props) {
                         onChangeText={text => setDescription(text)}
                     />
                     <View>
-                        <Text style={{fontSize:20, textAlign:"center"}}>Repeat (Day of Week)</Text>
+                        <Text style={{fontSize:20, textAlign:"center", paddingTop:10, paddingBottom:10}}>Repeat (Day of Week)</Text>
                         <View style={{flexDirection:"row", justifyContent:"center"}}>
                             <DayButton index={0} title={"Sun"}/>
                             <DayButton index={1} title={"Mon"}/>
@@ -160,6 +161,6 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     selected: {
-        backgroundColor:"#808080"
+        backgroundColor:"#dfbf9f"
     }
   });
