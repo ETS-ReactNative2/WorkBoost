@@ -79,7 +79,21 @@ export function pullCreationDate(callBack) {
     })
   }
 
+
+
 //Total Time Read and Update
+export function listenTotalTime(callBack) {
+      const user = firebase.auth().currentUser
+      firebase.database()
+        .ref(`profiles/profile_${user.uid}`)
+        .child("timeProductive")
+        .on('value', snapshot => {
+            console.log(snapshot)
+            callBack(snapshot.val())
+        });
+  }
+
+
 export function pullTotalTime(callBack) {
     return new Promise((resolve,reject) => {
       const user = firebase.auth().currentUser
@@ -237,5 +251,5 @@ export function removesTaskModel(key, callBack) {
 module.exports = {addNewUser, saveHabitModel, saveTaskModel, pullHabitDataModel, pullTaskDataModel, 
                   editsTaskModel, editsHabitModel, removesHabitModel, removesTaskModel, deleteUser, 
                   completeTaskModel, completeHabitModel, refreshRemoveTaskModel, refreshHabitModel,
-                  pullTotalTime, addTotalTime, pullCreationDate}
+                  listenTotalTime, pullTotalTime, addTotalTime, pullCreationDate}
 
