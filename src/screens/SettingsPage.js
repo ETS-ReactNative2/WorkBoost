@@ -26,7 +26,6 @@ export default function SettingsPage({navigation}) {
             </Modal>
 
             <Text style={styles.titleText}>Settings</Text>
-            <ToggleNotifications/>
             <SignOutButton navigation={navigation}/>
             <DeleteAccountButton 
                         toggleDeleteModal={this.toggleDeleteModal}/>

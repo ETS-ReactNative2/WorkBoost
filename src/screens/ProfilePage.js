@@ -42,14 +42,12 @@ export default function ProfilePage() {
 
             <Text style={styles.subtitleText}>Tip of the Day</Text>
             <Text style={styles.quote}>{tip.quote}</Text>
-        <View style={styles.bottom}>
             <TouchableOpacity
                 style={styles.tipButton}
                 onPress={() => {onPress()}}
                 underlayColor='#cfc0b7'>
                 <Text style={styles.buttonText}>GIVE ME ANOTHER!</Text>
             </TouchableOpacity>
-        </View>
     </SafeAreaView>
     )
 }
