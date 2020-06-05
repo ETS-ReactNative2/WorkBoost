@@ -1,5 +1,17 @@
 # WorkBoost
 
+## Introduction
+---
+
+Workboost is a iOS mobile application built on the React Native framework. It is designed to 
+provide features that optimize at home productivity and includes features such as a productivity timer, and  habit tracking and task organization tools.
+
+## Requirements
+---
+Our system requires that to run the application on a phone, the expo iOS application is installed.
+To run on a computer, you will need to install the expo-cli via `npm` and the yarn package manager.
+
+
 ## iOS setup
 https://reactnative.dev/docs/environment-setup
 
