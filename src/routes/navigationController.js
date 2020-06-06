@@ -11,7 +11,6 @@ import HelpPage from '../screens/HelpPage';
 import SettingsPage from '../screens/SettingsPage';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator, DrawerItem } from '@react-navigation/drawer';
-import firebase from 'firebase'
 // model calls
 import {addNewUser, deleteUser, loginModel, signupModel, signoutModel, forgotPasswordModel} from "../../model/dbModel"
 import ProfilePage from "../screens/ProfilePage"
