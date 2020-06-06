@@ -58,7 +58,6 @@ export function handleSignUp(email, password, navigation) {
 
 export function handleSignOut(navigation){
     signoutModel().then(() => {
-      navigation.navigate('Login')
       navigation.reset({
         index: 0,
         routes: [{ name: 'Login' }],
