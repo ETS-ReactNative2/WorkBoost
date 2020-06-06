@@ -13,16 +13,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator, DrawerItem } from '@react-navigation/drawer';
 import firebase from 'firebase'
 // model calls
-import {addNewUser, deleteUser} from "../../model/dbModel"
+import {addNewUser, deleteUser, loginModel, signupModel, signoutModel, forgotPasswordModel} from "../../model/dbModel"
 import ProfilePage from "../screens/ProfilePage"
-
-const firebaseConfig = {
-  apiKey: "AIzaSyC-9RLuVtRr2exJDAHjLqB4NoWg0P451XE",
-  authDomain: "workboost-1b29a.firebaseapp.com",
-  databaseURL: "https://workboost-1b29a.firebaseio.com",
-  storageBucket: "workboost-1b29a.appspot.com"
-}
-firebase.initializeApp(firebaseConfig)
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -30,15 +22,13 @@ const Big = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 export function handleLogin(email, password, navigation) {
-  firebase.auth()
-    .signInWithEmailAndPassword(email, password)
+  loginModel(email, password)
     .then(() => {
-      //navigation.navigate('App')
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'App' }],
-      });
-    })
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'App' }],
+        })
+      })
     .catch(error => {
       if (error.code === 'auth/user-disabled')
         alert('This user has been disabled.');
@@ -48,17 +38,14 @@ export function handleLogin(email, password, navigation) {
         alert('The password is invalid for the given email, or the account corresponding to the email does not have a password set.');
       if (error.code === 'auth/invalid-email')
         alert('That email address is invalid.');
-      navigation.navigate('Login')
     })
 }
 
 export function handleSignUp(email, password, navigation) {
-  firebase.auth()
-    .createUserWithEmailAndPassword(email, password)
+  signupModel(email, password)
     .then(user => {
       addNewUser(user)
       navigation.navigate('Login')
-      console.log('User account has been created!');
     })
     .catch(error => {
       if (error.code === 'auth/email-already-in-use')
@@ -67,16 +54,17 @@ export function handleSignUp(email, password, navigation) {
         alert('Your password is too weak.');
       if (error.code === 'auth/invalid-email')
         alert('That email address is invalid.');
-    });
+    })
 }
 
 export function handleSignOut(navigation){
-    firebase.auth().signOut().then(() => {console.log('user signed out')});
-    navigation.navigate('Login')
+    signoutModel().then(() => {
+      navigation.navigate('Login')
       navigation.reset({
         index: 0,
         routes: [{ name: 'Login' }],
-      });
+      })
+    })
 }
 
 export function handleDeleteAccount(navigation){
@@ -91,8 +79,7 @@ export function handleDeleteAccount(navigation){
 }
 
 export function handleForgotPassword(email, navigation){
-  firebase.auth()
-    .sendPasswordResetEmail(email)
+  forgotPasswordModel(email)
     .then(() => {
       console.log(`email has been sent to ${email}!`)
       alert('Sent! Check your email for the reset link.')
@@ -104,7 +91,6 @@ export function handleForgotPassword(email, navigation){
         alert('That email address is invalid.');
     });
 }
-
 
 export function navSignUp(navigation) {navigation.navigate('Signup')}
 export function navLogin(navigation) {navigation.navigate("Login")}

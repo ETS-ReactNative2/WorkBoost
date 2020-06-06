@@ -1,5 +1,47 @@
 import firebase from 'firebase'
 
+const firebaseConfig = {
+  apiKey: "AIzaSyC-9RLuVtRr2exJDAHjLqB4NoWg0P451XE",
+  authDomain: "workboost-1b29a.firebaseapp.com",
+  databaseURL: "https://workboost-1b29a.firebaseio.com",
+  storageBucket: "workboost-1b29a.appspot.com"
+}
+firebase.initializeApp(firebaseConfig)
+
+export function loginModel(email, password) {
+  return new Promise((resolve, reject) => {
+    firebase.auth()
+    .signInWithEmailAndPassword(email, password)
+    .then(() => resolve())
+    .catch(error => reject(error))
+  })
+}
+
+export function signupModel(email, password) {
+  return new Promise((resolve, reject) => {
+    firebase.auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(user => resolve(user))
+      .catch(error => reject(error))
+  })
+}
+
+export function signoutModel() {
+  return new Promise((resolve, reject) => {
+    firebase.auth().signOut()
+    .then(() => resolve())
+  })
+}
+
+export function forgotPasswordModel(email) {
+  return new Promise((resolve, reject) => {
+    firebase.auth()
+    .sendPasswordResetEmail(email)
+    .then(() => resolve())
+    .catch(error => reject(error))
+  })
+}
+
 // First time sign up data creation
 export function addNewUser() {
   var username = firebase.database().ref('users');
@@ -271,5 +313,6 @@ export function removesTaskModel(key, callBack) {
 module.exports = {addNewUser, saveHabitModel, saveTaskModel, pullHabitDataModel, pullTaskDataModel, 
                   editsTaskModel, editsHabitModel, removesHabitModel, removesTaskModel, deleteUser, 
                   completeTaskModel, completeHabitModel, refreshRemoveTaskModel, refreshHabitModel,
-                  listenTotalTime, pullTotalTime, addTotalTime, pullCreationDate}
+                  listenTotalTime, pullTotalTime, addTotalTime, pullCreationDate, loginModel,
+                  signupModel, signoutModel, forgotPasswordModel}
 
