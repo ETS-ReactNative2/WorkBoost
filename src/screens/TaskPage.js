@@ -21,21 +21,14 @@ export default function TaskPage() {
 
         snapshot.forEach(shot => {
             if(shot.key != "user") {
-                let prevDate = shot.val().dateCreated.split("-")
-                let prevMonth = prevDate[0]
-                let prevDay = prevDate[1]
-                // if(curDay > prevDay || curMonth != prevMonth) {
-                //     refreshRemoveTaskModel(shot.key)
-                //     alert("removed tasks due to new day")
-                // }
                 let due = shot.val().dueDate.split("-")
                 let dueMonth = due[0]
                 let dueDay = due[1]
                 let dueYear = due[2]
                 //checks to see if the due date has passed
-                if(curMonth > dueMonth || (curDay > dueDay && curMonth == dueMonth)) {
+                if(curYear > dueYear || curMonth > dueMonth || (curDay > dueDay && curMonth == dueMonth)) {
                     refreshRemoveTaskModel(shot.key)
-                    alert("Task has passed its due date")
+                    alert("Some tasks have been removed (past their due dates)")
                 }
                 else {
                     obj = shot.val()
