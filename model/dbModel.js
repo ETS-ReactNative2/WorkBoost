@@ -114,7 +114,6 @@ export function pullCreationDate(callBack) {
         .child("accountCreationDate")
         .once('value')
         .then(snapshot => {
-            console.log(snapshot)
             callBack(snapshot.val())
         })
         .then(() => resolve())
@@ -130,7 +129,6 @@ export function listenTotalTime(callBack) {
         .ref(`profiles/profile_${user.uid}`)
         .child("timeProductive")
         .on('value', snapshot => {
-            console.log(snapshot)
             callBack(snapshot.val())
         });
   }
@@ -144,7 +142,6 @@ export function pullTotalTime(callBack) {
         .child("timeProductive")
         .once('value')
         .then(snapshot => {
-            console.log(snapshot)
             callBack(snapshot.val())
         })
         .then(() => resolve())

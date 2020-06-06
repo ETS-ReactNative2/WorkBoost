@@ -40,7 +40,7 @@ export default function CompleteTimerPage(props) {
         <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <Text style={styles.header}>You Worked Hard!</Text>
-                        <Text style={styles.textInput}>Here's a 5 minute coffee break</Text>
+                        <Text style={styles.textInput}>Here's a 30 second coffee break</Text>
                         <Image
                             style = {{ width: 200, height: 200 }}
                             source = {require('../pictures/congrats.png')}

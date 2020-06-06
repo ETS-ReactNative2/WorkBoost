@@ -113,6 +113,7 @@ export default function AddTaskPage(props) {
                         maxLength={40}
                         onChangeText={description => setDescription(description)}
                     />
+                    <Text style={styles.dueDateText}>Due Date Selector</Text>
                     {show && (
                         <DateTimePicker
                         testID="dateTimePicker"
@@ -176,6 +177,12 @@ const styles = StyleSheet.create({
     saveButtonText: {
         color: '#FFFFFF',
         fontSize: 20,
+        textAlign: 'center'
+    },
+    dueDateText: {
+        marginTop: 15,
+        fontSize: 20,
+        color: '#696969',
         textAlign: 'center'
     }
   });

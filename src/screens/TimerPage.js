@@ -82,7 +82,6 @@ export default function TimerPage() {
         if (remainingSecs <= 1 || Math.ceil((endTime - n) / 1000) < 2){
             setExitModalActive(false);
             pullTotalTime(setTimeProductive);
-            console.log(timeProductive);
 
         }
         if (remainingSecs == 0){
@@ -90,7 +89,6 @@ export default function TimerPage() {
                 toggleCompleteModal();
                 playAlarm();
                 addTotalTime(timeProductive + prevTime);
-                console.log(timeProductive + prevTime)
             }, 1000)
         } else if (isActive) {
             interval = setInterval(() => {
@@ -107,7 +105,6 @@ export default function TimerPage() {
         } 
         else if (!isActive && remainingSecs != 0) {
             clearInterval(interval);
-            console.log(remainingSecs);
         }
         return () => clearInterval(interval);
     }, [isActive, remainingSecs]);
@@ -159,7 +156,7 @@ export default function TimerPage() {
             </Modal>
 
             <Slider minimumTrackTintColor='#bf8040' thumbTintColor="#734d26" disabled={isActive} style={styles.sliderStyle} minimumValue={5}
-                maximumValue={60} step={5} value={prevTime} onValueChange={(e) => {setRemainingSecs(e*secsToMin)}}></Slider>
+                maximumValue={60} step={5} value={prevTime} onValueChange={(e) => {setRemainingSecs(e*secsToMin); setPrevTime(e*secsToMin)}}></Slider>
             <StatusBar barStyle="light-content" />
             <Text style={styles.timerText}>{`${mins}:${secs}`}</Text>
             <TouchableOpacity disabled={isActive} onPress={this.toggle} style={styles.button}>
