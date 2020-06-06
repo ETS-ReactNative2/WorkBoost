@@ -37,8 +37,14 @@ export default function TaskPage() {
                 }
             }
         })
+        arr.sort((c,d) => {
+            cDueDate = c.dueDate.split("-")
+            dDueDate = d.dueDate.split("-")
+            dateC = new Date(cDueDate[2], cDueDate[0]-1, cDueDate[1])
+            dateD = new Date(dDueDate[2], dDueDate[0]-1, dDueDate[1])
+            return dateC - dateD
+        })
         arr.sort((a,b) => {return a.completed - b.completed})
-        arr.sort((c,d) => {if(!c.completed && !d.completed) {return c.dueDate<d.dueDate}})
         setTasks(arr)
     }
 
@@ -51,8 +57,14 @@ export default function TaskPage() {
                 arr.push(obj)
             }
         })
+        arr.sort((c,d) => {
+            cDueDate = c.dueDate.split("-")
+            dDueDate = d.dueDate.split("-")
+            dateC = new Date(cDueDate[2], cDueDate[0]-1, cDueDate[1])
+            dateD = new Date(dDueDate[2], dDueDate[0]-1, dDueDate[1])
+            return dateC - dateD
+        })
         arr.sort((a,b) => {return a.completed - b.completed})
-        arr.sort((c,d) => {if(!c.completed && !d.completed) {return c.dueDate>d.dueDate}})
         setTasks(arr)
     }
 
