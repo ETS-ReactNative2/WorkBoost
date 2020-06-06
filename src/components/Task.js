@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert, Image } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { Container, Card, CardItem, Body, Left, Right, IconNB, Footer, CheckBox } from "native-base";
 import EditTaskForm from '../screens/EditTaskPage'
 import EditButton from './buttons/EditButton'
@@ -7,6 +7,7 @@ import Modal from 'react-native-modal'
 
 export default function Task(props) {
     const [editModalVisible, setEditModalVisible] = useState(false)
+    const screen = Dimensions.get('window');
 
     showEditForm = () => setEditModalVisible(prev => !prev)
 
@@ -23,7 +24,7 @@ export default function Task(props) {
             </Modal>
             <Card style={props.item.completed ? styles.fadedCard : styles.card}
                 key={props.item.key}>
-                <CardItem header key={props.item.key + 100} style={{ height: 55, width: 410 }}>
+                <CardItem header key={props.item.key + 100} style={{ height: 55, width: screen.width }}>
                     <Body>
                         <Text style={{fontWeight:"bold", fontSize:20}}>{props.item.name}</Text>
                         <View style = {{flexDirection: 'row'}}>
@@ -38,7 +39,7 @@ export default function Task(props) {
                                 checked={props.item.completed} />
                     </Right>
                 </CardItem>
-                <CardItem key={props.item.key + 1000} style={{ height: 43, width: 410 }}>
+                <CardItem key={props.item.key + 1000} style={{ height: 43, width: screen.width }}>
                     <Body>
                         <Text>{props.item.description}</Text>
                     </Body>
@@ -56,10 +57,10 @@ export default function Task(props) {
 
 const styles = StyleSheet.create({
     card: {
-        borderColor:"brown",
+        borderColor:"white",
     },
     fadedCard: {
-        borderColor:"brown",
+        borderColor:"white",
         opacity: 0.5
     }
 })

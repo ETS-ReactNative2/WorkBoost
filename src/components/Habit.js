@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert, Image } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert, Image, Dimensions } from 'react-native';
 import { Container, Header, Title, Content, Icon, button, Card, CardItem, Body, Left, Right, IconNB, Footer, CheckBox } from "native-base";
 import EditButton from '../components/buttons/EditButton'
 import Modal from 'react-native-modal'
@@ -10,12 +10,14 @@ import EditHabitForm from '../screens/EditHabitPage'
 export default function Habit(props) {
     const [compModalVisible, setCompModalVisible] = useState(false)
     const [editModalVisible, setEditModalVisible] = useState(false)
+    const screen = Dimensions.get('window');
 
     showEditForm = () => setEditModalVisible(prev => !prev);
     showCompForm = () => setCompModalVisible(prev => !prev);
 
     function dayToString(freqs) {
         let dayString = ""
+        if(freqs.every(b => b)) return "Everyday"
         if(freqs[0]) dayString += "Su "
         if(freqs[1]) dayString += "M "
         if(freqs[2]) dayString += "Tu "
@@ -65,24 +67,30 @@ export default function Habit(props) {
             <TouchableOpacity onPress={completedOrRightDay(props.item.completed, props.item.frequency) ? this.showCompForm : ()=>{}}>
             <Card style={completedOrRightDay(props.item.completed, props.item.frequency) ? styles.card : styles.fadedCard}
                     key={props.item.key}>
-                <CardItem header key={props.item.key + 100} style={{ height: 60, width: 410}}>
+                <CardItem header key={props.item.key + 100} style={{ height: 60, width: screen.width}}>
                     <Body>
                         <Text style={{fontWeight:"bold", fontSize:20}}>{props.item.name}</Text>
                         <View style = {{flexDirection: 'row'}}>
-                            <Text style={{fontSize:13, paddingTop: 5}}>Streak: {props.item.streak}</Text>
-                            <Image style = {{ width: 15, height: 15, marginTop: 3 }} source = {require('../pictures/fire.png')}/>
+                            {/* <Text style={{fontSize:13, paddingTop: 5}}>Streak: {props.item.streak}</Text>
+                            <Image style = {{ width: 15, height: 15, marginTop: 3 }} source = {require('../pictures/fire.png')}/> */}
                             <Text style={{fontSize:13, paddingTop: 5}}> Frequency: {dayToString(props.item.frequency)}</Text>
                         </View>
                     </Body>
                     <Right style={{flex: 0.2}}>
-                        <EditButton editHabit={props.editHabit}
-                                showEditForm={this.showEditForm}/>
+                        <View style={{flexDirection:'row'}}>
+                            <Text style={{fontSize:17, paddingTop: 5}}>{props.item.streak}</Text>
+                            <Image style = {{ width: 20, height: 20}} source = {require('../pictures/fire.png')}/>
+                        </View>
                     </Right>
                 </CardItem>
-                <CardItem key={props.item.key + 1000} style={{ height: 43 }}>
+                <CardItem key={props.item.key + 1000} style={{ height: 43, width: screen.width }}>
                     <Body>
                         <Text>{props.item.description}</Text>
                     </Body>
+                    <Right style = {{flex:0.2}}>
+                        <EditButton editHabit={props.editHabit}
+                                    showEditForm={this.showEditForm}/>
+                    </Right>
                 </CardItem>
             </Card>
             </TouchableOpacity>
@@ -92,10 +100,10 @@ export default function Habit(props) {
 
 const styles = StyleSheet.create({
     card: {
-        borderColor:"brown",
+        borderColor:"white",
     },
     fadedCard: {
-        borderColor:"brown",
+        borderColor:"white",
         opacity: 0.5
     }
 })

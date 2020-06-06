@@ -9,7 +9,6 @@ export default function AddHabitPage(props) {
     const [days, setDays] = useState([false,false,false,false,false,false,false])
 
     function closeModal() {
-        //setDays([false,false,false,false,false,false,false])
         props.showAddForm()
     }
 
@@ -81,8 +80,10 @@ export default function AddHabitPage(props) {
                             style={styles.saveButton}
                             onPress={() => {
                                 if (title == "") {alert('Missing Habit Title');}
-                                else {props.addHabit(title,description, days);
-                                props.showAddForm()
+                                else if(days.every(b => !b)) {alert('No frequency selected')}
+                                else {
+                                    props.addHabit(title,description, days);
+                                    props.showAddForm()
                                 }
                             }}
                         >
