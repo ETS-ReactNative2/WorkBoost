@@ -8,6 +8,10 @@ provide features that optimize at home productivity and includes features such a
 
 ## Requirements
 ---
+**IMPORTANT**
+For the purposes of testing, please go to this link (https://docs.google.com/document/d/1yJUKicZQfaRlEKjAMpNvIXsVX6eHld_tJjceN4rveJY/edit?usp=sharing) for installation instructions!
+
+
 Our system requires that to run the application on a phone, the expo iOS application is installed.
 To run on a computer, you will need to install the expo-cli via `npm` and the yarn package manager.
 
